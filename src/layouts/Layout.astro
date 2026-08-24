@@ -1,23 +1,75 @@
+---
+import '../styles/global.css';
+import { translations } from '../i18n/translations';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+const isRtl = locale === 'ar';
+
+const pageTitle = title || t.title;
+const pageDesc = description || t.description;
+---
 <!doctype html>
-<html lang="en">
+<html lang={locale} dir={isRtl ? 'rtl' : 'ltr'} class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<!-- Primary SEO Meta Tags -->
+		<title>{pageTitle}</title>
+		<meta name="title" content={pageTitle} />
+		<meta name="description" content={pageDesc} />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={pageDesc} />
+		<meta property="og:image" content="/og-image.png" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:title" content={pageTitle} />
+		<meta property="twitter:description" content={pageDesc} />
+		<meta property="twitter:image" content="/og-image.png" />
+
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+		<!-- Blocking Dark Mode Script to Prevent Flash -->
+		<script is:inline>
+			(() => {
+				const theme = (() => {
+					if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+						return localStorage.getItem('theme');
+					}
+					if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+						return 'dark';
+					}
+					return 'light';
+				})();
+				if (theme === 'dark') {
+					document.documentElement.classList.add('dark');
+				} else {
+					document.documentElement.classList.remove('dark');
+				}
+				window.localStorage.setItem('theme', theme);
+			})();
+		</script>
 	</head>
-	<body>
+	<body class="min-h-screen bg-canvas-soft text-ink flex flex-col antialiased">
 		<slot />
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

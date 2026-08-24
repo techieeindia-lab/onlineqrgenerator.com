@@ -1,0 +1,20 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+  <!-- Dynamic Feature Tabs Toggles -->
+  <div class="flex justify-center max-w-md mx-auto w-full border-b border-hairline pb-1">
+    <div class="flex bg-canvas-soft-2 p-1 rounded-sm border border-hairline w-full">
+      <button id="tab-btn-generate" class="flex-1 py-2 text-xs font-semibold rounded-sm bg-canvas text-ink shadow-sm transition-all cursor-pointer">
+        {t.nav.generator}
+      </button>
+      <button id="tab-btn-scan" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink transition-all cursor-pointer">
+        {t.scanner.title}
+      </button>
+      <button id="tab-btn-bulk" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink transition-all cursor-pointer">
+        {t.bulk.title}
+      </button>
+    </div>
+  </div>

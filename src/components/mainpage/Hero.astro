@@ -1,0 +1,30 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  landingPageData?: {
+    headline: string;
+    description: string;
+    [key: string]: any;
+  };
+}
+
+const { landingPageData } = Astro.props;
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+  <section class="text-center flex flex-col items-center gap-4 relative py-4">
+    <div class="absolute -top-32 w-72 h-72 mesh-gradient rounded-full blur-[100px] opacity-25 dark:opacity-20 animate-mesh pointer-events-none"></div>
+
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-canvas border border-hairline text-[11px] font-mono tracking-tight text-body shadow-sm select-none">
+      <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+      <span>100% Free · No Signup · No Watermarks.</span>
+    </div>
+
+    <h1 id="hero-headline" class="text-4xl md:text-5xl font-sans font-bold tracking-tight text-ink max-w-2xl leading-none text-balance">
+      {landingPageData ? landingPageData.headline : t.tagline}
+    </h1>
+    <p id="hero-description" class="text-base md:text-lg text-body max-w-xl text-balance">
+      {landingPageData ? landingPageData.description : t.description}
+    </p>
+  </section>

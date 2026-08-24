@@ -1,0 +1,26 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+<footer class="border-t border-hairline bg-canvas/30 py-12 relative z-10 transition-colors duration-200">
+  <div class="max-w-6xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8">
+    <div class="col-span-2 flex flex-col gap-3">
+      <span class="font-sans font-bold text-base tracking-tight">{t.title}.</span>
+      <p class="text-xs text-body max-w-sm">{t.subtitle}</p>
+      <span class="text-[10px] text-mute font-mono mt-4">© 2026 onlineqrgenerator.com. All rights reserved.</span>
+    </div>
+    <div class="flex flex-col gap-2.5 text-xs">
+      <span class="font-mono text-[10px] text-mute uppercase tracking-wider">Product</span>
+      <a href="#generator" class="text-body hover:text-ink transition-colors">{t.nav.generator}</a>
+      <a href="#history" class="text-body hover:text-ink transition-colors">{t.nav.history}</a>
+      <a href="#api" class="text-body hover:text-ink transition-colors">{t.nav.api}</a>
+    </div>
+    <div class="flex flex-col gap-2.5 text-xs">
+      <span class="font-mono text-[10px] text-mute uppercase tracking-wider">Resources</span>
+      <a href="#faq" class="text-body hover:text-ink transition-colors">{t.nav.faq}</a>
+      <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-body hover:text-ink transition-colors">GitHub Repository</a>
+    </div>
+  </div>
+</footer>

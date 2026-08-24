@@ -1,0 +1,20 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+    <div id="view-bulk" class="widget-view scroll-mt-24 hidden max-w-2xl mx-auto">
+      <div class="bg-canvas border border-hairline rounded-lg shadow-md p-6 flex flex-col gap-6">
+        <h2 class="text-xl font-bold font-sans text-ink">{t.bulk.title}</h2>
+        <div class="flex flex-col gap-1.5">
+          <span class="text-xs text-body">{t.bulk.inputLabel}</span>
+          <textarea id="bulk-input-links" rows="6" class="w-full p-4 text-xs font-mono rounded-sm resize-none" placeholder={t.bulk.placeholder}></textarea>
+        </div>
+
+        <button id="bulk-generate-btn" class="h-11 bg-primary text-on-primary hover:opacity-90 font-semibold text-sm rounded-pill flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+          <span id="bulk-btn-text">{t.bulk.generateBtn}</span>
+        </button>
+      </div>
+    </div>

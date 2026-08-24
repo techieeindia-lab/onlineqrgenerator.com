@@ -1,0 +1,52 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+  <section id="faq" class="scroll-mt-24 border-t border-hairline pt-12 max-w-3xl mx-auto w-full flex flex-col gap-6">
+    <h2 class="text-2xl font-bold font-sans tracking-tight text-ink text-center">Frequently Asked Questions</h2>
+    <div class="bg-canvas border border-hairline rounded-lg divide-y divide-hairline shadow-md">
+      
+      <div class="faq-item">
+        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+          <span>Are the QR codes generated permanent?</span>
+          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
+          <p>Yes. The QR codes generated here are static, meaning they embed the encoded text or URL directly. As long as your destination URL or text remains active, the static QR code will work forever. They never expire and have no scan limits.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+          <span>Can I generate QR codes offline?</span>
+          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
+          <p>Yes! Because this website uses local client-side Javascript to render the code directly inside your browser, the QR code is generated instantly on your device. Once loaded, the generator does not send your data to any external server, ensuring maximum privacy and offline availability.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+          <span>How does the Wi-Fi QR code work?</span>
+          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
+          <p>A Wi-Fi QR code encodes the SSID, security type, and network password using a standardized format: <code class="bg-canvas-soft px-1 rounded">WIFI:S:SSID;T:WPA;P:PASSWORD;;</code>. When a smartphone camera scans this code, it reads the credentials and automatically connects to the wireless network with a single tap.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+          <span>Why is a high Error Correction Level recommended for custom logos?</span>
+          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
+          <p>When you overlay a logo in the center of a QR code, it covers some of the underlying data points. Raising the Error Correction Level (ECC) to 'High' (~30%) increases the redundancy of the QR code modules. This allows mobile cameras to reconstruct the missing data and successfully scan the QR code despite the logo obstruction.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>

@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-mute: var(--mute);
+  --color-hairline: var(--hairline);
+  --color-hairline-strong: var(--hairline-strong);
+  --color-canvas: var(--canvas);
+  --color-canvas-soft: var(--canvas-soft);
+  --color-canvas-soft-2: var(--canvas-soft-2);
+  
+  --color-success: #0070f3;
+  --color-error: #ee0000;
+  --color-warning: #f5a623;
+  --color-violet: #7928ca;
+  --color-cyan: #50e3c2;
+  --color-highlight-pink: #ff0080;
+  
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+  
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill-sm: 64px;
+  --radius-pill: 100px;
+  
+  --animate-mesh: mesh 12s ease infinite;
+  
+  @keyframes mesh {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+:root {
+  --primary: #171717;
+  --on-primary: #ffffff;
+  --ink: #171717;
+  --body: #4d4d4d;
+  --mute: #888888;
+  --hairline: #ebebeb;
+  --hairline-strong: #a1a1a1;
+  --canvas: #ffffff;
+  --canvas-soft: #fafafa;
+  --canvas-soft-2: #f5f5f5;
+}
+
+:root.dark {
+  --primary: #ffffff;
+  --on-primary: #171717;
+  --ink: #ffffff;
+  --body: #a1a1a1;
+  --mute: #555555;
+  --hairline: #222222;
+  --hairline-strong: #444444;
+  --canvas: #0c0c0c;
+  --canvas-soft: #121212;
+  --canvas-soft-2: #1e1e1e;
+}
+
+/* Base style resets */
+body {
+  background-color: var(--canvas-soft);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Grid pattern background */
+.grid-pattern {
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at 50% 30%, black 10%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 30%, black 10%, transparent 75%);
+  opacity: 0.8;
+}
+
+/* Mesh gradient backdrop */
+.mesh-gradient {
+  background: linear-gradient(
+    -45deg, 
+    #007cf0, 
+    #00dfd8, 
+    #7928ca, 
+    #ff0080, 
+    #ff4d4d, 
+    #f9cb28
+  );
+  background-size: 400% 400%;
+}
+
+/* Smooth custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--canvas-soft);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hairline-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mute);
+}
+
+/* Custom styled inputs */
+input, textarea, select {
+  background-color: var(--canvas);
+  color: var(--ink);
+  border-color: var(--hairline);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--ink);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+/* Right-to-Left writing adjustments */
+[dir="rtl"] {
+  text-align: right;
+}

@@ -1,0 +1,62 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+    <div id="view-scan" class="widget-view scroll-mt-24 hidden max-w-2xl mx-auto">
+      <div class="bg-canvas border border-hairline rounded-lg shadow-md p-6 flex flex-col gap-6">
+        <h2 class="text-xl font-bold font-sans text-ink">{t.scanner.title}</h2>
+        
+        <!-- Toggle Upload or Camera stream -->
+        <div class="grid grid-cols-2 gap-3 p-1 bg-canvas-soft-2 rounded-sm border border-hairline">
+          <button id="scan-toggle-upload" class="py-1.5 text-xs font-semibold rounded-sm bg-canvas text-ink shadow-sm cursor-pointer transition-all">
+            Upload Image
+          </button>
+          <button id="scan-toggle-camera" class="py-1.5 text-xs font-medium text-body hover:text-ink cursor-pointer transition-all">
+            Use Webcam
+          </button>
+        </div>
+
+        <!-- 1. Drag Drop Upload Zone -->
+        <div id="scan-upload-zone" class="border-2 border-dashed border-hairline hover:border-hairline-strong rounded-sm p-12 text-center cursor-pointer transition-all bg-canvas hover:bg-canvas-soft flex flex-col items-center gap-3">
+          <input type="file" id="scan-image-file" class="hidden" accept="image/*" />
+          <svg class="w-10 h-10 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <p class="text-sm text-body">{t.scanner.uploadDesc}</p>
+        </div>
+
+        <!-- 2. Camera Stream Scanner (Hidden by default) -->
+        <div id="scan-camera-zone" class="flex flex-col items-center gap-4 hidden">
+          <div class="relative w-full max-w-md aspect-video bg-black rounded-sm overflow-hidden border border-hairline">
+            <video id="scan-video" class="w-full h-full object-cover pointer-events-none" autoplay playsinline></video>
+            <!-- Custom scanner viewfinder animation -->
+            <div id="scanner-viewfinder" class="absolute inset-8 border border-success/40 flex items-center justify-center hidden">
+              <div class="absolute inset-0 bg-success/5 animate-pulse"></div>
+              <div class="w-full h-0.5 bg-success absolute top-0 animate-[scanner-line_2.5s_ease-in-out_infinite]"></div>
+            </div>
+            <div id="scanner-status" class="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/70 font-mono tracking-wide">
+              {t.scanner.scanning}
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <button id="btn-camera-start" class="px-4 py-2 border border-hairline bg-canvas text-xs font-semibold rounded-sm hover:bg-canvas-soft flex items-center gap-1.5 transition-all cursor-pointer">
+              <span>{t.scanner.cameraStart}</span>
+            </button>
+            <button id="btn-camera-stop" class="px-4 py-2 border border-hairline bg-canvas text-xs font-semibold rounded-sm hover:bg-canvas-soft text-error flex items-center gap-1.5 transition-all cursor-pointer hidden">
+              <span>{t.scanner.cameraStop}</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanner Result Card -->
+        <div id="scan-result-panel" class="border border-hairline rounded-sm p-4 bg-canvas-soft flex flex-col gap-3 hidden">
+          <span class="text-xs font-mono uppercase tracking-wider text-mute">{t.scanner.resultTitle}</span>
+          <div class="flex items-center gap-3">
+            <input type="text" id="scan-result-text" readonly class="flex-1 h-9 px-3 text-xs rounded-sm border border-hairline font-mono bg-canvas select-all" />
+            <button id="scan-result-copy-btn" class="px-4 h-9 bg-primary text-on-primary font-semibold text-xs rounded-sm hover:opacity-90 transition-all cursor-pointer">
+              {t.scanner.copyBtn}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>

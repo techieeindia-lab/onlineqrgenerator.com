@@ -1,0 +1,66 @@
+---
+import Header from './mainpage/Header.astro';
+import Hero from './mainpage/Hero.astro';
+import FeatureTabs from './mainpage/FeatureTabs.astro';
+import Generator from './mainpage/Generator.astro';
+import Scanner from './mainpage/Scanner.astro';
+import Bulk from './mainpage/Bulk.astro';
+import Features from './mainpage/Features.astro';
+import History from './mainpage/History.astro';
+import Api from './mainpage/Api.astro';
+import Faq from './mainpage/Faq.astro';
+import Footer from './mainpage/Footer.astro';
+import Toast from './mainpage/Toast.astro';
+
+interface Props {
+  defaultActiveType?: string;
+  landingPageData?: {
+    slug: string;
+    title: string;
+    headline: string;
+    description: string;
+    defaultType: string;
+    ctaText: string;
+    details: string;
+    features: string[];
+    [key: string]: any;
+  };
+}
+
+const { defaultActiveType = 'url', landingPageData } = Astro.props;
+---
+
+<!-- Background Grid Overlay -->
+<div class="fixed inset-0 grid-pattern pointer-events-none z-0"></div>
+
+<Header landingPageData={landingPageData} />
+
+<!-- Main Wrapper -->
+<main class="relative z-10 flex-1 max-w-6xl mx-auto px-4 py-12 w-full flex flex-col gap-16">
+  <div id="main-page-config" data-landing-data={JSON.stringify(landingPageData)} class="hidden"></div>
+  
+  <Hero landingPageData={landingPageData} />
+  
+  <FeatureTabs />
+
+  <!-- Main Dynamic Widget View -->
+  <div id="widget-views-container">
+    <Generator defaultActiveType={defaultActiveType} landingPageData={landingPageData} />
+    <Scanner />
+    <Bulk />
+  </div>
+
+  {landingPageData && <Features landingPageData={landingPageData} />}
+  
+  <History />
+  
+  <Api />
+  
+  <Faq />
+</main>
+
+<Footer />
+
+<Toast />
+
+<script src="./mainpage/mainpage-client.ts"></script>

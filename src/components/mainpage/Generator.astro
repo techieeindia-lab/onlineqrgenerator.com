@@ -1,0 +1,472 @@
+---
+import { translations } from '../../i18n/translations';
+
+interface Props {
+  defaultActiveType?: string;
+  landingPageData?: {
+    slug: string;
+    title: string;
+    headline: string;
+    description: string;
+    defaultType: string;
+    ctaText: string;
+    details: string;
+    features: string[];
+    [key: string]: any;
+  };
+}
+
+const { defaultActiveType = 'url', landingPageData } = Astro.props;
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+    <div id="view-generate" class="widget-view scroll-mt-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Input Configurations Card -->
+        <div class="lg:col-span-7 bg-canvas rounded-lg border border-hairline shadow-md p-6 flex flex-col gap-6">
+          <div class="flex flex-wrap gap-2 border-b border-hairline pb-4">
+            {Object.entries(t.types)
+              .filter(([key]) => !landingPageData || !landingPageData.types || key in landingPageData.types)
+              .map(([key, label]) => {
+                const customLabel = landingPageData?.types?.[key]?.tabLabel || label;
+                return (
+                  <button 
+                    data-type={key} 
+                    class={`qr-type-tab px-3 py-2 text-xs font-medium rounded-pill-sm transition-all flex items-center gap-1.5 ${key === defaultActiveType ? 'bg-ink text-canvas font-semibold shadow-sm' : 'text-body hover:bg-canvas-soft'}`}
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-current opacity-70"></span>
+                    {customLabel}
+                  </button>
+                );
+              })
+            }
+          </div>
+
+          <div class="flex-1 min-h-[180px] flex flex-col justify-center">
+            <div id="form-url" class={`qr-form-panel flex flex-col gap-2 ${defaultActiveType === 'url' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.url}</label>
+              <input 
+                type="url" 
+                id="input-url" 
+                class="w-full h-11 px-4 text-sm rounded-sm" 
+                placeholder={landingPageData?.types?.url?.placeholders?.['input-url'] || t.fields.urlPlaceholder} 
+                value={landingPageData?.types?.url?.placeholders?.['input-url'] || "https://onlineqrgenerator.com"} 
+              />
+            </div>
+
+            <div id="form-social" class={`qr-form-panel flex flex-col gap-3 ${defaultActiveType === 'social' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.social}</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">Platform</span>
+                  <select id="social-platform" class="h-10 px-3 text-sm rounded-sm bg-canvas border border-hairline text-ink">
+                    <option value="instagram">Instagram</option>
+                    <option value="facebook">Facebook</option>
+                    <option value="youtube">YouTube</option>
+                    <option value="tiktok">TikTok</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="twitter">X (Twitter)</option>
+                    <option value="custom">Custom URL</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">Username / ID</span>
+                  <input 
+                    type="text" 
+                    id="social-username" 
+                    class="h-10 px-3 text-sm rounded-sm bg-canvas border border-hairline text-ink" 
+                    placeholder={landingPageData?.types?.social?.placeholders?.['social-username'] || "username"} 
+                    value={landingPageData?.types?.social?.placeholders?.['social-username'] || "username"} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div id="form-feedback" class={`qr-form-panel flex flex-col gap-3 ${defaultActiveType === 'feedback' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.feedback}</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">Platform</span>
+                  <select id="feedback-platform" class="h-10 px-3 text-sm rounded-sm bg-canvas border border-hairline text-ink">
+                    <option value="google">Google Reviews</option>
+                    <option value="trustpilot">Trustpilot</option>
+                    <option value="yelp">Yelp</option>
+                    <option value="custom">Custom URL / Survey</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body" id="feedback-label">Review URL or Place ID</span>
+                  <input 
+                    type="text" 
+                    id="feedback-url" 
+                    class="h-10 px-3 text-sm rounded-sm bg-canvas border border-hairline text-ink" 
+                    placeholder={landingPageData?.types?.feedback?.placeholders?.['feedback-url'] || "ChIJT6E-google-place-id"} 
+                    value={landingPageData?.types?.feedback?.placeholders?.['feedback-url'] || "ChIJT6E-google-place-id"} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div id="form-text" class={`qr-form-panel flex flex-col gap-2 ${defaultActiveType === 'text' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.text}</label>
+              <textarea 
+                id="input-text" 
+                rows="4" 
+                class="w-full p-4 text-sm rounded-sm resize-none" 
+                placeholder={landingPageData?.types?.text?.placeholders?.['input-text'] || t.fields.textPlaceholder}
+              >{landingPageData?.types?.text?.placeholders?.['input-text'] || "Scan this QR code"}</textarea>
+            </div>
+
+            <div id="form-wifi" class={`qr-form-panel flex flex-col gap-4 ${defaultActiveType === 'wifi' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.wifi}</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">{t.fields.wifiSsid}</span>
+                  <input 
+                    type="text" 
+                    id="wifi-ssid" 
+                    class="h-10 px-3 text-sm rounded-sm" 
+                    placeholder={landingPageData?.types?.wifi?.placeholders?.['wifi-ssid'] || "SSID"} 
+                  />
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">{t.fields.wifiPassword}</span>
+                  <input type="password" id="wifi-password" class="h-10 px-3 text-sm rounded-sm" placeholder="WPA2 Password" />
+                </div>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <span class="text-xs font-medium text-body">{t.fields.wifiEncryption}</span>
+                <select id="wifi-encryption" class="h-10 px-3 text-sm rounded-sm">
+                  <option value="WPA">WPA/WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">none</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="form-contact" class={`qr-form-panel flex flex-col gap-3 ${defaultActiveType === 'contact' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.contact}</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input 
+                  type="text" 
+                  id="contact-name" 
+                  class="h-10 px-3 text-sm rounded-sm" 
+                  placeholder={landingPageData?.types?.contact?.placeholders?.['contact-name'] || t.fields.contactName} 
+                />
+                <input type="tel" id="contact-phone" class="h-10 px-3 text-sm rounded-sm" placeholder={t.fields.contactPhone} />
+                <input type="email" id="contact-email" class="h-10 px-3 text-sm rounded-sm" placeholder={t.fields.contactEmail} />
+                <input 
+                  type="text" 
+                  id="contact-company" 
+                  class="h-10 px-3 text-sm rounded-sm" 
+                  placeholder={landingPageData?.types?.contact?.placeholders?.['contact-company'] || t.fields.contactCompany} 
+                />
+              </div>
+              <input type="text" id="contact-address" class="h-10 px-3 text-sm rounded-sm w-full" placeholder={t.fields.contactAddress} />
+            </div>
+
+            <div id="form-whatsapp" class={`qr-form-panel flex flex-col gap-3 ${defaultActiveType === 'whatsapp' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.whatsapp}</label>
+              <input type="tel" id="whatsapp-phone" class="h-10 px-3 text-sm rounded-sm" placeholder={t.fields.whatsappPhone} />
+              <textarea 
+                id="whatsapp-message" 
+                rows="2" 
+                class="w-full p-3 text-sm rounded-sm resize-none" 
+                placeholder={landingPageData?.types?.whatsapp?.placeholders?.['whatsapp-message'] || t.fields.whatsappMessage}
+              ></textarea>
+            </div>
+
+            <div id="form-email" class={`qr-form-panel flex flex-col gap-3 ${defaultActiveType === 'email' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.email}</label>
+              <input 
+                type="email" 
+                id="email-to" 
+                class="h-10 px-3 text-sm rounded-sm" 
+                placeholder={landingPageData?.types?.email?.placeholders?.['email-to'] || t.fields.emailTo} 
+              />
+              <input type="text" id="email-subject" class="h-10 px-3 text-sm rounded-sm" placeholder={t.fields.emailSubject} />
+              <textarea id="email-body" rows="3" class="w-full p-3 text-sm rounded-sm resize-none" placeholder={t.fields.emailBody}></textarea>
+            </div>
+
+            <div id="form-phone" class={`qr-form-panel flex flex-col gap-2 ${defaultActiveType === 'phone' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.phone}</label>
+              <input 
+                type="tel" 
+                id="phone-number" 
+                class="w-full h-11 px-4 text-sm rounded-sm" 
+                placeholder={landingPageData?.types?.sms?.placeholders?.['phone-number'] || t.fields.phonePlaceholder} 
+              />
+            </div>
+
+            <div id="form-crypto" class={`qr-form-panel flex flex-col gap-4 ${defaultActiveType === 'crypto' ? '' : 'hidden'}`}>
+              <label class="text-xs font-mono uppercase tracking-wider text-mute">{t.types.crypto}</label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">{t.fields.cryptoCurrency}</span>
+                  <select id="crypto-type" class="h-10 px-3 text-sm rounded-sm">
+                    <option value="bitcoin">Bitcoin (BTC)</option>
+                    <option value="ethereum">Ethereum (ETH)</option>
+                    <option value="solana">Solana (SOL)</option>
+                    <option value="litecoin">Litecoin (LTC)</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs font-medium text-body">{t.fields.cryptoAmount}</span>
+                  <input type="number" step="any" id="crypto-amount" class="h-10 px-3 text-sm rounded-sm" placeholder="0.00" />
+                </div>
+              </div>
+              <input type="text" id="crypto-address" class="h-10 px-3 text-sm rounded-sm w-full" placeholder={t.fields.cryptoAddress} />
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview & Customization (Right 5-cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          <div class="bg-canvas border border-hairline rounded-lg shadow-md p-6 flex flex-col items-center gap-6">
+            <div class="w-full flex items-center justify-between border-b border-hairline pb-3">
+              <span class="text-xs font-mono uppercase tracking-wider text-mute">Live Preview</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-success/15 text-[10px] font-semibold text-success tracking-tight">Active</span>
+            </div>
+
+            <!-- HTML/CSS Frame Wrapper around Canvas target -->
+            <div id="preview-frame-wrapper" class="w-full flex flex-col items-center justify-center p-4 rounded-md border border-hairline bg-white shadow-sm transition-all duration-200">
+              <div class="bg-white p-2 rounded-md aspect-square flex items-center justify-center w-full max-w-[240px]">
+                <div id="canvas-container" class="w-full h-full flex items-center justify-center overflow-hidden"></div>
+              </div>
+              <!-- Bottom Label Frame element (hidden by default) -->
+              <div id="preview-frame-label" class="w-full py-2.5 mt-2 bg-ink text-canvas font-bold text-center text-sm rounded-sm hidden select-none uppercase tracking-wide">
+                SCAN ME
+              </div>
+            </div>
+
+            <div class="w-full grid grid-cols-2 gap-3">
+              <button id="download-png-btn" class="h-11 bg-primary text-on-primary hover:opacity-90 font-medium text-sm rounded-pill flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                <span>{t.actions.downloadPng}</span>
+              </button>
+              <button id="download-svg-btn" class="h-11 border border-hairline bg-canvas text-ink hover:bg-canvas-soft font-medium text-sm rounded-pill flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm">
+                <svg class="w-4 h-4 text-mute" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                <span>{t.actions.downloadSvg}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Customizations Accordions -->
+          <div class="bg-canvas border border-hairline rounded-lg shadow-md divide-y divide-hairline">
+            <!-- 1. Colors & Gradients -->
+            <div class="accordion-item">
+              <button class="accordion-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+                <span>{t.customization.colors}</span>
+                <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div class="accordion-content px-5 pb-5 pt-1 flex flex-col gap-4 hidden">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.colorType}</span>
+                  <select id="color-type-select" class="h-9 px-3 text-xs rounded-sm">
+                    <option value="solid" selected>{t.customization.solid}</option>
+                    <option value="gradient">{t.customization.gradient}</option>
+                  </select>
+                </div>
+                <!-- Color presets -->
+                <div id="presets-container" class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.presets}</span>
+                  <div class="flex gap-2">
+                    <button class="preset-color w-6 h-6 rounded-full border border-hairline-strong/30 bg-[#171717]" data-fg="#171717" data-bg="#ffffff" title="Classic Ink"></button>
+                    <button class="preset-color w-6 h-6 rounded-full border border-hairline-strong/30 bg-[#0070f3]" data-fg="#0070f3" data-bg="#ffffff" title="Vercel Blue"></button>
+                    <button class="preset-color w-6 h-6 rounded-full border border-hairline-strong/30 bg-[#059669]" data-fg="#059669" data-bg="#ffffff" title="Forest Green"></button>
+                    <button class="preset-color w-6 h-6 rounded-full border border-hairline-strong/30 bg-[#ea580c]" data-fg="#ea580c" data-bg="#ffffff" title="Sunset Orange"></button>
+                    <button class="preset-color w-6 h-6 rounded-full border border-hairline-strong/30 bg-[#111111]" data-fg="#ffffff" data-bg="#111111" title="Dark Contrast"></button>
+                  </div>
+                </div>
+                <!-- Solid Colors Controls -->
+                <div id="solid-color-controls" class="grid grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.fgColor}</span>
+                    <div class="flex gap-2 items-center">
+                      <input type="color" id="fg-color" class="w-8 h-8 rounded-sm cursor-pointer p-0 border-0 bg-transparent" value="#171717" />
+                      <input type="text" id="fg-color-hex" class="w-20 h-8 px-2 text-xs rounded-sm font-mono border border-hairline uppercase" value="#171717" />
+                    </div>
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.bgColor}</span>
+                    <div class="flex gap-2 items-center">
+                      <input type="color" id="bg-color" class="w-8 h-8 rounded-sm cursor-pointer p-0 border-0 bg-transparent" value="#ffffff" />
+                      <input type="text" id="bg-color-hex" class="w-20 h-8 px-2 text-xs rounded-sm font-mono border border-hairline uppercase" value="#ffffff" />
+                    </div>
+                  </div>
+                </div>
+                <!-- Gradients Controls (Hidden by default) -->
+                <div id="gradient-color-controls" class="flex flex-col gap-4 hidden">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="text-xs text-body">{t.customization.gradStart}</span>
+                      <input type="color" id="grad-color-start" class="w-full h-8 rounded-sm cursor-pointer p-0 border border-hairline bg-transparent" value="#7928ca" />
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                      <span class="text-xs text-body">{t.customization.gradEnd}</span>
+                      <input type="color" id="grad-color-end" class="w-full h-8 rounded-sm cursor-pointer p-0 border border-hairline bg-transparent" value="#ff0080" />
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1.5">
+                      <span class="text-xs text-body">{t.customization.gradType}</span>
+                      <select id="grad-type-select" class="h-9 px-3 text-xs rounded-sm">
+                        <option value="linear" selected>{t.customization.linear}</option>
+                        <option value="radial">{t.customization.radial}</option>
+                      </select>
+                    </div>
+                    <div id="grad-angle-wrapper" class="flex flex-col gap-1.5">
+                      <div class="flex justify-between text-xs text-body">
+                        <span>{t.customization.gradAngle}</span>
+                        <span id="grad-angle-val">0°</span>
+                      </div>
+                      <input type="range" id="grad-angle" min="0" max="360" step="15" value="0" class="w-full h-1 bg-hairline rounded-lg appearance-none cursor-pointer accent-ink" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Design & Shapes -->
+            <div class="accordion-item">
+              <button class="accordion-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+                <span>{t.customization.shapes}</span>
+                <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div class="accordion-content px-5 pb-5 pt-1 flex flex-col gap-4 hidden">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.bodyStyle}</span>
+                  <select id="body-style" class="h-9 px-3 text-xs rounded-sm">
+                    <option value="square">{t.customization.styles.square}</option>
+                    <option value="dots">{t.customization.styles.dots}</option>
+                    <option value="rounded">{t.customization.styles.rounded}</option>
+                    <option value="classy">{t.customization.styles.classy}</option>
+                    <option value="extra-rounded">{t.customization.styles.extraRounded}</option>
+                  </select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.eyeBorder}</span>
+                    <select id="eye-border-style" class="h-9 px-3 text-xs rounded-sm">
+                      <option value="square">{t.customization.styles.square}</option>
+                      <option value="dot">{t.customization.styles.dots}</option>
+                      <option value="rounded">{t.customization.styles.rounded}</option>
+                      <option value="extra-rounded">{t.customization.styles.extraRounded}</option>
+                    </select>
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.eyeCenter}</span>
+                    <select id="eye-center-style" class="h-9 px-3 text-xs rounded-sm">
+                      <option value="square">{t.customization.styles.square}</option>
+                      <option value="dot">{t.customization.styles.dots}</option>
+                      <option value="rounded">{t.customization.styles.rounded}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2.5 Call-to-Action Visual Frames -->
+            <div class="accordion-item">
+              <button class="accordion-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+                <span>{t.customization.frameStyle}</span>
+                <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div class="accordion-content px-5 pb-5 pt-1 flex flex-col gap-4 hidden">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.frameStyle}</span>
+                  <select id="frame-style-select" class="h-9 px-3 text-xs rounded-sm">
+                    <option value="none" selected>{t.customization.frameNone}</option>
+                    <option value="classic">{t.customization.frameClassic}</option>
+                  </select>
+                </div>
+                <div id="frame-custom-controls" class="flex flex-col gap-4 hidden">
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.frameLabel}</span>
+                    <input type="text" id="frame-text-input" class="h-9 px-3 text-xs rounded-sm" value="SCAN ME" maxlength="25" />
+                  </div>
+                  <div class="flex flex-col gap-1.5">
+                    <span class="text-xs text-body">{t.customization.frameColor}</span>
+                    <div class="flex gap-2 items-center">
+                      <input type="color" id="frame-color-picker" class="w-8 h-8 rounded-sm cursor-pointer p-0 border-0 bg-transparent" value="#171717" />
+                      <button id="sync-frame-color" class="px-2 py-1 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] text-mute flex items-center gap-1 transition-colors">
+                        <span>Sync with foreground</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Logo Overlay -->
+            <div class="accordion-item">
+              <button class="accordion-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+                <span>{t.customization.logo}</span>
+                <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div class="accordion-content px-5 pb-5 pt-1 flex flex-col gap-4 hidden">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.logoUpload}</span>
+                  <div id="drop-zone" class="border-2 border-dashed border-hairline hover:border-hairline-strong rounded-sm p-4 text-center cursor-pointer transition-all bg-canvas hover:bg-canvas-soft">
+                    <input type="file" id="logo-file" class="hidden" accept="image/*" />
+                    <svg class="w-6 h-6 mx-auto text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <span class="text-xs text-mute mt-1 block">PNG, JPG up to 1MB</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.logoPreset}</span>
+                  <div class="flex flex-wrap gap-2">
+                    <button class="preset-logo px-2.5 py-1.5 border border-hairline hover:bg-canvas-soft rounded-sm text-xs transition-colors flex items-center gap-1.5" data-preset="google">
+                      <img src="https://www.google.com/favicon.ico" class="w-3.5 h-3.5 object-contain" alt="Google" /> Google
+                    </button>
+                    <button class="preset-logo px-2.5 py-1.5 border border-hairline hover:bg-canvas-soft rounded-sm text-xs transition-colors flex items-center gap-1.5" data-preset="yelp">
+                      <img src="https://www.yelp.com/favicon.ico" class="w-3.5 h-3.5 object-contain" alt="Yelp" /> Yelp
+                    </button>
+                    <button class="preset-logo px-2.5 py-1.5 border border-hairline hover:bg-canvas-soft rounded-sm text-xs transition-colors flex items-center gap-1.5" data-preset="trustpilot">
+                      <img src="https://www.trustpilot.com/favicon.ico" class="w-3.5 h-3.5 object-contain" alt="Trustpilot" /> Trustpilot
+                    </button>
+                    <button class="preset-logo px-2.5 py-1.5 border border-hairline hover:bg-canvas-soft rounded-sm text-xs transition-colors flex items-center gap-1.5" data-preset="github">
+                      <img src="https://github.com/favicon.ico" class="w-3.5 h-3.5 object-contain" alt="GitHub" /> GitHub
+                    </button>
+                    <button class="preset-logo px-2.5 py-1.5 border border-hairline hover:bg-canvas-soft rounded-sm text-xs transition-colors flex items-center gap-1.5" data-preset="linkedin">
+                      <img src="https://www.linkedin.com/favicon.ico" class="w-3.5 h-3.5 object-contain" alt="LinkedIn" /> LinkedIn
+                    </button>
+                  </div>
+                </div>
+                <button id="clear-logo" class="w-full h-9 border border-hairline text-xs font-semibold hover:bg-canvas-soft text-error rounded-sm flex items-center justify-center gap-1 transition-all cursor-pointer">
+                  <span>{t.customization.logoNone}</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Advanced Settings -->
+            <div class="accordion-item">
+              <button class="accordion-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
+                <span>{t.customization.advanced}</span>
+                <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+              </button>
+              <div class="accordion-content px-5 pb-5 pt-1 flex flex-col gap-4 hidden">
+                <div class="flex flex-col gap-1.5">
+                  <span class="text-xs text-body">{t.customization.errorCorrection}</span>
+                  <select id="ecc-level" class="h-9 px-3 text-xs rounded-sm">
+                    <option value="L">L - Low (~7%)</option>
+                    <option value="M">M - Medium (~15%)</option>
+                    <option value="Q">Q - Quartile (~25%)</option>
+                    <option value="H" selected>H - High (~30%)</option>
+                  </select>
+                  <span class="text-[10px] text-mute">{t.customization.errorCorrectionDesc}</span>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <div class="flex justify-between text-xs text-body">
+                    <span>{t.customization.size}</span>
+                    <span id="size-val">350px</span>
+                  </div>
+                  <input type="range" id="size-range" min="200" max="1000" step="50" value="350" class="w-full h-1 bg-hairline rounded-lg appearance-none cursor-pointer accent-ink" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,41 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+  <section id="api" class="scroll-mt-24 border-t border-hairline pt-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+      <div class="md:col-span-5 flex flex-col gap-4">
+        <div class="inline-flex w-fit items-center gap-1.5 px-3 py-1 rounded-pill bg-canvas border border-hairline text-[10px] font-mono text-body">
+          <span>v1.0 API</span>
+        </div>
+        <h2 class="text-2xl md:text-3xl font-bold font-sans tracking-tight text-ink leading-tight">{t.apiTitle}</h2>
+        <p class="text-sm text-body">{t.apiDesc}</p>
+      </div>
+      <div class="md:col-span-7">
+        <div class="code-editor-mockup bg-primary text-on-primary rounded-lg p-5 shadow-lg border border-hairline-strong/10 font-mono text-[12px] relative overflow-hidden text-left" dir="ltr">
+          <div class="absolute right-4 top-4 text-[10px] text-mute select-none uppercase">Javascript</div>
+          <div class="flex items-center gap-1.5 mb-4 border-b border-hairline-strong/20 pb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ff4d4d]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#f9cb28]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#00dfd8]"></span>
+            <span class="text-[10px] text-mute ml-2">qr-generator-client.js</span>
+          </div>
+          <pre class="overflow-x-auto text-[11px] leading-relaxed"><span class="text-[#00dfd8]">import</span> QRCodeStyling <span class="text-[#00dfd8]">from</span> <span class="text-[#f9cb28]">'qr-code-styling'</span>;
+
+<span class="text-[#a1a1a1]">// Initialize customized QR code</span>
+<span class="text-[#00dfd8]">const</span> qrCode = <span class="text-[#00dfd8]">new</span> <span class="text-[#00dfd8]">&nbsp;QRCodeStyling</span>(&#123;
+  width: <span class="text-[#f9cb28]">300</span>,
+  height: <span class="text-[#f9cb28]">300</span>,
+  data: <span class="text-[#f9cb28]">'https://onlineqrgenerator.com'</span>,
+  dotsOptions: &#123; color: <span class="text-[#f9cb28]">'#171717'</span>, type: <span class="text-[#f9cb28]">'rounded'</span> &#125;,
+  backgroundOptions: &#123; color: <span class="text-[#f9cb28]">'#ffffff'</span> &#125;,
+  image: <span class="text-[#f9cb28]">'/logo.png'</span>
+&#125;);
+
+qrCode.append(document.getElementById(<span class="text-[#f9cb28]">'qr-holder'</span>));</pre>
+        </div>
+      </div>
+    </div>
+  </section>

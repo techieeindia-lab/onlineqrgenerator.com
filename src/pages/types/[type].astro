@@ -1,0 +1,19 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MainPage from '../../components/MainPage.astro';
+import { getTypePageData, typesList } from '../../i18n/industryData';
+
+export function getStaticPaths() {
+  return typesList.map(type => ({
+    params: { type }
+  }));
+}
+
+const { type } = Astro.params;
+const locale = Astro.currentLocale || 'en';
+const landingData = getTypePageData(locale, type);
+---
+
+<Layout title={landingData.title} description={landingData.description}>
+  <MainPage defaultActiveType={landingData.defaultType} landingPageData={landingData} />
+</Layout>

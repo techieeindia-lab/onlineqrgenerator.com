@@ -1,0 +1,15 @@
+---
+import { translations } from '../../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+---
+  <section id="history" class="scroll-mt-24 border-t border-hairline pt-12 flex flex-col gap-6">
+    <h2 class="text-2xl font-bold font-sans tracking-tight text-ink">{t.actions.historyTitle}</h2>
+    <div id="history-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div id="history-empty" class="col-span-full border border-dashed border-hairline rounded-lg p-12 text-center flex flex-col items-center justify-center gap-3">
+        <svg class="w-8 h-8 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <p class="text-sm text-mute">{t.actions.historyEmpty}</p>
+      </div>
+    </div>
+  </section>

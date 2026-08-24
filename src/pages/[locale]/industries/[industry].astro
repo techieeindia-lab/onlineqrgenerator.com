@@ -1,0 +1,26 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import MainPage from '../../../components/MainPage.astro';
+import { getIndustryData, industriesList } from '../../../i18n/industryData';
+
+export function getStaticPaths() {
+  const locales = ['es', 'fr', 'de', 'pt', 'zh', 'hi', 'ar', 'ru'];
+  const paths = [];
+  
+  for (const locale of locales) {
+    for (const industry of industriesList) {
+      paths.push({
+        params: { locale, industry }
+      });
+    }
+  }
+  return paths;
+}
+
+const { locale, industry } = Astro.params;
+const landingData = getIndustryData(locale, industry);
+---
+
+<Layout title={landingData.title} description={landingData.description}>
+  <MainPage defaultActiveType={landingData.defaultType} landingPageData={landingData} />
+</Layout>
