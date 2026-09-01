@@ -234,13 +234,13 @@ const ui = getUiStrings(locale);
             </div>
 
             <!-- HTML/CSS Frame Wrapper around Canvas target -->
-            <div id="preview-frame-wrapper" class="w-full flex flex-col items-center justify-center p-5 rounded-xl border border-hairline bg-white dark:bg-canvas-soft-2/50 shadow-sm transition-all duration-200">
+            <div id="preview-frame-wrapper" class="w-full flex flex-col items-center justify-center p-5 rounded-2xl border border-hairline bg-white/70 dark:bg-canvas-soft-2/80 backdrop-blur-md shadow-sm transition-all duration-200">
               <!-- Top Label Frame element (hidden by default) -->
               <div id="preview-frame-top-label" class="w-full py-2 mb-2 bg-ink text-canvas font-bold text-center text-sm rounded-sm hidden select-none uppercase tracking-wide">
                 SCAN CODE
               </div>
-              <div class="bg-white p-2 rounded-md aspect-square flex items-center justify-center w-full max-w-[240px]">
-                <div id="canvas-container" class="w-full h-full flex items-center justify-center overflow-hidden"></div>
+              <div id="preview-canvas-wrapper" class="p-2 rounded-xl aspect-square flex items-center justify-center w-full max-w-[256px] transition-all duration-200 bg-white/60 dark:bg-white/[0.03] border border-hairline/60 dark:border-white/5 shadow-xs">
+                <div id="canvas-container" class="w-full h-full flex items-center justify-center overflow-hidden rounded-lg"></div>
               </div>
               <!-- Bottom Label Frame element (hidden by default) -->
               <div id="preview-frame-label" class="w-full py-2.5 mt-2 bg-ink text-canvas font-bold text-center text-sm rounded-sm hidden select-none uppercase tracking-wide">
@@ -448,7 +448,6 @@ const ui = getUiStrings(locale);
                     <option value="ticket">{t.customization.frameTicket}</option>
                     <option value="pointer">{t.customization.framePointer}</option>
                     <option value="phone">{t.customization.framePhone}</option>
-                    <option value="shadow">{t.customization.frameShadow}</option>
                     <option value="top-bottom">{t.customization.frameTopBottom}</option>
                     <option value="glassmorphic">{t.customization.frameGlassmorphic}</option>
                     <option value="neon">{t.customization.frameNeon}</option>
@@ -510,7 +509,10 @@ const ui = getUiStrings(locale);
                       <span>vCard</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="whatsapp">
-                      <svg class="w-4 h-4 text-[#25D366] fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.335-1.662c1.746.953 3.71 1.455 5.703 1.455h.008c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                      <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2Z" />
+                        <path fill="#FFFFFF" d="M17.52 14.33C17.22 14.18 15.76 13.46 15.49 13.36C15.22 13.26 15.02 13.21 14.82 13.51C14.62 13.81 14.05 14.48 13.88 14.68C13.71 14.88 13.54 14.9 13.24 14.75C12.94 14.6 11.98 14.29 10.84 13.28C9.96 12.49 9.36 11.52 9.19 11.22C9.02 10.92 9.17 10.76 9.32 10.61C9.45 10.48 9.61 10.27 9.76 10.1C9.91 9.93 9.96 9.81 10.06 9.61C10.16 9.41 10.11 9.24 10.03 9.09C9.96 8.94 9.36 7.47 9.11 6.88C8.87 6.3 8.63 6.38 8.44 6.37C8.27 6.36 8.07 6.36 7.87 6.36C7.67 6.36 7.35 6.43 7.08 6.73C6.81 7.03 6.04 7.75 6.04 9.21C6.04 10.67 7.1 12.08 7.25 12.28C7.4 12.48 9.34 15.48 12.32 16.77C13.03 17.08 13.58 17.26 14.01 17.4C14.72 17.63 15.37 17.6 15.88 17.52C16.45 17.43 17.64 16.8 17.89 16.1C18.14 15.4 18.14 14.81 18.06 14.68C17.98 14.55 17.78 14.48 17.48 14.33H17.52Z" />
+                      </svg>
                       <span>WhatsApp</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="email">
@@ -530,7 +532,10 @@ const ui = getUiStrings(locale);
                       <span>Instagram</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="facebook">
-                      <svg class="w-4 h-4 text-[#1877F2] fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                      <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971H15.83c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+                        <path fill="#FFFFFF" d="M16.671 15.563l.532-3.49h-3.328v-2.264c0-.956.465-1.886 1.956-1.886h1.516V4.952s-1.374-.236-2.686-.236c-2.741 0-4.533 1.672-4.533 4.697v2.66H7.078v3.49h3.047V24c.618.097 1.25.147 1.875.147s1.257-.05 1.875-.147v-8.437h2.796z"/>
+                      </svg>
                       <span>Facebook</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="youtube">
@@ -550,7 +555,10 @@ const ui = getUiStrings(locale);
                       <span>Google</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="trustpilot">
-                      <svg class="w-4 h-4 text-[#00B67A] fill-current" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <polygon points="12,0.8 15.3,8.7 23.8,9.4 17.3,14.9 19.3,23.2 12,18.7 4.7,23.2 6.7,14.9 0.2,9.4 8.7,8.7" fill="#00b67a"/>
+                        <polygon points="12,12.5 12,18.7 19.3,23.2 17.3,14.9" fill="#005128"/>
+                      </svg>
                       <span>Trustpilot</span>
                     </button>
                     <button class="preset-logo p-2 border border-hairline hover:bg-canvas-soft rounded-sm text-[10px] transition-colors flex flex-col items-center justify-center gap-1 cursor-pointer" data-preset="yelp">

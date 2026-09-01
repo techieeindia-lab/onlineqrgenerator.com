@@ -94,7 +94,6 @@ export interface Translations {
     frameTicket: string;
     framePointer: string;
     framePhone: string;
-    frameShadow: string;
     frameTopBottom: string;
     frameTopLabel: string;
     frameLabel: string;
@@ -287,7 +286,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Ticket Frame",
       framePointer: "Pointer Frame",
       framePhone: "Phone Mockup",
-      frameShadow: "Shadow Card",
       frameTopBottom: "Top & Bottom Frame",
       frameTopLabel: "Top Text",
       frameLabel: "Frame Text",
@@ -478,7 +476,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Borde de Ticket",
       framePointer: "Borde con Flecha",
       framePhone: "Diseño de Teléfono",
-      frameShadow: "Tarjeta Sombreada",
       frameTopBottom: "Borde Superior/Inferior",
       frameTopLabel: "Texto Superior",
       frameLabel: "Texto del Marco",
@@ -669,7 +666,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Bordure de ticket",
       framePointer: "Bordure flèche",
       framePhone: "Maquette téléphone",
-      frameShadow: "Carte ombrée",
       frameTopBottom: "Bordure haut & bas",
       frameTopLabel: "Texte supérieur",
       frameLabel: "Texte du Cadre",
@@ -860,7 +856,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Ticket-Rahmen",
       framePointer: "Zeiger-Rahmen",
       framePhone: "Telefon-Attrappe",
-      frameShadow: "Schatten-Karte",
       frameTopBottom: "Oben & Unten Rahmen",
       frameTopLabel: "Oberer Text",
       frameLabel: "Rahmentext",
@@ -1051,7 +1046,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Borda de Ticket",
       framePointer: "Borda com Seta",
       framePhone: "Modelo de Telefone",
-      frameShadow: "Cartão Sombreado",
       frameTopBottom: "Borda Superior/Inferior",
       frameTopLabel: "Texto Superior",
       frameLabel: "Texto da Moldura",
@@ -1242,7 +1236,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "إطار التذكرة",
       framePointer: "إطار سهم موجه",
       framePhone: "إطار نموذج هاتف",
-      frameShadow: "بطاقة مع ظل",
       frameTopBottom: "إطار علوي وسفلي",
       frameTopLabel: "النص العلوي",
       frameLabel: "نص الإطار",
@@ -1433,7 +1426,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Рамка-билет",
       framePointer: "Рамка со стрелкой",
       framePhone: "Рамка-телефон",
-      frameShadow: "Карточка с тенью",
       frameTopBottom: "Двусторонняя рамка",
       frameTopLabel: "Верхний текст",
       frameLabel: "Текст рамки",
@@ -1624,7 +1616,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "Cornice Biglietto",
       framePointer: "Cornice con Indicatore",
       framePhone: "Mockup Smartphone",
-      frameShadow: "Scheda con Ombreggiatura",
       frameTopBottom: "Cornice Superiore e Inferiore",
       frameTopLabel: "Testo Superiore",
       frameLabel: "Testo Cornice",
@@ -1815,7 +1806,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "チケット枠",
       framePointer: "ポインター枠",
       framePhone: "スマートフォン風",
-      frameShadow: "シャドウカード",
       frameTopBottom: "上下フレーム",
       frameTopLabel: "上部テキスト",
       frameLabel: "フレームテキスト",
@@ -2006,7 +1996,6 @@ export const translations: Record<string, Translations> = {
       frameTicket: "티켓 프레임",
       framePointer: "포인터 프레임",
       framePhone: "스마트폰 목업",
-      frameShadow: "그림자 카드",
       frameTopBottom: "상하 프레임",
       frameTopLabel: "상단 문구",
       frameLabel: "프레임 문구",

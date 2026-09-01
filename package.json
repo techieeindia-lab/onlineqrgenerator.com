@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "deploy": "astro build && wrangler pages deploy dist --project-name onlineqrgenerator --branch main --commit-dirty=true",
     "astro": "astro"
   },
   "dependencies": {
@@ -19,5 +20,8 @@
     "jszip": "^3.10.1",
     "qr-code-styling": "^1.9.2",
     "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "wrangler": "^4.127.1"
   }
 }

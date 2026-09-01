@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-primary: var(--primary);
   --color-on-primary: var(--on-primary);
@@ -52,7 +54,7 @@
   --canvas-soft-2: #f4f4fa;
 }
 
-:root.dark {
+:root.dark, html.dark, .dark {
   --primary: #ffffff;
   --on-primary: #08080c;
   --ink: #f4f4fa;

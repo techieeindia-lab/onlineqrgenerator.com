@@ -762,24 +762,180 @@ function handleLogoFile(file: File) {
   reader.readAsDataURL(file);
 }
 
-// Preset SVG logo data URIs (high-resolution vectors)
-const SVG_LOGOS: Record<string, string> = {
-  link: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyLjUiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEzLjE5IDguNjRhNC41IDQuNSAwIDAxMS4yNDIgNy4yNDRsLTQuNSA0LjVhNC41IDQuNSAwIDAxLTYuMzY0LTYuMzY0bDEuNzU3LTEuNzU3bTEzLjM1LS42MjJsMS43NTctMS43NTdhNC41IDQuNSAwIDAwLTYuMzY0LTYuMzY0bC00LjUgNC41YTQuNSA0LjUgMCAwMDEuMjQyIDcuMjQ0IiAvPjwvc3ZnPg==',
-  wifi: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMjBoLjAxIiAvPjxwYXRoIGQ9Ik04LjUgMTYuOWE1IDUgMCAwIDEgNyAwIiAvPjxwYXRoIGQ9Ik01IDEyLjg2YTEwIDEwIDAgMCAxIDE0IDAiIC8+PHBhdGggZD0iTTIgOC44MmExNSAxNSAwIDAgMSAyMCAwIiAvPjwvc3ZnPg==',
-  vcard: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTkgMjF2LTJhNCA0IDAgMCAwLTQtNEg5YTQgNCAwIDAgMC00IDR2MiIgLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjciIHI9IjQiIC8+PC9zdmc+',
-  whatsapp: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iIzI1RDM2NiIgZD0iTTEyLjAxNCAwQzUuMzc2IDAgMCA1LjM3NiAwIDEyLjAxNGMwIDIuMTM4LjU1OCA0LjIyMyAxLjYwNiA2LjA0NUwyIDIzLjQ4OWw1LjY3LTEuNjg1YTEyLjAzNCAxMi4wMzQgMCAwMCA2LjM0NCAxLjgxMmguMDA4YzYuNjM4IDAgMTIuMDE0LTUuMzc2IDEyLjAxNC0xMi4wMTRTMjAuNjUyIDAgMTIuMDE0IDB6bTcuMDIgMTYuOTY0Yy0uMjg3Ljc4Ni0xLjY2MyAxLjQ3Ny0yLjI4MyAxLjU4NS0uNTY1LjEwNS0xLjI4NC4xNDgtMi4wNjItLjE2N2ExMC4wNDggMTAuMDQ4IDAgMDEtNC42ODEtMi43NTIgMTAuNDY2IDEwLjQ2NiAwIDAxLTIuOTIxLTQuNzg1Yy0uMzMtLjcyNC0uMjEtMS4xMTMuMzEyLTEuNjE5LjMyMS0uMzEyLjcxNC0uNTEzLDEuMDYyLS44NzRzLjM3NS0uNTgyLjU2MS0uOTg4LjA4OS0uNzgxLS4xMzItMS4xMTctLjIyMy0uMzMyLS45NzEtMS42ODMtLjY0My0uNjA3LTEuMzc2LS41NzItMS4zNzYuMDU0LTEuMzc2LjE5NmMuMzQzLjQ4Ny41MzUgMS4wNDIuNzQ5IDEuMzM1LjU3MS44MzMgMS4yOTcgMS41MzMgMS45NTIgMi4xMTEuODg1Ljc4OCAxLjc3MyAxLjQxIDIuODMzIDEuOTAzLjU0Ny4yNDkgMS4wNTQuNDAzIDEuNDg1LjUxNC41MjIuMTQxIDEuMTk2LjExNyAxLjY0My0uMDc0LjU0NS0uMjM1LjgzNS0uNTg0IDEuMTUtMS4wNDguMzEzLS40NjUuNTM5LS44MzYuNjQ2LTEuMDgxLjEwNi0uMjQ4LjM0Ny0uMzU0LjY5Ni0uNTE4LjM0OC0uMTY0IDEuNDg4LS43NDIgMS43MTYtLjg0OC4yMjgtLjEwNS4zOTYtLjE1OS41NzQtLjE1OS4xNzggMCAuNjE4LjA0My45OTMuMjEuMzc2LjE2OC42MjQuNDg4LjcwNS44MTguMDgxLjMzLjA1Ni42NzMtLjEwMSAxLjAwNnptMCAwIi8+PC9zdmc+',
-  email: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cmVjdCB3aWR0aD0iMjAiIGhlaWdodD0iMTYiIHg9IjIiIHk9IjQiIHJ4PSIyIiAvPjxwYXRoIGQ9Im0yMiA3LTguOTcgNS43YTEuOTQgMS45NCAwIDAgMS0yLjA2IDBMMiA3IiAvPjwvc3ZnPg==',
-  phone: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMjIgMTYuOTJ2M2EyIDIgMCAwIDEtMi4xOCAyIDE5Ljc5IDE5Ljc5IDAgMCAxLTguNjMtMy4wNyAxOS41IDE5LjUgMCAwIDEtNi02IDE5Ljc5IDE5Ljc5IDAgMCAxLTMuMDctOC42N0EyIDIgMCAwIDEgNC4xMSAyaDNhMiAyIDAgMCAxIDIgMS43MiAxMi44NCAxMi44NCAwIDAgMCAuNyAyLjgxIDIgMiAwIDAgMS0uNDUgMi4xMUw4LjA5IDkuOTFhMTYgMTYgMCAwIDAgNiA2bDEuMjctMS4yN2EyIDIgMCAwIDEgMi4xMS0uNDUgMTIuODQgMTIuODQgMCAwIDAgMi44MS43QTIgMiAwIDAgMSAyMiAxNi45MnptMCAwIi8+PC9zdmc+',
-  crypto: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjEgMTJWN0g1YTIgMiAwIDAgMSAwLTRoMTR2NCIgLz48cGF0aCBkPSJNMyA1djE0YTIgMiAwIDAgMCAyIDJoMTZ2LTUiIC8+PHBhdGggZD0iTTE4IDEyYTIgMiAwIDAgMCAwIDRoNHYtNFoiIC8+PC9zdmc+',
-  instagram: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNFMTMwNkMiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDIuMTYzYzMuMjA0IDAgMy41ODQuMDEyIDQuODUuMDcgMy4yNTIuMTQ4IDQuNzcxIDEuNjkxIDQuOTE5IDQuOTE5LjA1OCAxLjI2NS5wYXRoIGQ9Ik01LjgzOCAxMi4zMjRhNi4xNjIgNi4xNjIgMCAxMDAtMTIuMzI0IDYuMTYyIDYuMTYyIDAwMDAtMTIuMzI0ek0xMiAxNmE0IDQgMCAxMTAtOCA0IDQgMCAwMTAgOHptNi40MDYtMTEuODQ1YTEuNDQgMS40NCAwIDEwMCAyLjg4MSAxLjQ0IDEuNDQgMCAwMDAtMi44ODF6IiAvPjwvc3ZnPg==',
-  facebook: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMxODc3RjIiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTI0IDEyLjA3M2MwLTYuNjI3LTUuMzczLTEyLTEyLTEycy0xMiA1LjM3My0xMiAxMmMwIDUuOTkgNC4zODggMTAuOTU0IDEwLjEyNSAxMS44NTR2LTguMzg1SDcuMDc4di0zLjQ3aDMuMDQ3VjkuNDNjMC0zLjAwNyAxLjc5Mi00LjY2OSA0LjUzMy00LjY2OSAxLjMxMiAwIDIuNjg2LjIzNSAyLjY4Ni4yMzV2Mi45NTNIMTUuODNjLTEuNDkxIDAtMS45NTYuOTI1LTEuOTU2IDEuODc0djIuMjVoMy4zMjhsLS41MzIgMy40N2gtMi43OTZ2OC4zODVDMTkuNjEyIDIzLjAyNyAyNCAxOC4wNjIgMjQgMTIuMDczeiIgLz48L3N2Zz4=',
-  youtube: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNGRjAwMDAiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIzLjQ5OCA2LjE2M2EzLjAwMyAzLjAwMyAwIDAwLTIuMTEtMi4xMUMxOS41MTcgMy41NDUgMTIgMy41NDUgMTIgMy41NDVzLTcuNTE3IDAtOS4zODguNTA4YTMuMDAzIDMuMDAzIDAgMDAtMi4xMSAyLjExQzAgOC4wMzMgMCAxMiAwIDEyczAgMy45NjcuNTAyIDUuODM3YTMuMDAzIDMuMDAzIDAgMDAyLjExIDIuMTFjMS44NzEuNTA4IDkuMzg4LjUwOCA5LjM4OC41MDhzNy41MTcgMCA5LjM4OC0uNTA4YTMuMDAzIDMuMDAzIDAgMDAyLjExLTIuMTFDMjQgMTUuOTY3IDI0IDEyIDI0IDEyczAgMy45NjctLjUwMi01LjgzN3pNOS41NDUgMTUuNTY4VjguNDMyTDE1LjgxOCAxMmwtNi4yNzMgMy41Njh6IiAvPjwvc3ZnPg==',
-  twitter: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMxNzE3MTciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTE4LjI0NCAyLjI1aDMuMzA4bC03LjIyNyA4LjI2IDguNTAyIDExLjI0SDE2LjE3bC01LjIxNC02LjgxN0w0Ljk5IDIxLjc1SDEuNjhsNy43My04LjgzNUwxLjI1NCAyLjI1SDguMDhsNC43MTMgNi4yMzF6bS0xLjE2MSAxNy41MmgxLjgzM0w3LjA4NCA0LjEyNkg1LjExN3oiIC8+PC9zdmc+',
-  linkedin: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwQTY2QzIiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIwLjQ0NyAyMC40NTJyLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuMDQ2di4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2MyAyLjA2My0yLjA2MyAxLjE0IDAgMi4wNjQuOTI1IDIuMDY0IDIuMDYzIDAgMS4xMzktLjkyNSAyLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaC4wMDN6IiAvPjwvc3ZnPg==',
-  google: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTIyLjU2IDEyLjI1YzAtLjc4LS4wNy0xLjUzLS4yLTIuMjVIMTJ2NC4yNmg1LjkyYy0uMjYgMS4zNy0xLjA0IDIuNTMtMi4yMSAzLjMxdjIuNzdoMy41N2MyLjA4LTEuOTIgMy4yOC00Ljc0IDMuMjgtOC4wOXoiIGZpbGw9IiM0Mjg1RjQiLz48cGF0aCBkPSJNMTIgMjNjMi45NyAwIDUuNDYtLjk4IDcuMjgtMi42NmwtMy41Ny0yLjc3Yy0uOTguNjYtMi4yMyAxLjA2LTMuNzEgMS4wNi0yLjg2IDAtNS4yOS0xLjkzLTYuMTYtNC41M0gyLjE4djIuODRDMy45OSAyMC41MyA3LjcgMjMgMTIgMjN6IiBmaWxsPSIjMzRBMDUzIi8+PHBhdGggZD0iTTUuODQgMTQuMDljLS4yMi0uNjYtLjM1LTEuMzYtLjM1LTIuMDlzLjEzLTEuNDMuMzUtMi4wOVY3LjA2SDIuMThDMS40MyA4LjU1IDEgMTAuMjIgMSAxMnMuNDMgMy40NSAxLjE4IDQuOTRsMi44NS0yLjIyLjgxLS42M3oiIGZpbGw9IiNGQkJDMDUiLz48cGF0aCBkPSJNMTIgNS4zOGMxLjYyIDAgMy4wNi41NiA0LjIxIDEuNjRsMy4xNS0zLjE1QzE3LjQ1IDIuMDkgMTQuOTcgMSAxMiAxIDcuNyAxIDMuOTkgMy40NyAyLjE4IDcuMDZsMy42NiAyLjg0Yy44Ny0yLjYgMy4zLTQuNTIgNi4xNi00LjUyeiIgZmlsbD0iI0VBNDMzNSIvPjwvc3ZnPg==',
-  trustpilot: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiMwMEI2N0EiPjxwYXRoIGQ9Ik0xMiAxNy4yN0wxOC4xOCAyMWwtMS42NC03LjAzTDIyIDkuMjRsLTcuMTktLjYxTDEyIDJMOS4xOSA4LjYzIDIgOS4yNGw1LjQ2IDQuNzNMNS44MiAyMXoiLz48L3N2Zz4=',
-  yelp: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9IiNEMzIzMjMiIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDEuM2MtLjUgMC0xIC4zLTEuMi44bC0yLjMgNC43LTUuMiAuOGMtLjYuMS0xIC42LS44IDEuMmwzLjggMy43LS45IDUuMmMtLjEuNi40IDEuMSAxIC45bDQuNi0yLjQgNC42IDIuNGMuNS4zIDEuMS0uMSAxLC0uOWwtLjktNS4yIDMuOC0zLjdjLjQtLjUuMi0xLjEtLjQtMS4ybC01LjItLjgtMi4zLTQuN2MtLjItLjUtLjctLjgtMS4yLS44eiIvPjwvc3ZnPg=='
-};
+// Check if a hex color is dark based on perceived luminance
+function isDarkHex(hex: string): boolean {
+  if (!hex) return false;
+  let c = hex.replace('#', '').trim();
+  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  if (c.length !== 6) return false;
+  const r = parseInt(c.substring(0, 2), 16);
+  const g = parseInt(c.substring(2, 4), 16);
+  const b = parseInt(c.substring(4, 6), 16);
+  if (isNaN(r) || isNaN(g) || isNaN(b)) return false;
+  const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+  return yiq < 128;
+}
+
+// Calculate the appropriate contrast color (white or dark) for monochromatic icons
+function getContrastIconColor(): string {
+  // If a frame is active, determine contrast based on frame background color
+  if (activeLogoFrame === 'circle' || activeLogoFrame === 'square') {
+    return isDarkHex(logoFrameColor) ? '#ffffff' : '#171717';
+  }
+  if (activeLogoFrame === 'glass') {
+    return '#171717';
+  }
+  // If no frame is active, determine contrast based on QR code background color or dark mode
+  if (bgColor && bgColor !== 'transparent') {
+    return isDarkHex(bgColor) ? '#ffffff' : '#171717';
+  }
+  const isDark = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+  return isDark ? '#ffffff' : '#171717';
+}
+
+// Generate dynamic preset SVG data URIs (high-resolution vectors with theme contrast)
+function getPresetLogoSvg(preset: string): string | null {
+  const iconColor = getContrastIconColor();
+
+  switch (preset) {
+    case 'link':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+        </svg>
+      `.trim())}`;
+
+    case 'wifi':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20h.01" />
+          <path d="M8.5 16.9a5 5 0 0 1 7 0" />
+          <path d="M5 12.86a10 10 0 0 1 14 0" />
+          <path d="M2 8.82a15 15 0 0 1 20 0" />
+        </svg>
+      `.trim())}`;
+
+    case 'vcard':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      `.trim())}`;
+
+    case 'whatsapp':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#25D366" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2Z" />
+          <path fill="#FFFFFF" d="M17.52 14.33C17.22 14.18 15.76 13.46 15.49 13.36C15.22 13.26 15.02 13.21 14.82 13.51C14.62 13.81 14.05 14.48 13.88 14.68C13.71 14.88 13.54 14.9 13.24 14.75C12.94 14.6 11.98 14.29 10.84 13.28C9.96 12.49 9.36 11.52 9.19 11.22C9.02 10.92 9.17 10.76 9.32 10.61C9.45 10.48 9.61 10.27 9.76 10.1C9.91 9.93 9.96 9.81 10.06 9.61C10.16 9.41 10.11 9.24 10.03 9.09C9.96 8.94 9.36 7.47 9.11 6.88C8.87 6.3 8.63 6.38 8.44 6.37C8.27 6.36 8.07 6.36 7.87 6.36C7.67 6.36 7.35 6.43 7.08 6.73C6.81 7.03 6.04 7.75 6.04 9.21C6.04 10.67 7.1 12.08 7.25 12.28C7.4 12.48 9.34 15.48 12.32 16.77C13.03 17.08 13.58 17.26 14.01 17.4C14.72 17.63 15.37 17.6 15.88 17.52C16.45 17.43 17.64 16.8 17.89 16.1C18.14 15.4 18.14 14.81 18.06 14.68C17.98 14.55 17.78 14.48 17.48 14.33H17.52Z" />
+        </svg>
+      `.trim())}`;
+
+    case 'email':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+      `.trim())}`;
+
+    case 'phone':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+        </svg>
+      `.trim())}`;
+
+    case 'crypto':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" />
+          <path d="M3 5v14a2 2 0 0 0 2 2h16v-5" />
+          <path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+        </svg>
+      `.trim())}`;
+
+    case 'instagram':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fdf497" />
+              <stop offset="5%" stop-color="#fdf497" />
+              <stop offset="45%" stop-color="#fd5949" />
+              <stop offset="60%" stop-color="#d6249f" />
+              <stop offset="90%" stop-color="#285AEB" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill="url(#ig-grad)" />
+          <path fill="#ffffff" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+        </svg>
+      `.trim())}`;
+
+    case 'facebook':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#1877F2" d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.971H15.83c-1.491 0-1.956.93-1.956 1.886v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+          <path fill="#FFFFFF" d="M16.671 15.563l.532-3.49h-3.328v-2.264c0-.956.465-1.886 1.956-1.886h1.516V4.952s-1.374-.236-2.686-.236c-2.741 0-4.533 1.672-4.533 4.697v2.66H7.078v3.49h3.047V24c.618.097 1.25.147 1.875.147s1.257-.05 1.875-.147v-8.437h2.796z"/>
+        </svg>
+      `.trim())}`;
+
+    case 'youtube':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#FF0000" d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837z" />
+          <polygon fill="#FFFFFF" points="9.545,15.568 15.818,12 9.545,8.432" />
+        </svg>
+      `.trim())}`;
+
+    case 'twitter':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="${iconColor}">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+        </svg>
+      `.trim())}`;
+
+    case 'linkedin':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      `.trim())}`;
+
+    case 'google':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+        </svg>
+      `.trim())}`;
+
+    case 'trustpilot':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <polygon points="12,0.8 15.3,8.7 23.8,9.4 17.3,14.9 19.3,23.2 12,18.7 4.7,23.2 6.7,14.9 0.2,9.4 8.7,8.7" fill="#00b67a"/>
+          <polygon points="12,12.5 12,18.7 19.3,23.2 17.3,14.9" fill="#005128"/>
+        </svg>
+      `.trim())}`;
+
+    case 'yelp':
+      return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D32323">
+          <path d="M12 1.3c-.5 0-1 .3-1.2.8l-2.3 4.7-5.2.8c-.6.1-1 .6-.8 1.2l3.8 3.7-.9 5.2c-.1.6.4 1.1 1 .9l4.6-2.4 4.6 2.4c.5.3 1.1-.1 1-.9l-.9-5.2 3.8-3.7c.4-.5.2-1.1-.4-1.2l-5.2-.8-2.3-4.7c-.2-.5-.7-.8-1.2-.8z"/>
+        </svg>
+      `.trim())}`;
+
+    default:
+      return null;
+  }
+}
+
+// Backward compatible SVG_LOGOS getter
+const SVG_LOGOS: Record<string, string> = new Proxy({}, {
+  get: (_, prop: string) => getPresetLogoSvg(prop) || ''
+});
 
 // Validate required inputs based on active type
 function validateInputs(): { isValid: boolean; message: string } {
@@ -918,7 +1074,7 @@ function autoApplyPresetLogo(type: string) {
 function getRawLogoSrc(): string | null {
   if (customLogoDataUrl) return customLogoDataUrl;
   if (activeLogoPreset) {
-    return SVG_LOGOS[activeLogoPreset] || null;
+    return getPresetLogoSvg(activeLogoPreset);
   }
   return null;
 }
@@ -1176,6 +1332,26 @@ async function updateQRCode() {
   });
 }
 
+// Helper to determine readable text contrast against background color
+function getContrastColor(hexColor: string): string {
+  if (!hexColor || hexColor === 'transparent') return '#ffffff';
+  const hex = hexColor.replace('#', '');
+  if (hex.length === 6) {
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.65 ? '#0c0c14' : '#ffffff';
+  } else if (hex.length === 3) {
+    const r = parseInt(hex[0] + hex[0], 16);
+    const g = parseInt(hex[1] + hex[1], 16);
+    const b = parseInt(hex[2] + hex[2], 16);
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.65 ? '#0c0c14' : '#ffffff';
+  }
+  return '#ffffff';
+}
+
 // Live CSS visual frame pre-viewer updates
 function updateFrameUI() {
   const frameWrapper = document.getElementById('preview-frame-wrapper');
@@ -1194,7 +1370,7 @@ function updateFrameUI() {
   if (oldHome) oldHome.remove();
 
   // Reset defaults first
-  frameWrapper.className = "w-full flex flex-col items-center justify-center p-4 rounded-md border border-hairline bg-white shadow-sm transition-all duration-200";
+  frameWrapper.className = "w-full flex flex-col items-center justify-center p-5 rounded-2xl border border-hairline bg-white/70 dark:bg-canvas-soft-2/80 backdrop-blur-md shadow-sm transition-all duration-200";
   frameWrapper.style.border = '';
   frameWrapper.style.borderBottom = '';
   frameWrapper.style.borderRadius = '';
@@ -1209,6 +1385,8 @@ function updateFrameUI() {
   frameWrapper.style.backgroundSize = '';
   frameWrapper.style.backgroundRepeat = '';
   frameWrapper.style.background = '';
+
+  const labelTextColor = getContrastColor(frameColor);
 
   frameLabel.className = "w-full py-2.5 mt-2 font-bold text-center text-sm rounded-sm hidden select-none uppercase tracking-wide";
   frameLabel.style.backgroundColor = '';
@@ -1247,7 +1425,7 @@ function updateFrameUI() {
     frameWrapper.style.borderRadius = '16px 16px 0 0';
     frameWrapper.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.05)';
     frameLabel.style.backgroundColor = frameColor;
-    frameLabel.style.color = '#ffffff';
+    frameLabel.style.color = labelTextColor;
     frameLabel.classList.remove('hidden');
     frameLabel.style.borderRadius = '0 0 16px 16px';
     frameLabel.style.marginTop = '12px';
@@ -1255,13 +1433,13 @@ function updateFrameUI() {
     frameLabel.style.fontWeight = 'bold';
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'capsule') {
-    frameWrapper.style.border = '1px solid rgba(0, 0, 0, 0.08)';
+    frameWrapper.style.border = '1px solid var(--hairline-strong)';
     frameWrapper.style.borderRadius = '20px';
     frameWrapper.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.04)';
     frameWrapper.style.padding = '24px 20px';
     
     frameLabel.style.backgroundColor = frameColor;
-    frameLabel.style.color = '#ffffff';
+    frameLabel.style.color = labelTextColor;
     frameLabel.style.borderRadius = '9999px';
     frameLabel.style.padding = '8px 24px';
     frameLabel.style.width = 'auto';
@@ -1272,7 +1450,7 @@ function updateFrameUI() {
     frameLabel.classList.remove('hidden');
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'minimal') {
-    frameWrapper.style.border = '1px solid rgba(0, 0, 0, 0.06)';
+    frameWrapper.style.border = '1px solid var(--hairline)';
     frameWrapper.style.borderRadius = '16px';
     frameWrapper.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.02)';
     
@@ -1299,12 +1477,12 @@ function updateFrameUI() {
     frameLabel.classList.remove('hidden');
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'pointer') {
-    frameWrapper.style.border = '1px solid rgba(0, 0, 0, 0.06)';
+    frameWrapper.style.border = '1px solid var(--hairline)';
     frameWrapper.style.borderRadius = '16px';
     frameWrapper.style.boxShadow = '0 6px 24px rgba(0, 0, 0, 0.04)';
     
     frameLabel.style.backgroundColor = frameColor;
-    frameLabel.style.color = '#ffffff';
+    frameLabel.style.color = labelTextColor;
     frameLabel.style.borderRadius = '8px';
     frameLabel.style.padding = '8px 16px';
     frameLabel.style.width = 'auto';
@@ -1328,10 +1506,10 @@ function updateFrameUI() {
     frameLabel.classList.remove('hidden');
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'phone') {
-    frameWrapper.style.border = `10px solid #1f1f1f`;
+    frameWrapper.style.border = `10px solid #1a1a24`;
     frameWrapper.style.borderRadius = '32px';
     frameWrapper.style.padding = '28px 16px 16px 16px';
-    frameWrapper.style.boxShadow = '0 15px 45px rgba(0, 0, 0, 0.12)';
+    frameWrapper.style.boxShadow = '0 15px 45px rgba(0, 0, 0, 0.15)';
     frameWrapper.style.position = 'relative';
 
     const dynamicIsland = document.createElement('div');
@@ -1343,7 +1521,7 @@ function updateFrameUI() {
 
     const homeIndicator = document.createElement('div');
     homeIndicator.id = 'phone-home-indicator';
-    homeIndicator.className = 'absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-neutral-300 h-1 rounded-full select-none';
+    homeIndicator.className = 'absolute bottom-1.5 left-1/2 -translate-x-1/2 bg-neutral-400/60 h-1 rounded-full select-none';
     homeIndicator.style.width = '60px';
     frameWrapper.appendChild(homeIndicator);
 
@@ -1354,26 +1532,15 @@ function updateFrameUI() {
     frameLabel.style.letterSpacing = '1px';
     frameLabel.classList.remove('hidden');
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
-  } else if (frameStyle === 'shadow') {
-    frameWrapper.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.02), 0 10px 15px -3px rgba(0,0,0,0.03), 0 25px 50px -12px rgba(0,0,0,0.07)';
-    frameWrapper.style.border = '1px solid rgba(0, 0, 0, 0.04)';
-    frameWrapper.style.borderRadius = '20px';
-    frameLabel.style.backgroundColor = 'transparent';
-    frameLabel.style.color = frameColor;
-    frameLabel.style.fontWeight = 'bold';
-    frameLabel.style.letterSpacing = '1px';
-    frameLabel.style.marginTop = '12px';
-    frameLabel.classList.remove('hidden');
-    if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'top-bottom') {
-    frameWrapper.style.border = 'none';
+    frameWrapper.style.border = '1px solid var(--hairline)';
     frameWrapper.style.borderRadius = '16px';
     frameWrapper.style.boxShadow = '0 6px 24px rgba(0, 0, 0, 0.05)';
     frameWrapper.style.padding = '0px';
     
     if (frameTopLabel) {
       frameTopLabel.style.background = `linear-gradient(to right, ${frameColor}, ${frameColor}dd)`;
-      frameTopLabel.style.color = '#ffffff';
+      frameTopLabel.style.color = labelTextColor;
       frameTopLabel.style.borderRadius = '16px 16px 0 0';
       frameTopLabel.style.margin = '0px';
       frameTopLabel.style.padding = '12px';
@@ -1382,22 +1549,18 @@ function updateFrameUI() {
     }
     
     frameLabel.style.background = `linear-gradient(to right, ${frameColor}, ${frameColor}dd)`;
-    frameLabel.style.color = '#ffffff';
+    frameLabel.style.color = labelTextColor;
     frameLabel.style.borderRadius = '0 0 16px 16px';
     frameLabel.style.margin = '0px';
     frameLabel.style.padding = '12px';
     frameLabel.style.width = '100%';
     frameLabel.classList.remove('hidden');
   } else if (frameStyle === 'glassmorphic') {
-    frameWrapper.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.15) 100%)';
-    frameWrapper.style.backdropFilter = 'blur(12px)';
-    frameWrapper.style.webkitBackdropFilter = 'blur(12px)';
-    frameWrapper.style.border = '1px solid rgba(255, 255, 255, 0.5)';
-    frameWrapper.style.boxShadow = `0 20px 50px -10px ${frameColor}20, inset 0 1px 0 rgba(255,255,255,0.3)`;
-    frameWrapper.style.borderRadius = '16px';
+    frameWrapper.className = "w-full flex flex-col items-center justify-center p-5 rounded-2xl border border-white/40 dark:border-white/10 bg-white/40 dark:bg-white/[0.04] backdrop-blur-xl shadow-lg transition-all duration-200";
+    frameWrapper.style.boxShadow = `0 20px 50px -10px ${frameColor}20, inset 0 1px 0 rgba(255,255,255,0.2)`;
     
     frameLabel.style.backgroundColor = frameColor;
-    frameLabel.style.color = '#ffffff';
+    frameLabel.style.color = labelTextColor;
     frameLabel.style.borderRadius = '30px';
     frameLabel.style.padding = '8px 24px';
     frameLabel.style.width = 'auto';
@@ -1466,9 +1629,8 @@ function updateFrameUI() {
     frameLabel.classList.remove('hidden');
     if (frameTopLabel) frameTopLabel.classList.add('hidden');
   } else if (frameStyle === 'stamp') {
-    frameWrapper.style.background = '#fdfbf7';
-    frameWrapper.style.border = `6px dotted ${frameColor}`;
-    frameWrapper.style.borderRadius = '4px';
+    frameWrapper.style.border = `4px dashed ${frameColor}`;
+    frameWrapper.style.borderRadius = '12px';
     frameWrapper.style.boxShadow = '0 8px 24px rgba(0,0,0,0.06)';
     frameWrapper.style.position = 'relative';
     
@@ -1492,7 +1654,6 @@ function updateFrameUI() {
   }
 }
 
-// Composite frames drawing compositor during download
 // Composite frames drawing compositor during download
 async function downloadQR(format: 'png' | 'svg') {
   if (!qrCodeInstance) return;
@@ -1552,6 +1713,11 @@ async function downloadQR(format: 'png' | 'svg') {
     image: getLogoPath() || undefined,
     imageOptions: options.imageOptions
   });
+
+  const isDark = document.documentElement.classList.contains('dark');
+  const labelTextColor = getContrastColor(frameColor);
+  const cardBgColor = isDark ? '#141420' : '#ffffff';
+
   const qrRenderSize = exportSize;
   const cardPadding = Math.round(qrRenderSize * 0.03);
   const cardSize = qrRenderSize + (cardPadding * 2);
@@ -1607,14 +1773,19 @@ async function downloadQR(format: 'png' | 'svg') {
       compositeCanvas.width = canvasWidth;
       compositeCanvas.height = canvasHeight;
 
-      // Fill background
-      let frameBg = '#ffffff';
+      // Fill background matching preview theme
+      let frameBg = isDark ? '#12121c' : '#ffffff';
       if (frameStyle === 'neon') frameBg = '#0a0a0a';
-      else if (frameStyle === 'stamp') frameBg = '#fdfbf7';
+      else if (frameStyle === 'stamp') frameBg = isDark ? '#161622' : '#fdfbf7';
       else if (frameStyle === 'glassmorphic') {
         const glassGrad = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
-        glassGrad.addColorStop(0, 'rgba(255, 255, 255, 0.75)');
-        glassGrad.addColorStop(1, 'rgba(255, 255, 255, 0.35)');
+        if (isDark) {
+          glassGrad.addColorStop(0, '#1a1a28');
+          glassGrad.addColorStop(1, '#0e0e18');
+        } else {
+          glassGrad.addColorStop(0, '#f8f9fc');
+          glassGrad.addColorStop(1, '#eef1f6');
+        }
         ctx.fillStyle = glassGrad;
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
       }
@@ -1624,13 +1795,13 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.fillRect(0, 0, canvasWidth, canvasHeight);
       }
 
-      // Draw white card container (matching preview bg-white)
-      ctx.fillStyle = '#ffffff';
+      // Draw card container (matching preview canvas container)
+      ctx.fillStyle = cardBgColor;
       ctx.beginPath();
-      ctx.roundRect(cardX, cardY, cardSize, cardSize, Math.round(qrRenderSize * 0.025));
+      ctx.roundRect(cardX, cardY, cardSize, cardSize, Math.round(qrRenderSize * 0.03));
       ctx.fill();
 
-      // Draw QR
+      // Draw QR code inside container
       ctx.drawImage(img, qrX, qrY, qrRenderSize, qrRenderSize);
 
       ctx.fillStyle = frameColor;
@@ -1655,10 +1826,10 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.roundRect(0, labelY, canvasWidth, frameHeight, [0, 0, r, r]);
         ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = labelTextColor;
         ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
       } else if (frameStyle === 'capsule') {
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
+        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
         ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
         ctx.beginPath();
         ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.06));
@@ -1669,7 +1840,7 @@ async function downloadQR(format: 'png' | 'svg') {
         const pillX = (canvasWidth - pillWidth) / 2;
         const pillY = labelY + (frameHeight - pillHeight) / 2;
 
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.06)';
+        ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.06)';
         ctx.shadowBlur = Math.round(qrRenderSize * 0.02);
         ctx.shadowOffsetY = Math.round(qrRenderSize * 0.01);
 
@@ -1679,10 +1850,10 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.fill();
 
         ctx.shadowColor = 'transparent';
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = labelTextColor;
         ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
       } else if (frameStyle === 'minimal') {
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
+        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)';
         ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
         ctx.beginPath();
         ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
@@ -1708,7 +1879,7 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.fillStyle = frameColor;
         ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
       } else if (frameStyle === 'pointer') {
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.06)';
+        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)';
         ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
         ctx.beginPath();
         ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
@@ -1731,14 +1902,14 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.closePath();
         ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = labelTextColor;
         ctx.fillText(frameText, canvasWidth / 2, bubbleY + (bubbleHeight / 2));
       } else if (frameStyle === 'phone') {
         const bezel = Math.round(qrRenderSize * 0.04);
         const padBottom = Math.round(qrRenderSize * 0.16);
 
         ctx.lineWidth = bezel;
-        ctx.strokeStyle = '#1f1f1f';
+        ctx.strokeStyle = isDark ? '#262638' : '#1f1f1f';
         ctx.beginPath();
         ctx.roundRect(bezel / 2, bezel / 2, canvasWidth - bezel, canvasHeight - bezel, Math.round(qrRenderSize * 0.08));
         ctx.stroke();
@@ -1750,7 +1921,7 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.roundRect((canvasWidth - islandWidth) / 2, bezel * 0.8, islandWidth, islandHeight, islandHeight / 2);
         ctx.fill();
 
-        ctx.fillStyle = '#d4d4d4';
+        ctx.fillStyle = isDark ? '#4b4b60' : '#d4d4d4';
         const homeWidth = Math.round(qrRenderSize * 0.2);
         const homeHeight = Math.round(qrRenderSize * 0.01);
         ctx.beginPath();
@@ -1760,25 +1931,6 @@ async function downloadQR(format: 'png' | 'svg') {
         const phoneLabelY = canvasHeight - bezel - (padBottom / 2);
         ctx.fillStyle = frameColor;
         ctx.fillText(frameText, canvasWidth / 2, phoneLabelY);
-      } else if (frameStyle === 'shadow') {
-        ctx.shadowColor = 'rgba(0, 0, 0, 0.03)';
-        ctx.shadowBlur = Math.round(qrRenderSize * 0.06);
-        ctx.shadowOffsetY = Math.round(qrRenderSize * 0.03);
-
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.roundRect(0, 0, canvasWidth, canvasHeight, Math.round(qrRenderSize * 0.05));
-        ctx.fill();
-        ctx.shadowColor = 'transparent';
-
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.04)';
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.roundRect(0, 0, canvasWidth, canvasHeight, Math.round(qrRenderSize * 0.05));
-        ctx.stroke();
-
-        ctx.fillStyle = frameColor;
-        ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
       } else if (frameStyle === 'top-bottom') {
         const r = Math.round(qrRenderSize * 0.04);
         const bannerGrad = ctx.createLinearGradient(0, 0, canvasWidth, 0);
@@ -1794,15 +1946,14 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.roundRect(0, canvasHeight - frameHeight, canvasWidth, frameHeight, [0, 0, r, r]);
         ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = labelTextColor;
         ctx.fillText(frameTopText, canvasWidth / 2, frameHeight / 2);
         ctx.fillText(frameText, canvasWidth / 2, canvasHeight - (frameHeight / 2));
       } else if (frameStyle === 'glassmorphic') {
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.18)';
+        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.7)';
         ctx.lineWidth = Math.round(qrRenderSize * 0.015);
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(canvasWidth, canvasHeight);
+        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
         ctx.stroke();
 
         const pillWidth = Math.round(qrRenderSize * 0.6);
@@ -1815,7 +1966,7 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
         ctx.fill();
 
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = labelTextColor;
         ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
       } else if (frameStyle === 'neon') {
         ctx.shadowColor = frameColor;
@@ -1835,11 +1986,9 @@ async function downloadQR(format: 'png' | 'svg') {
         ctx.fillStyle = '#ffffff';
         ctx.shadowColor = frameColor;
         ctx.shadowBlur = Math.round(qrRenderSize * 0.015);
-        ctx.font = `bold ${fontSize}px Courier New, Courier, monospace`;
-        ctx.letterSpacing = '3px';
+        ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
         ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
         ctx.shadowColor = 'transparent';
-        ctx.letterSpacing = '0px';
       } else if (frameStyle === 'viewfinder') {
         const bracketSize = Math.round(qrRenderSize * 0.08);
         const bracketWidth = Math.max(2, Math.round(qrRenderSize * 0.012));
@@ -1997,9 +2146,9 @@ async function downloadQR(format: 'png' | 'svg') {
     bgRect.setAttribute('width', '100%');
     bgRect.setAttribute('height', '100%');
     
-    let frameBg = '#ffffff';
+    let frameBg = isDark ? '#12121c' : '#ffffff';
     if (frameStyle === 'neon') frameBg = '#0a0a0a';
-    else if (frameStyle === 'stamp') frameBg = '#fdfbf7';
+    else if (frameStyle === 'stamp') frameBg = isDark ? '#161622' : '#fdfbf7';
     bgRect.setAttribute('fill', frameBg);
     newSvg.appendChild(bgRect);
 
@@ -2013,10 +2162,10 @@ async function downloadQR(format: 'png' | 'svg') {
       grad.setAttribute('y2', '100%');
       const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
       stop1.setAttribute('offset', '0%');
-      stop1.setAttribute('stop-color', 'rgba(255, 255, 255, 0.75)');
+      stop1.setAttribute('stop-color', isDark ? '#1a1a28' : '#f8f9fc');
       const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
       stop2.setAttribute('offset', '100%');
-      stop2.setAttribute('stop-color', 'rgba(255, 255, 255, 0.35)');
+      stop2.setAttribute('stop-color', isDark ? '#0e0e18' : '#eef1f6');
       grad.appendChild(stop1);
       grad.appendChild(stop2);
       defs.appendChild(grad);
@@ -2024,15 +2173,15 @@ async function downloadQR(format: 'png' | 'svg') {
       bgRect.setAttribute('fill', 'url(#glass-bg-grad)');
     }
 
-    // Draw white card container
+    // Draw card container
     const cardRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     cardRect.setAttribute('x', cardX.toString());
     cardRect.setAttribute('y', cardY.toString());
     cardRect.setAttribute('width', cardSize.toString());
     cardRect.setAttribute('height', cardSize.toString());
-    cardRect.setAttribute('rx', Math.round(qrRenderSize * 0.025).toString());
-    cardRect.setAttribute('ry', Math.round(qrRenderSize * 0.025).toString());
-    cardRect.setAttribute('fill', '#ffffff');
+    cardRect.setAttribute('rx', Math.round(qrRenderSize * 0.03).toString());
+    cardRect.setAttribute('ry', Math.round(qrRenderSize * 0.03).toString());
+    cardRect.setAttribute('fill', cardBgColor);
     newSvg.appendChild(cardRect);
 
     // QR Contents Group
@@ -2065,7 +2214,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (labelY + (frameHeight / 2)).toString());
-      svgText.setAttribute('fill', '#ffffff');
+      svgText.setAttribute('fill', labelTextColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
       svgText.setAttribute('font-size', fontSize.toString());
@@ -2083,7 +2232,7 @@ async function downloadQR(format: 'png' | 'svg') {
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.06).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.06).toString());
       outerBorder.setAttribute('fill', 'none');
-      outerBorder.setAttribute('stroke', 'rgba(0,0,0,0.08)');
+      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)');
       outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
       newSvg.appendChild(outerBorder);
 
@@ -2105,7 +2254,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (pillY + (pillHeight / 2)).toString());
-      svgText.setAttribute('fill', '#ffffff');
+      svgText.setAttribute('fill', labelTextColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
       svgText.setAttribute('font-size', fontSize.toString());
@@ -2123,7 +2272,7 @@ async function downloadQR(format: 'png' | 'svg') {
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('fill', 'none');
-      outerBorder.setAttribute('stroke', 'rgba(0,0,0,0.06)');
+      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)');
       outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
       newSvg.appendChild(outerBorder);
 
@@ -2183,7 +2332,7 @@ async function downloadQR(format: 'png' | 'svg') {
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('fill', 'none');
-      outerBorder.setAttribute('stroke', 'rgba(0,0,0,0.06)');
+      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)');
       outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
       newSvg.appendChild(outerBorder);
 
@@ -2216,7 +2365,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (bubbleY + (bubbleHeight / 2)).toString());
-      svgText.setAttribute('fill', '#ffffff');
+      svgText.setAttribute('fill', labelTextColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
       svgText.setAttribute('font-size', fontSize.toString());
@@ -2236,7 +2385,7 @@ async function downloadQR(format: 'png' | 'svg') {
       phoneFrame.setAttribute('rx', Math.round(qrRenderSize * 0.08).toString());
       phoneFrame.setAttribute('ry', Math.round(qrRenderSize * 0.08).toString());
       phoneFrame.setAttribute('fill', 'none');
-      phoneFrame.setAttribute('stroke', '#1f1f1f');
+      phoneFrame.setAttribute('stroke', isDark ? '#262638' : '#1f1f1f');
       phoneFrame.setAttribute('stroke-width', bezel.toString());
       newSvg.appendChild(phoneFrame);
 
@@ -2261,45 +2410,12 @@ async function downloadQR(format: 'png' | 'svg') {
       homeBar.setAttribute('height', homeHeight.toString());
       homeBar.setAttribute('rx', (homeHeight / 2).toString());
       homeBar.setAttribute('ry', (homeHeight / 2).toString());
-      homeBar.setAttribute('fill', '#d4d4d4');
+      homeBar.setAttribute('fill', isDark ? '#4b4b60' : '#d4d4d4');
       newSvg.appendChild(homeBar);
       
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (totalHeight - bezel - (padBottom / 2)).toString());
-      svgText.setAttribute('fill', frameColor);
-      svgText.setAttribute('font-family', 'Inter, sans-serif');
-      svgText.setAttribute('font-weight', 'bold');
-      svgText.setAttribute('font-size', fontSize.toString());
-      svgText.setAttribute('text-anchor', 'middle');
-      svgText.setAttribute('dominant-baseline', 'middle');
-      svgText.textContent = frameText;
-      newSvg.appendChild(svgText);
-    } else if (frameStyle === 'shadow') {
-      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
-      filter.setAttribute('id', 'shadow-filter');
-      
-      const feDropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow');
-      feDropShadow.setAttribute('dx', '0');
-      feDropShadow.setAttribute('dy', Math.round(qrRenderSize * 0.03).toString());
-      feDropShadow.setAttribute('stdDeviation', Math.round(qrRenderSize * 0.04).toString());
-      feDropShadow.setAttribute('flood-color', '#000000');
-      feDropShadow.setAttribute('flood-opacity', '0.06');
-      
-      filter.appendChild(feDropShadow);
-      defs.appendChild(filter);
-      newSvg.appendChild(defs);
-      
-      bgRect.setAttribute('filter', 'url(#shadow-filter)');
-      bgRect.setAttribute('stroke', 'rgba(0,0,0,0.04)');
-      bgRect.setAttribute('stroke-width', '1');
-      bgRect.setAttribute('rx', Math.round(qrRenderSize * 0.05).toString());
-      bgRect.setAttribute('ry', Math.round(qrRenderSize * 0.05).toString());
-      
-      const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      svgText.setAttribute('x', (totalWidth / 2).toString());
-      svgText.setAttribute('y', (labelY + (frameHeight / 2)).toString());
       svgText.setAttribute('fill', frameColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
@@ -2347,7 +2463,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const topSvgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       topSvgText.setAttribute('x', (totalWidth / 2).toString());
       topSvgText.setAttribute('y', (frameHeight / 2).toString());
-      topSvgText.setAttribute('fill', '#ffffff');
+      topSvgText.setAttribute('fill', labelTextColor);
       topSvgText.setAttribute('font-family', 'Inter, sans-serif');
       topSvgText.setAttribute('font-weight', 'bold');
       topSvgText.setAttribute('font-size', fontSize.toString());
@@ -2359,7 +2475,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const bottomSvgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       bottomSvgText.setAttribute('x', (totalWidth / 2).toString());
       bottomSvgText.setAttribute('y', (totalHeight - (frameHeight / 2)).toString());
-      bottomSvgText.setAttribute('fill', '#ffffff');
+      bottomSvgText.setAttribute('fill', labelTextColor);
       bottomSvgText.setAttribute('font-family', 'Inter, sans-serif');
       bottomSvgText.setAttribute('font-weight', 'bold');
       bottomSvgText.setAttribute('font-size', fontSize.toString());
@@ -2376,12 +2492,12 @@ async function downloadQR(format: 'png' | 'svg') {
       feDropShadow.setAttribute('dy', Math.round(qrRenderSize * 0.02).toString());
       feDropShadow.setAttribute('stdDeviation', Math.round(qrRenderSize * 0.03).toString());
       feDropShadow.setAttribute('flood-color', '#000000');
-      feDropShadow.setAttribute('flood-opacity', '0.08');
+      feDropShadow.setAttribute('flood-opacity', isDark ? '0.3' : '0.08');
       filter.appendChild(feDropShadow);
       defs.appendChild(filter);
       newSvg.appendChild(defs);
 
-      bgRect.setAttribute('stroke', 'rgba(255, 255, 255, 0.9)');
+      bgRect.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.9)');
       bgRect.setAttribute('stroke-width', Math.max(1, Math.round(qrRenderSize * 0.003)).toString());
       bgRect.setAttribute('rx', Math.round(qrRenderSize * 0.04).toString());
       bgRect.setAttribute('ry', Math.round(qrRenderSize * 0.04).toString());
@@ -2392,7 +2508,7 @@ async function downloadQR(format: 'png' | 'svg') {
       reflection.setAttribute('y1', '0');
       reflection.setAttribute('x2', totalWidth.toString());
       reflection.setAttribute('y2', totalHeight.toString());
-      reflection.setAttribute('stroke', 'rgba(255, 255, 255, 0.2)');
+      reflection.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.2)');
       reflection.setAttribute('stroke-width', Math.round(qrRenderSize * 0.015).toString());
       newSvg.appendChild(reflection);
 
@@ -2413,7 +2529,7 @@ async function downloadQR(format: 'png' | 'svg') {
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (pillY + (pillHeight / 2)).toString());
-      svgText.setAttribute('fill', '#ffffff');
+      svgText.setAttribute('fill', labelTextColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
       svgText.setAttribute('font-size', fontSize.toString());
