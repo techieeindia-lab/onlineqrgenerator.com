@@ -14,12 +14,14 @@ const { landingPageData } = Astro.props;
         <h2 class="text-2xl font-bold font-sans tracking-tight text-ink">Why Use QR Codes?</h2>
         <p class="text-sm text-body leading-relaxed">{landingPageData.details}</p>
       </div>
-      <div class="md:col-span-6 bg-canvas border border-hairline rounded-lg p-6 shadow-sm flex flex-col gap-4">
+      <div class="md:col-span-6 glass-card rounded-2xl p-6 premium-shadow flex flex-col gap-4">
         <span class="text-xs font-mono uppercase tracking-wider text-mute">Key Features</span>
         <ul class="flex flex-col gap-3">
           {landingPageData.features.map(feat => (
-            <li class="flex items-start gap-3 text-xs text-body">
-              <svg class="w-4.5 h-4.5 text-success shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+            <li class="flex items-center gap-3 text-xs text-body hover:translate-x-1 transition-transform duration-200">
+              <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-[#ff1b6b]/10 to-[#eca0ff]/10 flex items-center justify-center shrink-0 border border-[#eca0ff]/20">
+                <svg class="w-3.5 h-3.5 text-[#ff1b6b]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+              </div>
               <span>{feat}</span>
             </li>
           ))}

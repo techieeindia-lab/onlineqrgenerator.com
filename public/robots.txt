@@ -1,0 +1,12 @@
+# robots.txt for https://onlineqrgenerator.com
+
+User-agent: *
+Allow: /
+
+# Disallow direct indexing of error pages
+Disallow: /404
+Disallow: /500
+
+# Sitemaps
+Sitemap: https://onlineqrgenerator.com/sitemap.xml
+Sitemap: https://onlineqrgenerator.com/sitemap-index.xml

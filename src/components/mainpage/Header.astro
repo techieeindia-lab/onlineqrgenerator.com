@@ -1,5 +1,6 @@
 ---
 import { translations } from '../../i18n/translations';
+import Logo from '../Logo.astro';
 
 interface Props {
   landingPageData?: {
@@ -26,11 +27,12 @@ const localesList = [
   { code: 'es', label: '🇪🇸 Español' },
   { code: 'fr', label: '🇫🇷 Français' },
   { code: 'de', label: '🇩🇪 Deutsch' },
+  { code: 'it', label: '🇮🇹 Italiano' },
   { code: 'pt', label: '🇵🇹 Português' },
-  { code: 'zh', label: '🇨🇳 中文' },
-  { code: 'hi', label: '🇮🇳 हिन्दी' },
-  { code: 'ar', label: '🇸🇦 العربية' },
   { code: 'ru', label: '🇷🇺 Русский' },
+  { code: 'ja', label: '🇯🇵 日本語' },
+  { code: 'ko', label: '🇰🇷 한국어' },
+  { code: 'ar', label: '🇸🇦 العربية' },
 ];
 
 const currentLanguageLabel = localesList.find(l => l.code === locale)?.label || 'English';
@@ -39,6 +41,12 @@ const currentLanguageLabel = localesList.find(l => l.code === locale)?.label || 
 function localizePath(path: string): string {
   return locale === 'en' ? path : `/${locale}${path}`;
 }
+
+const pathname = Astro.url.pathname;
+const locales = ['en', 'es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
+const currentPrefix = locales.find(l => l !== 'en' && (pathname.startsWith(`/${l}/`) || pathname === `/${l}`));
+const cleanPath = currentPrefix ? (pathname.substring(currentPrefix.length + 1) || '/') : pathname;
+const normalizedCleanPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath;
 
 const qrTypesList = [
   { slug: 'url', label: t.types.url, path: '/types/url', desc: t.typeDescriptions.url, icon: 'url', bgClass: 'bg-blue-500/10 text-blue-600 dark:text-blue-400' },
@@ -61,23 +69,27 @@ const industriesDropdownList = [
   { slug: 'marketing', label: t.industries.marketing, path: '/industries/marketing', desc: t.industryDescriptions.marketing, icon: 'marketing', bgClass: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' },
 ];
 ---
-<header class="sticky top-0 z-40 border-b border-hairline bg-canvas/80 backdrop-blur-md transition-colors duration-200">
+<header class="sticky top-0 z-40 border-b border-hairline bg-canvas backdrop-blur-md transition-all duration-200 shadow-xs">
   <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
     <a href={locale === 'en' ? '/' : `/${locale}/`} class="flex items-center gap-2 font-sans font-bold text-lg tracking-tight hover:opacity-85 transition-opacity">
-      <span class="w-6 h-6 rounded-md bg-ink text-canvas flex items-center justify-center text-xs font-mono">QR</span>
+      <Logo class="w-7 h-7 shrink-0" />
       <span>{t.title}.</span>
     </a>
     
     <nav class="hidden md:flex items-center gap-6 text-sm text-body">
-      <a href={localizePath('/')} class="hover:text-ink transition-colors">{t.nav.generator}</a>
+      <a href={localizePath('/')} class="hover:text-ink transition-all relative group py-2">
+        {t.nav.generator}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
       
       <!-- QR Types Dropdown -->
       <div class="relative group py-2">
-        <button class="hover:text-ink transition-colors flex items-center gap-0.5 cursor-pointer">
+        <button class="hover:text-ink transition-all flex items-center gap-0.5 cursor-pointer relative pb-1">
           <span>{t.nav.types}</span>
-          <svg class="w-3.5 h-3.5 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
         </button>
-        <div class="absolute left-1/2 -translate-x-1/2 mt-1 w-[580px] rounded-lg border border-hairline bg-canvas shadow-xl p-4 hidden group-hover:grid grid-cols-3 gap-2.5 z-50">
+        <div class="absolute left-1/2 -translate-x-1/2 mt-2 w-[580px] rounded-lg border border-hairline bg-canvas/95 backdrop-blur-md shadow-xl p-4 hidden group-hover:grid grid-cols-3 gap-2.5 z-50">
           {qrTypesList.map((item) => (
             <a 
               href={localizePath(item.path)} 
@@ -142,11 +154,12 @@ const industriesDropdownList = [
 
       <!-- Industries Dropdown -->
       <div class="relative group py-2">
-        <button class="hover:text-ink transition-colors flex items-center gap-0.5 cursor-pointer">
+        <button class="hover:text-ink transition-all flex items-center gap-0.5 cursor-pointer relative pb-1">
           <span>{t.nav.industries}</span>
-          <svg class="w-3.5 h-3.5 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
         </button>
-        <div class="absolute left-1/2 -translate-x-1/2 mt-1 w-[460px] rounded-lg border border-hairline bg-canvas shadow-xl p-4 hidden group-hover:grid grid-cols-2 gap-2.5 z-50">
+        <div class="absolute left-1/2 -translate-x-1/2 mt-2 w-[460px] rounded-lg border border-hairline bg-canvas/95 backdrop-blur-md shadow-xl p-4 hidden group-hover:grid grid-cols-2 gap-2.5 z-50">
           {industriesDropdownList.map((item) => (
             <a 
               href={localizePath(item.path)} 
@@ -193,27 +206,32 @@ const industriesDropdownList = [
         </div>
       </div>
 
-      <a href="#history" class="hover:text-ink transition-colors">{t.nav.history}</a>
-      <a href="#api" class="hover:text-ink transition-colors">{t.nav.api}</a>
-      <a href="#faq" class="hover:text-ink transition-colors">{t.nav.faq}</a>
+      <a href={localizePath('/#history')} class="hover:text-ink transition-all relative group py-2">
+        {t.nav.history}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href={localizePath('/#api')} class="hover:text-ink transition-all relative group py-2">
+        {t.nav.api}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href={localizePath('/#faq')} class="hover:text-ink transition-all relative group py-2">
+        {t.nav.faq}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
     </nav>
 
     <div class="flex items-center gap-3">
       <!-- Language Selector -->
       <div class="relative group">
-        <button id="lang-menu-btn" class="flex items-center gap-1 px-3 py-1.5 text-xs font-medium border border-hairline rounded-sm bg-canvas hover:bg-canvas-soft transition-all" aria-label="Select Language">
+        <button id="lang-menu-btn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium border border-hairline rounded-md bg-canvas hover:bg-canvas-soft transition-all duration-200 hover:-translate-y-0.5" aria-label="Select Language">
           <span>{currentLanguageLabel}</span>
           <svg class="w-3.5 h-3.5 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
-        <div id="lang-dropdown" class="absolute right-0 mt-1 w-44 rounded-sm border border-hairline bg-canvas shadow-lg py-1 hidden group-focus-within:block focus-within:block hover:block">
+        <div id="lang-dropdown" class="absolute right-0 mt-2 w-44 rounded-lg border border-hairline bg-canvas/95 backdrop-blur-md shadow-xl py-1.5 hidden group-focus-within:block focus-within:block hover:block z-50">
           {localesList.map((loc) => {
-            // Find localized link mapping
-            let targetPath = '/';
-            if (landingPageData) {
-              const baseFolder = Astro.url.pathname.includes('/industries/') ? '/industries/' : '/types/';
-              targetPath = `${baseFolder}${landingPageData.slug}`;
-            }
-            const link = loc.code === 'en' ? targetPath : `/${loc.code}${targetPath}`;
+            const link = loc.code === 'en' 
+              ? normalizedCleanPath 
+              : `/${loc.code}${normalizedCleanPath === '/' ? '' : normalizedCleanPath}`;
             return (
               <a 
                 href={link}
@@ -228,7 +246,7 @@ const industriesDropdownList = [
       </div>
 
       <!-- Theme Switcher -->
-      <button id="theme-toggle" class="p-2 rounded-sm border border-hairline bg-canvas hover:bg-canvas-soft text-body hover:text-ink transition-all cursor-pointer" aria-label="Toggle dark mode">
+      <button id="theme-toggle" class="p-2.5 rounded-md border border-hairline bg-canvas hover:bg-canvas-soft text-body hover:text-ink transition-all duration-200 hover:-translate-y-0.5 cursor-pointer shadow-xs" aria-label="Toggle dark mode">
         <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="5"></circle>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>

@@ -1,52 +1,231 @@
 ---
 import { translations } from '../../i18n/translations';
+import { faqData } from '../../i18n/faqData';
 
 const locale = Astro.currentLocale || 'en';
 const t = translations[locale] || translations.en;
+const localeFaq = faqData[locale] || faqData.en;
+const faqs = localeFaq.items;
+const localeShowMore = localeFaq.showMore;
+const localeShowLess = localeFaq.showLess;
+
+// Generate JSON-LD FAQ Schema for Search Engine SEO
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
 ---
-  <section id="faq" class="scroll-mt-24 border-t border-hairline pt-12 max-w-3xl mx-auto w-full flex flex-col gap-6">
-    <h2 class="text-2xl font-bold font-sans tracking-tight text-ink text-center">Frequently Asked Questions</h2>
-    <div class="bg-canvas border border-hairline rounded-lg divide-y divide-hairline shadow-md">
-      
-      <div class="faq-item">
-        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
-          <span>Are the QR codes generated permanent?</span>
-          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+
+<section id="faq" class="scroll-mt-24 border-t border-hairline pt-12 max-w-3xl mx-auto w-full flex flex-col gap-6">
+  <div class="text-center flex flex-col gap-2">
+    <h2 class="text-2xl font-bold font-sans tracking-tight text-ink">{localeFaq.title}</h2>
+    <p class="text-xs text-mute font-sans max-w-md mx-auto">{localeFaq.subtitle}</p>
+  </div>
+
+  <!-- Search Filter Input -->
+  <div class="relative w-full max-w-md mx-auto mb-2">
+    <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-mute">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+    </span>
+    <input 
+      type="text" 
+      id="faq-search" 
+      placeholder={localeFaq.searchPlaceholder} 
+      class="w-full h-11 pl-10 pr-4 text-sm rounded-lg border border-hairline bg-canvas text-ink focus:outline-none focus:ring-1 focus:ring-ink transition-all shadow-sm"
+    />
+  </div>
+
+  <!-- FAQ Category Filter Tags -->
+  <div class="flex flex-wrap items-center justify-center gap-2 mb-4 select-none text-[10px] font-bold">
+    <button type="button" class="faq-tag-btn px-3 py-1.5 rounded-full border border-hairline bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] text-white hover:opacity-90 cursor-pointer transition-all select-none border-0" data-tag="all">{localeFaq.tags.all}</button>
+    <button type="button" class="faq-tag-btn px-3 py-1.5 rounded-full border border-hairline bg-canvas text-body hover:bg-canvas-soft hover:text-ink cursor-pointer transition-all select-none" data-tag="free">{localeFaq.tags.free}</button>
+    <button type="button" class="faq-tag-btn px-3 py-1.5 rounded-full border border-hairline bg-canvas text-body hover:bg-canvas-soft hover:text-ink cursor-pointer transition-all select-none" data-tag="logo">{localeFaq.tags.logo}</button>
+    <button type="button" class="faq-tag-btn px-3 py-1.5 rounded-full border border-hairline bg-canvas text-body hover:bg-canvas-soft hover:text-ink cursor-pointer transition-all select-none" data-tag="safe">{localeFaq.tags.safe}</button>
+    <button type="button" class="faq-tag-btn px-3 py-1.5 rounded-full border border-hairline bg-canvas text-body hover:bg-canvas-soft hover:text-ink cursor-pointer transition-all select-none" data-tag="api">{localeFaq.tags.api}</button>
+  </div>
+
+  <!-- FAQ Accordion List -->
+  <div id="faq-list" class="glass-card rounded-2xl premium-shadow divide-y divide-hairline overflow-hidden w-full">
+    {faqs.map((faq, index) => (
+      <div class={`faq-item transition-colors duration-150 ${index >= 6 ? 'faq-collapsed-item hidden' : ''}`} data-faq-id={faq.id}>
+        <button class="faq-header w-full px-5 py-4.5 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft-2 transition-all duration-200 cursor-pointer outline-none focus:bg-canvas-soft-2">
+          <span>{faq.question}</span>
+          <svg class="w-4 h-4 text-mute transition-transform duration-200 shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
         </button>
-        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
-          <p>Yes. The QR codes generated here are static, meaning they embed the encoded text or URL directly. As long as your destination URL or text remains active, the static QR code will work forever. They never expire and have no scan limits.</p>
+        <div class="faq-content px-5 pb-5 pt-1.5 text-xs text-body leading-relaxed hidden bg-canvas-soft-2/10">
+          <p class="whitespace-pre-line">{faq.answer}</p>
         </div>
       </div>
+    ))}
+  </div>
 
-      <div class="faq-item">
-        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
-          <span>Can I generate QR codes offline?</span>
-          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
-          <p>Yes! Because this website uses local client-side Javascript to render the code directly inside your browser, the QR code is generated instantly on your device. Once loaded, the generator does not send your data to any external server, ensuring maximum privacy and offline availability.</p>
-        </div>
-      </div>
+  <!-- Show More/Less Button -->
+  <div class="text-center mt-2" id="faq-toggle-container">
+    <button 
+      id="faq-toggle-btn"
+      class="inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold rounded-lg border border-hairline bg-canvas text-ink hover:bg-canvas-soft-2 transition-all cursor-pointer shadow-sm outline-none focus:ring-1 focus:ring-ink"
+      data-show-more={localeShowMore}
+      data-show-less={localeShowLess}
+    >
+      <span id="faq-toggle-text">{localeShowMore}</span>
+      <svg id="faq-toggle-icon" class="w-3.5 h-3.5 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </button>
+  </div>
 
-      <div class="faq-item">
-        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
-          <span>How does the Wi-Fi QR code work?</span>
-          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
-          <p>A Wi-Fi QR code encodes the SSID, security type, and network password using a standardized format: <code class="bg-canvas-soft px-1 rounded">WIFI:S:SSID;T:WPA;P:PASSWORD;;</code>. When a smartphone camera scans this code, it reads the credentials and automatically connects to the wireless network with a single tap.</p>
-        </div>
-      </div>
+  <!-- No Results Found Placeholder -->
+  <div id="faq-empty-state" class="hidden border border-dashed border-hairline rounded-lg p-12 text-center flex flex-col items-center justify-center gap-3 bg-canvas">
+    <svg class="w-8 h-8 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <p class="text-sm font-sans text-mute">No matching questions found. Try search keywords like "free", "safe", or "logo".</p>
+  </div>
+</section>
 
-      <div class="faq-item">
-        <button class="faq-header w-full px-5 py-4 text-left font-sans font-semibold text-sm flex items-center justify-between text-ink hover:bg-canvas-soft transition-all">
-          <span>Why is a high Error Correction Level recommended for custom logos?</span>
-          <svg class="w-4 h-4 text-mute transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-        </button>
-        <div class="faq-content px-5 pb-5 pt-1 text-xs text-body leading-relaxed hidden">
-          <p>When you overlay a logo in the center of a QR code, it covers some of the underlying data points. Raising the Error Correction Level (ECC) to 'High' (~30%) increases the redundancy of the QR code modules. This allows mobile cameras to reconstruct the missing data and successfully scan the QR code despite the logo obstruction.</p>
-        </div>
-      </div>
+<!-- Injected JSON-LD FAQ Schema for Search Engine SEO -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 
-    </div>
-  </section>
+<!-- Client-side Real-time Search Filtering Logic -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('faq-search') as HTMLInputElement | null;
+    const faqItems = document.querySelectorAll('.faq-item');
+    const emptyState = document.getElementById('faq-empty-state');
+    const faqList = document.getElementById('faq-list');
+    const tagBtns = document.querySelectorAll('.faq-tag-btn');
+
+    tagBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!searchInput) return;
+        tagBtns.forEach(b => {
+          b.classList.remove('bg-gradient-to-r', 'from-[#ff1b6b]', 'to-[#eca0ff]', 'text-white', 'border-0');
+          b.classList.add('bg-canvas', 'text-body', 'border');
+        });
+        btn.classList.remove('bg-canvas', 'text-body', 'border');
+        btn.classList.add('bg-gradient-to-r', 'from-[#ff1b6b]', 'to-[#eca0ff]', 'text-white', 'border-0');
+
+        const tag = btn.getAttribute('data-tag') || 'all';
+        if (tag === 'all') {
+          searchInput.value = '';
+        } else {
+          searchInput.value = tag;
+        }
+        searchInput.dispatchEvent(new Event('input'));
+      });
+    });
+
+    // Show More/Less elements
+    const toggleContainer = document.getElementById('faq-toggle-container');
+    const toggleBtn = document.getElementById('faq-toggle-btn') as HTMLButtonElement | null;
+    const toggleText = document.getElementById('faq-toggle-text');
+    const toggleIcon = document.getElementById('faq-toggle-icon');
+    const collapsedItems = document.querySelectorAll('.faq-collapsed-item');
+
+    let isExpanded = false;
+
+    if (toggleBtn && toggleText && toggleIcon) {
+      const showMoreLabel = toggleBtn.getAttribute('data-show-more') || 'Show More Questions';
+      const showLessLabel = toggleBtn.getAttribute('data-show-less') || 'Show Less';
+
+      toggleBtn.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+
+        collapsedItems.forEach((item) => {
+          if (isExpanded) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+            // Close accordion content if it was open
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('.faq-header svg');
+            if (content && !content.classList.contains('hidden')) {
+              content.classList.add('hidden');
+              icon?.classList.remove('rotate-180');
+            }
+          }
+        });
+
+        if (isExpanded) {
+          toggleText.textContent = showLessLabel;
+          toggleIcon.classList.add('rotate-180');
+        } else {
+          toggleText.textContent = showMoreLabel;
+          toggleIcon.classList.remove('rotate-180');
+          // Smooth scroll to top of FAQ section when collapsing
+          document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    if (!searchInput || faqItems.length === 0) return;
+
+    searchInput.addEventListener('input', (e) => {
+      const query = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      if (query.length > 0) {
+        // Hide show more/less toggle container while searching
+        toggleContainer?.classList.add('hidden');
+
+        faqItems.forEach((item) => {
+          const questionText = item.querySelector('.faq-header span')?.textContent?.toLowerCase() || '';
+          const answerText = item.querySelector('.faq-content')?.textContent?.toLowerCase() || '';
+
+          if (questionText.includes(query) || answerText.includes(query)) {
+            item.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+            // Hide expanded answers if they are filtered out
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('.faq-header svg');
+            if (content && !content.classList.contains('hidden')) {
+              content.classList.add('hidden');
+              icon?.classList.remove('rotate-180');
+            }
+          }
+        });
+      } else {
+        // Restore collapse/expand state based on isExpanded flag
+        toggleContainer?.classList.remove('hidden');
+
+        faqItems.forEach((item, index) => {
+          if (index >= 6 && !isExpanded) {
+            item.classList.add('hidden');
+            // Hide expanded answers if they are collapsed
+            const content = item.querySelector('.faq-content');
+            const icon = item.querySelector('.faq-header svg');
+            if (content && !content.classList.contains('hidden')) {
+              content.classList.add('hidden');
+              icon?.classList.remove('rotate-180');
+            }
+          } else {
+            item.classList.remove('hidden');
+          }
+        });
+        visibleCount = faqItems.length;
+      }
+
+      if (visibleCount > 0) {
+        faqList?.classList.remove('hidden');
+        emptyState?.classList.add('hidden');
+      } else {
+        faqList?.classList.add('hidden');
+        emptyState?.classList.remove('hidden');
+      }
+    });
+  });
+</script>

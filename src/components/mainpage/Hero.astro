@@ -1,5 +1,6 @@
 ---
 import { translations } from '../../i18n/translations';
+import { getHeroData } from '../../i18n/heroData';
 
 interface Props {
   landingPageData?: {
@@ -12,19 +13,40 @@ interface Props {
 const { landingPageData } = Astro.props;
 const locale = Astro.currentLocale || 'en';
 const t = translations[locale] || translations.en;
+const hero = getHeroData(locale);
 ---
-  <section class="text-center flex flex-col items-center gap-4 relative py-4">
+  <section class="text-center flex flex-col items-center gap-5 relative py-6">
     <div class="absolute -top-32 w-72 h-72 mesh-gradient rounded-full blur-[100px] opacity-25 dark:opacity-20 animate-mesh pointer-events-none"></div>
 
-    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-pill bg-canvas border border-hairline text-[11px] font-mono tracking-tight text-body shadow-sm select-none">
-      <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
-      <span>100% Free · No Signup · No Watermarks.</span>
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-canvas/80 backdrop-blur-md border border-[#eca0ff]/20 text-[11px] font-semibold tracking-tight text-body shadow-xs select-none hover:-translate-y-0.5 transition-transform duration-200">
+      <span class="w-2 h-2 rounded-full bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] animate-pulse"></span>
+      <span>{hero.badge}</span>
     </div>
 
-    <h1 id="hero-headline" class="text-4xl md:text-5xl font-sans font-bold tracking-tight text-ink max-w-2xl leading-none text-balance">
-      {landingPageData ? landingPageData.headline : t.tagline}
+    <h1 id="hero-headline" class="text-4xl md:text-5xl lg:text-6xl font-sans font-extrabold tracking-tight text-ink max-w-3xl leading-tight text-balance">
+      {landingPageData ? landingPageData.headline : (
+        <>
+          {hero.headlineStart} <span class="gradient-text">{hero.headlineGradient}</span> {hero.headlineEnd}
+        </>
+      )}
     </h1>
-    <p id="hero-description" class="text-base md:text-lg text-body max-w-xl text-balance">
+    <p id="hero-description" class="text-base md:text-lg text-body max-w-xl text-balance mt-1">
       {landingPageData ? landingPageData.description : t.description}
     </p>
+
+    <!-- Trust Stats Bar -->
+    <div class="flex flex-wrap items-center justify-center gap-3 md:gap-4 mt-2 select-none text-[11px] font-medium tracking-tight text-body">
+      <div class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#eca0ff]/10 bg-canvas/35 backdrop-blur-xs shadow-xs hover:-translate-y-0.5 transition-transform duration-200">
+        <span class="text-emerald-500 font-bold">✓</span>
+        <span>{hero.stats.generatedToday}</span>
+      </div>
+      <div class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#eca0ff]/10 bg-canvas/35 backdrop-blur-xs shadow-xs hover:-translate-y-0.5 transition-transform duration-200">
+        <span class="text-emerald-500 font-bold">✓</span>
+        <span>{hero.stats.redirectionSpeed}</span>
+      </div>
+      <div class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#eca0ff]/10 bg-canvas/35 backdrop-blur-xs shadow-xs hover:-translate-y-0.5 transition-transform duration-200">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>{hero.stats.operational}</span>
+      </div>
+    </div>
   </section>

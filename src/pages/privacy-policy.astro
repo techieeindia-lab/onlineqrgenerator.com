@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/mainpage/Header.astro';
+import Footer from '../components/mainpage/Footer.astro';
+import { translations } from '../i18n/translations';
+import { getSubpageData } from '../i18n/subpageData';
+
+const locale = Astro.currentLocale || 'en';
+const isRtl = locale === 'ar';
+const t = translations[locale] || translations.en;
+const privacy = getSubpageData(locale).privacy;
+
+function localizePath(path: string): string {
+  return locale === 'en' ? path : `/${locale}${path}`;
+}
+---
+
+<Layout title={`${privacy.title} | ${t.title}`} description={privacy.metaDesc}>
+  <!-- Background Grid & Premium Blur Glows Overlay -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-60 dark:opacity-30"></div>
+    <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#ff1b6b]/15 to-[#eca0ff]/15 blur-[120px] dark:from-[#ff1b6b]/10 dark:to-[#eca0ff]/10"></div>
+    <div class="absolute top-[40%] -left-60 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-indigo-500/10 to-[#eca0ff]/10 blur-[100px] dark:from-indigo-900/5 dark:to-[#eca0ff]/5"></div>
+  </div>
+
+  <Header />
+
+  <main class="relative z-10 flex-1 max-w-5xl mx-auto px-4 py-16 w-full flex flex-col gap-10" dir={isRtl ? 'rtl' : 'ltr'}>
+    <!-- Header -->
+    <div class="flex flex-col items-center text-center gap-3">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono font-semibold uppercase tracking-wider text-[#ff1b6b] bg-[#ff1b6b]/10 border border-[#ff1b6b]/20 rounded-full">
+        {privacy.badge}
+      </span>
+      <h1 class="text-3xl md:text-4xl font-sans font-bold tracking-tight text-ink mt-2">
+        {privacy.heading}
+      </h1>
+      <p class="text-xs text-mute mt-1 font-mono">
+        {privacy.lastUpdated}
+      </p>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 items-start mt-4">
+      <!-- Left Column: Sticky Table of Contents -->
+      <aside class="col-span-1 md:sticky md:top-24 flex flex-col gap-4 bg-canvas border border-hairline rounded-xl p-4 shadow-xs">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-mute">{privacy.tocTitle}</span>
+        <nav class="flex flex-col gap-2.5 text-xs">
+          {privacy.sections.map(sec => (
+            <a href={`#${sec.id}`} class="text-body hover:text-ink hover:underline transition-colors font-medium">
+              {sec.tocLabel}
+            </a>
+          ))}
+        </nav>
+      </aside>
+
+      <!-- Right Column: Document Details -->
+      <article class="col-span-1 md:col-span-3 flex flex-col gap-8 text-sm text-body leading-relaxed">
+        {privacy.sections.map(sec => (
+          <section id={sec.id} class="scroll-mt-24">
+            <h2 class="font-sans font-bold text-lg text-ink mb-3">{sec.title}</h2>
+            
+            {sec.callout && (
+              <div class="bg-gradient-to-br from-blue-500/5 to-indigo-500/5 border border-hairline rounded-xl p-5 mb-4 flex gap-3">
+                <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                  </svg>
+                </div>
+                <p class="text-xs text-body leading-relaxed">
+                  <strong>{sec.callout.strong}</strong> {sec.callout.text}
+                </p>
+              </div>
+            )}
+
+            {sec.paragraphs.map(p => (
+              <p class="mb-3">{p}</p>
+            ))}
+
+            {sec.bullets && (
+              <ul class="list-disc pl-5 flex flex-col gap-2.5 mb-3">
+                {sec.bullets.map(b => (
+                  <li><strong>{b.strong}</strong> {b.text}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+      </article>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

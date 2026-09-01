@@ -13,6 +13,10 @@ export interface Translations {
     bulk: string;
     industries: string;
     types: string;
+    privacyPolicy: string;
+    aboutUs: string;
+    terms: string;
+    contactUs: string;
   };
   types: {
     url: string;
@@ -51,6 +55,7 @@ export interface Translations {
     title: string;
     colors: string;
     shapes: string;
+    frame: string;
     logo: string;
     advanced: string;
     fgColor: string;
@@ -84,8 +89,20 @@ export interface Translations {
     frameStyle: string;
     frameNone: string;
     frameClassic: string;
+    frameCapsule: string;
+    frameMinimal: string;
+    frameTicket: string;
+    framePointer: string;
+    framePhone: string;
+    frameShadow: string;
+    frameTopBottom: string;
+    frameTopLabel: string;
     frameLabel: string;
     frameColor: string;
+    frameGlassmorphic: string;
+    frameNeon: string;
+    frameViewfinder: string;
+    frameStamp: string;
   };
   actions: {
     downloadPng: string;
@@ -146,6 +163,31 @@ export interface Translations {
     retail: string;
     marketing: string;
   };
+  errors: {
+    notFound: {
+      badge: string;
+      title: string;
+      description: string;
+      homeBtn: string;
+      scanBtn: string;
+      exploreTypes: string;
+      popularTitle: string;
+      helpTitle: string;
+      helpDesc: string;
+    };
+    serverError: {
+      badge: string;
+      title: string;
+      description: string;
+      retryBtn: string;
+      homeBtn: string;
+      contactBtn: string;
+      statusTitle: string;
+      statusClient: string;
+      statusStorage: string;
+      statusReady: string;
+    };
+  };
 }
 
 export const translations: Record<string, Translations> = {
@@ -163,7 +205,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Scanner",
       bulk: "Bulk QR",
       industries: "Industries",
-      types: "QR Types"
+      types: "QR Types",
+      privacyPolicy: "Privacy Policy",
+      aboutUs: "About Us",
+      terms: "Terms & Conditions",
+      contactUs: "Contact Us"
     },
     types: {
       url: "URL",
@@ -202,8 +248,9 @@ export const translations: Record<string, Translations> = {
       title: "Customize QR Design",
       colors: "1. Colors & Gradients",
       shapes: "2. Design & Shapes",
-      logo: "3. Logo Overlay",
-      advanced: "4. Advanced Settings",
+      frame: "3. Visual Frame",
+      logo: "4. Logo Overlay",
+      advanced: "5. Advanced Settings",
       fgColor: "Foreground Color",
       bgColor: "Background Color",
       presets: "Color Presets",
@@ -235,8 +282,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Visual Frame",
       frameNone: "No Frame",
       frameClassic: "Classic Tag Border",
+      frameCapsule: "Capsule Frame",
+      frameMinimal: "Minimalist Frame",
+      frameTicket: "Ticket Frame",
+      framePointer: "Pointer Frame",
+      framePhone: "Phone Mockup",
+      frameShadow: "Shadow Card",
+      frameTopBottom: "Top & Bottom Frame",
+      frameTopLabel: "Top Text",
       frameLabel: "Frame Text",
-      frameColor: "Frame Color"
+      frameColor: "Frame Color",
+      frameGlassmorphic: "Glassmorphic Glow",
+      frameNeon: "Neon Cyberpunk",
+      frameViewfinder: "Camera Viewfinder",
+      frameStamp: "Retro Stamp"
     },
     actions: {
       downloadPng: "Download PNG",
@@ -296,6 +355,31 @@ export const translations: Record<string, Translations> = {
       events: "Quick ticket check-ins and bookings",
       retail: "Connect customers to products and stores",
       marketing: "Track conversions and grow mailing lists"
+    },
+    errors: {
+      notFound: {
+        badge: "404 Error • Page Lost",
+        title: "Lost in the Digital Dimension",
+        description: "The page or QR code destination you're looking for doesn't exist, was moved, or has expired. Let's get you back on track.",
+        homeBtn: "Back to QR Generator",
+        scanBtn: "Scan a QR Code",
+        exploreTypes: "Explore QR Types",
+        popularTitle: "Popular Destinations",
+        helpTitle: "Need Assistance?",
+        helpDesc: "If you think this is a broken link, feel free to reach out to our team."
+      },
+      serverError: {
+        badge: "500 Error • Glitch Detected",
+        title: "Internal System Signal Interrupted",
+        description: "An unexpected glitch occurred while rendering this page. Don't worry, your client-side QR generation engine and local data are safe.",
+        retryBtn: "Reload Page",
+        homeBtn: "Back to QR Generator",
+        contactBtn: "Contact Support",
+        statusTitle: "System Diagnostics",
+        statusClient: "Client Generator: Operational",
+        statusStorage: "Local History: Saved & Intact",
+        statusReady: "Ready for Recovery"
+      }
     }
   },
   es: {
@@ -312,7 +396,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Escáner",
       bulk: "QR Masivo",
       industries: "Industrias",
-      types: "Tipos de QR"
+      types: "Tipos de QR",
+      privacyPolicy: "Política de Privacidad",
+      aboutUs: "Sobre Nosotros",
+      terms: "Términos y Condiciones",
+      contactUs: "Contacto"
     },
     types: {
       url: "URL",
@@ -351,8 +439,9 @@ export const translations: Record<string, Translations> = {
       title: "Personalizar Diseño QR",
       colors: "1. Colores y Degradados",
       shapes: "2. Diseño y Formas",
-      logo: "3. Logotipo Superpuesto",
-      advanced: "4. Ajustes Avanzados",
+      frame: "3. Marco Visual",
+      logo: "4. Logotipo Superpuesto",
+      advanced: "5. Ajustes Avanzados",
       fgColor: "Color de Primer Plano",
       bgColor: "Color de Fondo",
       presets: "Ajustes de Color",
@@ -384,8 +473,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Marco Visual",
       frameNone: "Sin Marco",
       frameClassic: "Borde de Etiqueta Clásico",
+      frameCapsule: "Borde de Cápsula",
+      frameMinimal: "Borde Minimalista",
+      frameTicket: "Borde de Ticket",
+      framePointer: "Borde con Flecha",
+      framePhone: "Diseño de Teléfono",
+      frameShadow: "Tarjeta Sombreada",
+      frameTopBottom: "Borde Superior/Inferior",
+      frameTopLabel: "Texto Superior",
       frameLabel: "Texto del Marco",
-      frameColor: "Color del Marco"
+      frameColor: "Color del Marco",
+      frameGlassmorphic: "Efecto Vidrio Esmerilado",
+      frameNeon: "Ciberpunk Neón",
+      frameViewfinder: "Buscador de Cámara",
+      frameStamp: "Sello Retro"
     },
     actions: {
       downloadPng: "Descargar PNG",
@@ -445,6 +546,31 @@ export const translations: Record<string, Translations> = {
       events: "Control de entradas y reservas rápidas",
       retail: "Conectar clientes con tiendas y ofertas",
       marketing: "Medir conversiones y captar correos"
+    },
+    errors: {
+      notFound: {
+        badge: "Error 404 • Página no encontrada",
+        title: "Perdido en la dimensión digital",
+        description: "La página o el destino del código QR que buscas no existe, se movió o caducó. Volvamos al camino correcto.",
+        homeBtn: "Volver al Generador QR",
+        scanBtn: "Escanear un Código QR",
+        exploreTypes: "Explorar tipos de QR",
+        popularTitle: "Destinos populares",
+        helpTitle: "¿Necesitas ayuda?",
+        helpDesc: "Si crees que se trata de un enlace roto, no dudes en contactar a nuestro equipo."
+      },
+      serverError: {
+        badge: "Error 500 • Error detectado",
+        title: "Señal del sistema interrumpida",
+        description: "Ocurrió un error inesperado al cargar esta página. No te preocupes, el motor de generación local y tus datos están seguros.",
+        retryBtn: "Recargar página",
+        homeBtn: "Volver al Generador QR",
+        contactBtn: "Contactar Soporte",
+        statusTitle: "Diagnóstico del sistema",
+        statusClient: "Generador cliente: Operativo",
+        statusStorage: "Historial local: Guardado e intacto",
+        statusReady: "Listo para recuperación"
+      }
     }
   },
   fr: {
@@ -461,7 +587,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Scanner",
       bulk: "QR Groupé",
       industries: "Secteurs",
-      types: "Types de QR"
+      types: "Types de QR",
+      privacyPolicy: "Politique de Confidentialité",
+      aboutUs: "À Propos de Nous",
+      terms: "Conditions d'Utilisation",
+      contactUs: "Contactez-nous"
     },
     types: {
       url: "URL",
@@ -500,8 +630,9 @@ export const translations: Record<string, Translations> = {
       title: "Personnaliser le Design QR",
       colors: "1. Couleurs & Dégradés",
       shapes: "2. Design & Formes",
-      logo: "3. Logo incrusté",
-      advanced: "4. Paramètres Avancés",
+      frame: "3. Cadre Visuel",
+      logo: "4. Logo incrusté",
+      advanced: "5. Paramètres Avancés",
       fgColor: "Couleur de premier plan",
       bgColor: "Couleur d'arrière-plan",
       presets: "Préréglages de couleurs",
@@ -533,8 +664,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Cadre Visuel",
       frameNone: "Aucun Cadre",
       frameClassic: "Bordure d'étiquette classique",
+      frameCapsule: "Bordure de capsule",
+      frameMinimal: "Bordure minimaliste",
+      frameTicket: "Bordure de ticket",
+      framePointer: "Bordure flèche",
+      framePhone: "Maquette téléphone",
+      frameShadow: "Carte ombrée",
+      frameTopBottom: "Bordure haut & bas",
+      frameTopLabel: "Texte supérieur",
       frameLabel: "Texte du Cadre",
-      frameColor: "Couleur du Cadre"
+      frameColor: "Couleur du Cadre",
+      frameGlassmorphic: "Effet Verre Dépoli",
+      frameNeon: "Néon Cyberpunk",
+      frameViewfinder: "Viseur Caméra",
+      frameStamp: "Timbre Rétro"
     },
     actions: {
       downloadPng: "Télécharger PNG",
@@ -594,6 +737,31 @@ export const translations: Record<string, Translations> = {
       events: "Réservation & billetterie simplifiées",
       retail: "Lier vos clients à vos fiches produits",
       marketing: "Suivre vos campagnes & newsletters"
+    },
+    errors: {
+      notFound: {
+        badge: "Erreur 404 • Page introuvable",
+        title: "Perdu dans la dimension numérique",
+        description: "La page ou la destination QR que vous recherchez n'existe pas, a été déplacée ou a expiré. Revenons sur la bonne voie.",
+        homeBtn: "Retour au Générateur QR",
+        scanBtn: "Scanner un QR Code",
+        exploreTypes: "Explorer les types de QR",
+        popularTitle: "Destinations populaires",
+        helpTitle: "Besoin d'aide ?",
+        helpDesc: "Si vous pensez qu'il s'agit d'un lien brisé, n'hésitez pas à contacter notre équipe."
+      },
+      serverError: {
+        badge: "Erreur 500 • Problème détecté",
+        title: "Signal système interrompu",
+        description: "Une anomalie inattendue s'est produite lors du rendu. Rassurez-vous, votre moteur de génération local et vos données sont intacts.",
+        retryBtn: "Recharger la page",
+        homeBtn: "Retour au Générateur QR",
+        contactBtn: "Contacter le support",
+        statusTitle: "Diagnostics système",
+        statusClient: "Générateur client : Opérationnel",
+        statusStorage: "Historique local : Sauvegardé et intact",
+        statusReady: "Prêt pour la récupération"
+      }
     }
   },
   de: {
@@ -610,7 +778,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Scanner",
       bulk: "Bulk QR",
       industries: "Branchen",
-      types: "QR-Typen"
+      types: "QR-Typen",
+      privacyPolicy: "Datenschutzerklärung",
+      aboutUs: "Über Uns",
+      terms: "Allgemeine Geschäftsbedingungen",
+      contactUs: "Kontakt"
     },
     types: {
       url: "URL",
@@ -649,8 +821,9 @@ export const translations: Record<string, Translations> = {
       title: "QR-Design anpassen",
       colors: "1. Farben & Verläufe",
       shapes: "2. Design & Formen",
-      logo: "3. Logo-Overlay",
-      advanced: "4. Erweiterte Einstellungen",
+      frame: "3. Visueller Rahmen",
+      logo: "4. Logo-Overlay",
+      advanced: "5. Erweiterte Einstellungen",
       fgColor: "Vordergrundfarbe",
       bgColor: "Hintergrundfarbe",
       presets: "Farbvorlagen",
@@ -682,8 +855,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Visueller Rahmen",
       frameNone: "Kein Rahmen",
       frameClassic: "Klassischer Labelrand",
+      frameCapsule: "Kapsel-Rahmen",
+      frameMinimal: "Minimalistischer Rahmen",
+      frameTicket: "Ticket-Rahmen",
+      framePointer: "Zeiger-Rahmen",
+      framePhone: "Telefon-Attrappe",
+      frameShadow: "Schatten-Karte",
+      frameTopBottom: "Oben & Unten Rahmen",
+      frameTopLabel: "Oberer Text",
       frameLabel: "Rahmentext",
-      frameColor: "Rahmenfarbe"
+      frameColor: "Rahmenfarbe",
+      frameGlassmorphic: "Milchglas-Effekt",
+      frameNeon: "Neon-Cyberpunk",
+      frameViewfinder: "Kamera-Sucher",
+      frameStamp: "Retro-Stempel"
     },
     actions: {
       downloadPng: "PNG herunterladen",
@@ -743,6 +928,31 @@ export const translations: Record<string, Translations> = {
       events: "Schneller Check-in & Ticketbuchung",
       retail: "Kunden mit Produkten & Shop verbinden",
       marketing: "Konversionen messen & Kontakte sammeln"
+    },
+    errors: {
+      notFound: {
+        badge: "Fehler 404 • Seite nicht gefunden",
+        title: "In der digitalen Dimension verloren",
+        description: "Die gesuchte Seite oder das QR-Ziel existiert nicht, wurde verschoben oder ist abgelaufen. Finden wir den richtigen Weg.",
+        homeBtn: "Zurück zum QR-Generator",
+        scanBtn: "QR-Code scannen",
+        exploreTypes: "QR-Typen entdecken",
+        popularTitle: "Beliebte Ziele",
+        helpTitle: "Brauchen Sie Hilfe?",
+        helpDesc: "Wenn Sie glauben, dass ein Link defekt ist, kontaktieren Sie gerne unser Support-Team."
+      },
+      serverError: {
+        badge: "Fehler 500 • Fehler aufgetreten",
+        title: "Internes Systemsignal unterbrochen",
+        description: "Beim Laden dieser Seite ist ein unerwarteter Fehler aufgetreten. Keine Sorge: Ihr lokaler Generator und Ihre Daten sind sicher.",
+        retryBtn: "Seite neu laden",
+        homeBtn: "Zurück zum QR-Generator",
+        contactBtn: "Support kontaktieren",
+        statusTitle: "Systemdiagnose",
+        statusClient: "Client-Generator: Betriebsbereit",
+        statusStorage: "Lokaler Verlauf: Gesichert & intakt",
+        statusReady: "Bereit zur Wiederherstellung"
+      }
     }
   },
   pt: {
@@ -759,7 +969,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Leitor",
       bulk: "QR em Massa",
       industries: "Setores",
-      types: "Tipos de QR"
+      types: "Tipos de QR",
+      privacyPolicy: "Política de Privacidade",
+      aboutUs: "Sobre Nós",
+      terms: "Termos e Condições",
+      contactUs: "Contato"
     },
     types: {
       url: "URL",
@@ -798,8 +1012,9 @@ export const translations: Record<string, Translations> = {
       title: "Personalizar Design do QR",
       colors: "1. Cores e Degradês",
       shapes: "2. Design e Formas",
-      logo: "3. Logotipo Sobreposto",
-      advanced: "4. Configurações Avançadas",
+      frame: "3. Moldura Visual",
+      logo: "4. Logotipo Sobreposto",
+      advanced: "5. Configurações Avançadas",
       fgColor: "Cor do Primeiro Plano",
       bgColor: "Cor do Fundo",
       presets: "Cores Predefinidas",
@@ -831,8 +1046,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Moldura Visual",
       frameNone: "Sem Moldura",
       frameClassic: "Borda de Etiqueta Clássica",
+      frameCapsule: "Borda de Cápsula",
+      frameMinimal: "Borda Minimalista",
+      frameTicket: "Borda de Ticket",
+      framePointer: "Borda com Seta",
+      framePhone: "Modelo de Telefone",
+      frameShadow: "Cartão Sombreado",
+      frameTopBottom: "Borda Superior/Inferior",
+      frameTopLabel: "Texto Superior",
       frameLabel: "Texto da Moldura",
-      frameColor: "Cor da Moldura"
+      frameColor: "Cor da Moldura",
+      frameGlassmorphic: "Efeito Vidro Fosco",
+      frameNeon: "Neon Cyberpunk",
+      frameViewfinder: "Visor de Câmera",
+      frameStamp: "Selo Retrô"
     },
     actions: {
       downloadPng: "Baixar PNG",
@@ -892,304 +1119,31 @@ export const translations: Record<string, Translations> = {
       events: "Check-in rápido e venda de ingressos",
       retail: "Conectar clientes a produtos e lojas",
       marketing: "Medir conversões e listas de e-mail"
-    }
-  },
-  zh: {
-    title: "在线二维码生成器",
-    subtitle: "秒级创建自定义二维码。无需注册或登录。",
-    tagline: "即刻创建自定义二维码。",
-    description: "数秒内生成具有自定义颜色、形状和徽标的高分辨率矢量二维码。100% 免费，无水印。",
-    dir: 'ltr',
-    nav: {
-      generator: "生成器",
-      history: "历史记录",
-      api: "API 接口",
-      faq: "常见问题",
-      scanner: "扫码器",
-      bulk: "批量生成",
-      industries: "行业应用",
-      types: "二维码分类"
     },
-    types: {
-      url: "网址",
-      text: "文本",
-      wifi: "Wi-Fi",
-      contact: "名片",
-      whatsapp: "WhatsApp",
-      email: "电子邮件",
-      phone: "电话",
-      crypto: "加密货币",
-      social: "社交媒体",
-      feedback: "反馈"
-    },
-    fields: {
-      urlPlaceholder: "输入网址（例如：https://example.com）",
-      textPlaceholder: "在此处输入纯文本...",
-      wifiSsid: "网络名称 (SSID)",
-      wifiPassword: "密码",
-      wifiEncryption: "安全类型",
-      contactName: "姓名",
-      contactPhone: "电话号码",
-      contactEmail: "电子邮件地址",
-      contactCompany: "公司",
-      contactAddress: "地址",
-      whatsappPhone: "WhatsApp 号码（带国家代码，例如：+8613800000000）",
-      whatsappMessage: "预填消息（可选）",
-      emailTo: "收件人邮箱",
-      emailSubject: "主题",
-      emailBody: "邮件正文",
-      phonePlaceholder: "电话号码（带国家代码）",
-      cryptoAddress: "钱包地址",
-      cryptoCurrency: "加密货币类型",
-      cryptoAmount: "金额（可选）"
-    },
-    customization: {
-      title: "自定义二维码设计",
-      colors: "1. 颜色与渐变",
-      shapes: "2. 形状与样式",
-      logo: "3. 插入徽标 (Logo)",
-      advanced: "4. 高级设置",
-      fgColor: "前景色",
-      bgColor: "背景色",
-      presets: "预设颜色",
-      bodyStyle: "二维码码点样式",
-      eyeBorder: "定位角边框样式",
-      eyeCenter: "定位角中心样式",
-      logoUpload: "上传自定义 Logo（拖拽或点击）",
-      logoPreset: "选择预设 Logo",
-      logoNone: "无 Logo / 清除",
-      errorCorrection: "容错级别 (ECC)",
-      errorCorrectionDesc: "使用 Logo 时，建议选择 High 级别。",
-      size: "尺寸大小 (像素)",
-      styles: {
-        square: "直角方形",
-        dots: "圆点样式",
-        rounded: "圆角方形",
-        classy: "艺术化",
-        extraRounded: "超圆角"
+    errors: {
+      notFound: {
+        badge: "Erro 404 • Página não encontrada",
+        title: "Perdido na dimensão digital",
+        description: "A página ou o destino do código QR que procura não existe, foi movido ou expirou. Vamos colocá-lo de volta no caminho certo.",
+        homeBtn: "Voltar ao Gerador QR",
+        scanBtn: "Escanear Código QR",
+        exploreTypes: "Explorar tipos de QR",
+        popularTitle: "Destinos populares",
+        helpTitle: "Precisa de ajuda?",
+        helpDesc: "Se acredita que este link está corrompido, sinta-se à vontade para contactar a nossa equipa."
       },
-      colorType: "着色模式",
-      solid: "单色/纯色",
-      gradient: "渐变色",
-      gradType: "渐变模式",
-      linear: "线性渐变",
-      radial: "径向渐变",
-      gradStart: "起点颜色",
-      gradEnd: "终点颜色",
-      gradAngle: "旋转角度",
-      frameStyle: "视觉外框",
-      frameNone: "无外框",
-      frameClassic: "经典标签边框",
-      frameLabel: "标签文字",
-      frameColor: "外框颜色"
-    },
-    actions: {
-      downloadPng: "下载 PNG",
-      downloadSvg: "下载 SVG",
-      copySuccess: "已复制!",
-      historyTitle: "本地保存的历史记录",
-      historyEmpty: "暂无历史记录。生成并下载二维码后将自动保存在这里！",
-      historyDate: "创建时间",
-      historyRecall: "编辑此码",
-      historyDelete: "删除"
-    },
-    scanner: {
-      title: "在线扫描二维码",
-      uploadDesc: "拖入二维码图片到此，或点击上传文件",
-      cameraStart: "打开摄像头扫描",
-      cameraStop: "关闭摄像头",
-      resultTitle: "扫描结果",
-      copyBtn: "复制内容",
-      copyToast: "结果已复制到剪贴板！",
-      noCamera: "无法使用摄像头或已被拒绝访问。",
-      scanning: "请将二维码放入摄像头对焦框中..."
-    },
-    bulk: {
-      title: "批量二维码生成器",
-      inputLabel: "输入链接（一行一个）",
-      placeholder: "https://example1.com\nhttps://example2.com\nhttps://example3.com",
-      generateBtn: "生成并下载 ZIP",
-      successToast: "ZIP 压缩包已成功生成并下载！",
-      progress: "生成中... 请稍候"
-    },
-    apiTitle: "开发者 API 集成",
-    apiDesc: "通过简单的客户端代码片段，在您的网站或应用程序中集成即时二维码生成功能。",
-    industries: {
-      restaurants: "餐饮与咖啡馆",
-      realEstate: "房地产",
-      education: "教师与教育",
-      events: "活动与门票",
-      retail: "零售与电子商务",
-      marketing: "营销活动"
-    },
-    typeDescriptions: {
-      url: "链接到网站和在线网页",
-      text: "编码纯文本和离线消息",
-      wifi: "扫码自动连接 Wi-Fi 网络",
-      contact: "分享电子名片和联系方式",
-      whatsapp: "发送预填内容的聊天消息",
-      crypto: "扫码接收加密货币付款",
-      email: "起草预填的主题与邮件正文",
-      phone: "拨打电话号码或发送短信",
-      social: "聚合跳转所有社交媒体主页",
-      feedback: "收集客户评价和星级打分"
-    },
-    industryDescriptions: {
-      restaurants: "无接触数字化菜单与餐桌扫码点餐",
-      realEstate: "将实体指示牌桥接到虚拟房产看房",
-      education: "互动式课堂学习、作业与电子讲义",
-      events: "快捷的电子门票验票签到与活动预订",
-      retail: "无缝引导顾客查看商品详情与店铺促销",
-      marketing: "精准追踪广告效果并扩大邮件订阅列表"
-    }
-  },
-  hi: {
-    title: "ऑनलाइन क्यूआर कोड जनरेटर",
-    subtitle: "एक सेकंड में कस्टमाइज़्ड क्यूआर कोड बनाएं। बिना किसी साइनइन या लॉगिन के।",
-    tagline: "तुरंत बनाएं कस्टमाइज़्ड क्यूआर कोड।",
-    description: "कुछ ही सेकंड में कस्टम रंगों, आकारों और लोगो के साथ उच्च-रिज़ॉल्यूशन,  क्यूआर कोड जेनरेट करें। बिना किसी वॉटरमार्क के 100% मुफ़्त।",
-    dir: 'ltr',
-    nav: {
-      generator: "जनरेटर",
-      history: "हाल के क्यूआर कोड",
-      api: "API कोड",
-      faq: "सामान्य प्रश्न",
-      scanner: "स्कैनर",
-      bulk: "थोक क्यूआर",
-      industries: "उद्योग",
-      types: "क्यूआर प्रकार"
-    },
-    types: {
-      url: "यूआरएल",
-      text: "टेक्स्ट",
-      wifi: "वाई-फाई",
-      contact: "संपर्क (vCard)",
-      whatsapp: "व्हाट्सएप",
-      email: "ईमेल",
-      phone: "फ़ोन",
-      crypto: "क्रिप्टो",
-      social: "सोशल मीडिया",
-      feedback: "प्रतिक्रिया"
-    },
-    fields: {
-      urlPlaceholder: "यूआरएल दर्ज करें (जैसे, https://example.com)",
-      textPlaceholder: "यहाँ अपना टेक्स्ट लिखें...",
-      wifiSsid: "नेटवर्क का नाम (SSID)",
-      wifiPassword: "पासवर्ड",
-      wifiEncryption: "सुरक्षा का प्रकार",
-      contactName: "पूरा नाम",
-      contactPhone: "फ़ोन नंबर",
-      contactEmail: "ईमेल पता",
-      contactCompany: "कंपनी",
-      contactAddress: "पता",
-      whatsappPhone: "व्हाट्सएप नंबर (देश कोड के साथ, जैसे, +919876543210)",
-      whatsappMessage: "पहले से लिखा संदेश (वैकल्पिक)",
-      emailTo: "प्राप्तकर्ता का ईमेल",
-      emailSubject: "विषय",
-      emailBody: "ईमेल का मुख्य भाग",
-      phonePlaceholder: "फ़ोन नंबर (देश कोड के साथ)",
-      cryptoAddress: "वॉलेट का पता",
-      cryptoCurrency: "क्रिप्टोकरेंसी",
-      cryptoAmount: "राशि (वैकल्पिक)"
-    },
-    customization: {
-      title: "क्यूआर डिज़ाइन बदलें",
-      colors: "1. रंग और ग्रेडिएंट",
-      shapes: "2. डिज़ाइन और आकार",
-      logo: "3. लोगो लगाएं",
-      advanced: "4. उन्नत सेटिंग्स",
-      fgColor: "मुख्य रंग (Foreground)",
-      bgColor: "पृष्ठभूमि रंग (Background)",
-      presets: "रंग के प्रीसेट",
-      bodyStyle: "डॉट का पैटर्न",
-      eyeBorder: "आई फ्रेम की शैली",
-      eyeCenter: "आई बॉल की शैली",
-      logoUpload: "कस्टम लोगो अपलोड करें (ड्रैग करें या क्लिक करें)",
-      logoPreset: "पहले से मौजूद लोगो चुनें",
-      logoNone: "कोई लोगो नहीं / हटाएं",
-      errorCorrection: "त्रुटि सुधार स्तर (ECC)",
-      errorCorrectionDesc: "लोगो जोड़ते समय 'High' सुधार स्तर की अनुशंसा की जाती है।",
-      size: "आकार (पिक्सेल)",
-      styles: {
-        square: "चौकोर",
-        dots: "बिंदु (Dots)",
-        rounded: "घूमा हुआ चौकोर",
-        classy: "क्लासी",
-        extraRounded: "ज्यादा घूमा हुआ"
-      },
-      colorType: "रंग का प्रकार",
-      solid: "सॉलिड रंग",
-      gradient: "ग्रेडिएंट (रंग मिश्रण)",
-      gradType: "ग्रेडिएंट का प्रकार",
-      linear: "रेखीय (Linear)",
-      radial: "त्रिज्यीय (Radial)",
-      gradStart: "शुरुआती रंग",
-      gradEnd: "अंतिम रंग",
-      gradAngle: "घूर्णन कोण",
-      frameStyle: "विजुअल फ्रेम",
-      frameNone: "कोई फ्रेम नहीं",
-      frameClassic: "क्लासिक टैग बॉर्डर",
-      frameLabel: "फ्रेम का टेक्स्ट",
-      frameColor: "फ्रेम का रंग"
-    },
-    actions: {
-      downloadPng: "PNG डाउनलोड करें",
-      downloadSvg: "SVG डाउनलोड करें",
-      copySuccess: "कॉपी हो गया!",
-      historyTitle: "आपका स्थानीय इतिहास",
-      historyEmpty: "कोई इतिहास नहीं मिला। इसे यहाँ सहेजने के लिए एक क्यूआर कोड बनाएं और डाउनलोड करें!",
-      historyDate: "बनाने की तारीख",
-      historyRecall: "कोड बदलें",
-      historyDelete: "हटाएं"
-    },
-    scanner: {
-      title: "क्यूआर कोड स्कैन करें",
-      uploadDesc: "यहाँ एक क्यूआर कोड इमेज खींचकर लाएँ, या अपलोड करने के लिए क्लिक करें",
-      cameraStart: "कैमरा स्कैनर शुरू करें",
-      cameraStop: "कैमरा बंद करें",
-      resultTitle: "स्कैन किया परिणाम",
-      copyBtn: "परिणाम कॉपी करें",
-      copyToast: "परिणाम क्लिपबोर्ड पर कॉपी हो गया!",
-      noCamera: "कैमरा उपलब्ध नहीं है या अनुमति नहीं है।",
-      scanning: "कैमरा फ्रेम में क्यूआर कोड लाएँ..."
-    },
-    bulk: {
-      title: "थोक क्यूआर कोड जनरेटर",
-      inputLabel: "लिंक दर्ज करें (प्रति पंक्ति एक)",
-      placeholder: "https://example1.com\nhttps://example2.com\nhttps://example3.com",
-      generateBtn: "बनाएं और ZIP डाउनलोड करें",
-      successToast: "ZIP फाइल सफलतापूर्वक बनाई और डाउनलोड की गई!",
-      progress: "बन रहा है... कृपया प्रतीक्षा करें"
-    },
-    apiTitle: "डेवलपर API एकीकरण",
-    apiDesc: "एक साधारण क्लाइंट-साइड स्निपेट के साथ अपनी वेबसाइट या एप्लिकेशन में त्वरित क्यूआर कोड जनरेशन को एकीकृत करें।",
-    industries: {
-      restaurants: "रेस्तरां और कैफे",
-      realEstate: "रियल एस्टेट",
-      education: "शिक्षक और शिक्षा",
-      events: "इवेंट और टिकट",
-      retail: "रिटेल और ई-कॉमर्स",
-      marketing: "मार्केटिंग अभियान"
-    },
-    typeDescriptions: {
-      url: "वेबसाइटों और ऑनलाइन पेजों के लिए लिंक",
-      text: "सादा पाठ संदेश कोड करें",
-      wifi: "वाई-फाई से स्वचालित रूप से कनेक्ट करें",
-      contact: "डिजिटल संपर्क कार्ड साझा करें",
-      whatsapp: "पहले से लिखे संदेश भेजें",
-      crypto: "क्रिप्टोकरेंसी भुगतान स्वीकार करें",
-      email: "पहले से भरे हुए ईमेल ड्राफ्ट करें",
-      phone: "कॉल करें या एसएमएस भेजें",
-      social: "सोशल मीडिया प्रोफाइल लिंक करें",
-      feedback: "समीक्षाएं और रेटिंग एकत्र करें"
-    },
-    industryDescriptions: {
-      restaurants: "संपर्क रहित मेनू और टेबल ऑर्डरिंग",
-      realEstate: "वर्चुअल प्रॉपर्टी टूर के लिए क्यूआर",
-      education: "इंटरैक्टिव वर्कशीट और क्लासरूम लर्निंग",
-      events: "त्वरित टिकट चेक-इन और बुकिंग",
-      retail: "ग्राहकों को उत्पाद और स्टोर से जोड़ें",
-      marketing: "रूपांतरण ट्रैक करें और मेलिंग सूची बढ़ाएं"
+      serverError: {
+        badge: "Erro 500 • Falha detectada",
+        title: "Sinal do sistema interrompido",
+        description: "Ocorreu uma falha inesperada ao carregar esta página. Não se preocupe, o motor de geração local e os seus dados estão seguros.",
+        retryBtn: "Recarregar página",
+        homeBtn: "Voltar ao Gerador QR",
+        contactBtn: "Contactar suporte",
+        statusTitle: "Diagnóstico do sistema",
+        statusClient: "Gerador do cliente: Operacional",
+        statusStorage: "Histórico local: Salvo e intacto",
+        statusReady: "Pronto para recuperação"
+      }
     }
   },
   ar: {
@@ -1206,7 +1160,11 @@ export const translations: Record<string, Translations> = {
       scanner: "الماسح الضوئي",
       bulk: "توليد جماعي",
       industries: "القطاعات",
-      types: "أنواع الرموز"
+      types: "أنواع الرموز",
+      privacyPolicy: "سياسة الخصوصية",
+      aboutUs: "من نحن",
+      terms: "الشروط والأحكام",
+      contactUs: "اتصل بنا"
     },
     types: {
       url: "رابط (URL)",
@@ -1245,8 +1203,9 @@ export const translations: Record<string, Translations> = {
       title: "تخصيص تصميم رمز QR",
       colors: "1. الألوان والتدرجات",
       shapes: "2. الأشكال والتصميم",
-      logo: "3. إضافة شعار (Logo)",
-      advanced: "4. إعدادات متقدمة",
+      frame: "3. إطار خارجي",
+      logo: "4. إضافة شعار (Logo)",
+      advanced: "5. إعدادات متقدمة",
       fgColor: "اللون الأساسي",
       bgColor: "لون الخلفية",
       presets: "ألوان جاهزة",
@@ -1278,8 +1237,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "إطار خارجي",
       frameNone: "بدون إطار",
       frameClassic: "حدود كلاسيكية للنص",
+      frameCapsule: "إطار الكبسولة",
+      frameMinimal: "إطار مبسط",
+      frameTicket: "إطار التذكرة",
+      framePointer: "إطار سهم موجه",
+      framePhone: "إطار نموذج هاتف",
+      frameShadow: "بطاقة مع ظل",
+      frameTopBottom: "إطار علوي وسفلي",
+      frameTopLabel: "النص العلوي",
       frameLabel: "نص الإطار",
-      frameColor: "لون الإطار"
+      frameColor: "لون الإطار",
+      frameGlassmorphic: "تأثير الزجاج المصنفر",
+      frameNeon: "نيون سايبربانك",
+      frameViewfinder: "محدد منظر الكاميرا",
+      frameStamp: "طابع عتيق"
     },
     actions: {
       downloadPng: "تحميل PNG",
@@ -1339,6 +1310,31 @@ export const translations: Record<string, Translations> = {
       events: "حجز التذاكر وتسجيل الدخول السريع",
       retail: "ربط العملاء بالمنتجات والمتاجر",
       marketing: "تتبع التحويلات وزيادة القوائم البريدية"
+    },
+    errors: {
+      notFound: {
+        badge: "خطأ 404 • الصفحة غير موجودة",
+        title: "ضائع في البُعد الرقمي",
+        description: "الصفحة أو وجهة رمز الاستجابة السريعة التي تبحث عنها غير موجودة أو تم نقلها أو انتهت صلاحيتها. دعنا نعيدك إلى المسار الصحيح.",
+        homeBtn: "العودة إلى منشئ QR",
+        scanBtn: "مسح رمز QR",
+        exploreTypes: "استكشف أنواع QR",
+        popularTitle: "الوجهات الشائعة",
+        helpTitle: "هل تحتاج إلى مساعدة؟",
+        helpDesc: "إذا كنت تعتقد أن هذا رابط معطل، فلا تتردد في التواصل مع فريق الدعم لدينا."
+      },
+      serverError: {
+        badge: "خطأ 500 • حدث خلل في النظام",
+        title: "انقطاع إشارة النظام الداخلي",
+        description: "حدث خطأ غير متوقع أثناء معالجة هذه الصفحة. لا تقلق، محرك إنشاء الرموز المحلي وبياناتك في أمان تام.",
+        retryBtn: "إعادة تحميل الصفحة",
+        homeBtn: "العودة إلى منشئ QR",
+        contactBtn: "الاتصال بالدعم",
+        statusTitle: "تشخيص النظام",
+        statusClient: "محرك العميل: يعمل بنجاح",
+        statusStorage: "السجل المحلي: محفوظ وسليم",
+        statusReady: "جاهز للاستعادة"
+      }
     }
   },
   ru: {
@@ -1355,7 +1351,11 @@ export const translations: Record<string, Translations> = {
       scanner: "Сканер",
       bulk: "Массовый QR",
       industries: "Отрасли",
-      types: "Типы QR"
+      types: "Типы QR",
+      privacyPolicy: "Политика конфиденциальности",
+      aboutUs: "О нас",
+      terms: "Условия и положения",
+      contactUs: "Контакты"
     },
     types: {
       url: "Ссылка (URL)",
@@ -1394,8 +1394,9 @@ export const translations: Record<string, Translations> = {
       title: "Настройка дизайна QR",
       colors: "1. Цвета и Градиенты",
       shapes: "2. Дизайн и формы",
-      logo: "3. Наложение логотипа",
-      advanced: "4. Дополнительные настройки",
+      frame: "3. Визуальная рамка",
+      logo: "4. Наложение логотипа",
+      advanced: "5. Дополнительные настройки",
       fgColor: "Основной цвет (передний план)",
       bgColor: "Цвет фона",
       presets: "Цветовые пресеты",
@@ -1427,8 +1428,20 @@ export const translations: Record<string, Translations> = {
       frameStyle: "Визуальная рамка",
       frameNone: "Без рамки",
       frameClassic: "Классическая рамка с текстом",
-      frameLabel: "Текст на рамке",
-      frameColor: "Цвет рамки"
+      frameCapsule: "Рамка-капсула",
+      frameMinimal: "Минималистичная рамка",
+      frameTicket: "Рамка-билет",
+      framePointer: "Рамка со стрелкой",
+      framePhone: "Рамка-телефон",
+      frameShadow: "Карточка с тенью",
+      frameTopBottom: "Двусторонняя рамка",
+      frameTopLabel: "Верхний текст",
+      frameLabel: "Текст рамки",
+      frameColor: "Цвет рамки",
+      frameGlassmorphic: "Матовое стекло с подсветкой",
+      frameNeon: "Неоновый киберпанк",
+      frameViewfinder: "Видоискатель камеры",
+      frameStamp: "Ретро-марка"
     },
     actions: {
       downloadPng: "Скачать PNG",
@@ -1488,6 +1501,604 @@ export const translations: Record<string, Translations> = {
       events: "Быстрая регистрация билетов и бронирование",
       retail: "Связь клиентов с товарами и магазинами",
       marketing: "Отслеживание конверсий и сбор контактов"
+    },
+    errors: {
+      notFound: {
+        badge: "Ошибка 404 • Страница не найдена",
+        title: "Затерялись в цифровом пространстве",
+        description: "Страница или назначение QR-кода не существует, перемещено или устарело. Давайте вернемся в нужное русло.",
+        homeBtn: "Вернуться к генератору QR",
+        scanBtn: "Сканировать QR-код",
+        exploreTypes: "Обзор типов QR",
+        popularTitle: "Популярные разделы",
+        helpTitle: "Нужна помощь?",
+        helpDesc: "Если вы считаете, что ссылка неисправна, свяжитесь с нашей службой поддержки."
+      },
+      serverError: {
+        badge: "Ошибка 500 • Ошибка сервера",
+        title: "Внутренний сигнал системы прерван",
+        description: "При отображении страницы произошел непредвиденный сбой. Не волнуйтесь, генератор на стороне клиента и ваши данные в безопасности.",
+        retryBtn: "Обновить страницу",
+        homeBtn: "Вернуться к генератору QR",
+        contactBtn: "Служба поддержки",
+        statusTitle: "Диагностика системы",
+        statusClient: "Клиентский генератор: Работает",
+        statusStorage: "Локальная история: Сохранена и в порядке",
+        statusReady: "Готов к восстановлению"
+      }
+    }
+  },
+  it: {
+    title: "Generatore di Codici QR Online",
+    subtitle: "Crea codici QR personalizzati in un secondo. Nessuna registrazione richiesta.",
+    tagline: "Crea codici QR personalizzati. All'istante.",
+    description: "Genera codici QR vettoriali ad alta risoluzione con colori, forme e loghi personalizzati in pochi secondi. 100% gratuito e senza filigrana.",
+    dir: 'ltr',
+    nav: {
+      generator: "Generatore",
+      history: "Codici QR Recenti",
+      api: "Snippet API",
+      faq: "FAQ",
+      scanner: "Scanner",
+      bulk: "QR Multipli",
+      industries: "Settori",
+      types: "Tipi di QR",
+      privacyPolicy: "Informativa sulla Privacy",
+      aboutUs: "Chi Siamo",
+      terms: "Termini e Condizioni",
+      contactUs: "Contattaci"
+    },
+    types: {
+      url: "URL",
+      text: "Testo",
+      wifi: "Wi-Fi",
+      contact: "vCard",
+      whatsapp: "WhatsApp",
+      email: "Email",
+      phone: "Telefono",
+      crypto: "Cripto",
+      social: "Social Media",
+      feedback: "Feedback"
+    },
+    fields: {
+      urlPlaceholder: "Inserisci URL (es. https://esempio.it)",
+      textPlaceholder: "Inserisci qui il testo semplice...",
+      wifiSsid: "Nome Rete (SSID)",
+      wifiPassword: "Password",
+      wifiEncryption: "Tipo di Protezione",
+      contactName: "Nome Completo",
+      contactPhone: "Numero di Telefono",
+      contactEmail: "Indirizzo Email",
+      contactCompany: "Azienda",
+      contactAddress: "Indirizzo",
+      whatsappPhone: "Numero WhatsApp (con prefisso int., es. +393331234567)",
+      whatsappMessage: "Messaggio Predefinito (opzionale)",
+      emailTo: "Indirizzo Email Destinatario",
+      emailSubject: "Oggetto",
+      emailBody: "Testo dell'Email",
+      phonePlaceholder: "Numero di Telefono (con prefisso int.)",
+      cryptoAddress: "Indirizzo Portafoglio",
+      cryptoCurrency: "Criptovaluta",
+      cryptoAmount: "Importo (opzionale)"
+    },
+    customization: {
+      title: "Personalizza il Design del QR",
+      colors: "1. Colori e Gradienti",
+      shapes: "2. Design e Forme",
+      frame: "3. Cornice Visiva",
+      logo: "4. Sovrapposizione Logo",
+      advanced: "5. Impostazioni Avanzate",
+      fgColor: "Colore Primo Piano",
+      bgColor: "Colore di Sfondo",
+      presets: "Preimpostazioni Colore",
+      bodyStyle: "Motivo del Corpo",
+      eyeBorder: "Stile Bordo Occhio",
+      eyeCenter: "Stile Centro Occhio",
+      logoUpload: "Carica Logo Personalizzato (Trascina o clicca)",
+      logoPreset: "Scegli Logo Preimpostato",
+      logoNone: "Nessun Logo / Rimuovi",
+      errorCorrection: "Livello di Correzione Errori",
+      errorCorrectionDesc: "Alto (H) è consigliato quando si aggiunge un logo.",
+      size: "Dimensione (pixel)",
+      styles: {
+        square: "Quadrato",
+        dots: "Punti",
+        rounded: "Arrotondato",
+        classy: "Elegante",
+        extraRounded: "Molto Arrotondato"
+      },
+      colorType: "Tipo di Colore",
+      solid: "Tinta Unita",
+      gradient: "Gradiente",
+      gradType: "Tipo di Gradiente",
+      linear: "Lineare",
+      radial: "Radiale",
+      gradStart: "Colore Iniziale",
+      gradEnd: "Colore Finale",
+      gradAngle: "Angolo di Rotazione",
+      frameStyle: "Cornice Visiva",
+      frameNone: "Nessuna Cornice",
+      frameClassic: "Bordo Cartellino Classico",
+      frameCapsule: "Cornice a Capsula",
+      frameMinimal: "Cornice Minimalista",
+      frameTicket: "Cornice Biglietto",
+      framePointer: "Cornice con Indicatore",
+      framePhone: "Mockup Smartphone",
+      frameShadow: "Scheda con Ombreggiatura",
+      frameTopBottom: "Cornice Superiore e Inferiore",
+      frameTopLabel: "Testo Superiore",
+      frameLabel: "Testo Cornice",
+      frameColor: "Colore Cornice",
+      frameGlassmorphic: "Effetto Vetro Sfumato",
+      frameNeon: "Neon Cyberpunk",
+      frameViewfinder: "Mirino Fotocamera",
+      frameStamp: "Timbro Vintage"
+    },
+    actions: {
+      downloadPng: "Scarica PNG",
+      downloadSvg: "Scarica SVG",
+      copySuccess: "Copiato!",
+      historyTitle: "Cronologia Locale",
+      historyEmpty: "Nessuna cronologia trovata. Genera e scarica un codice QR per salvarlo qui!",
+      historyDate: "Creato il",
+      historyRecall: "Modifica Codice",
+      historyDelete: "Rimuovi"
+    },
+    scanner: {
+      title: "Scansiona Codice QR",
+      uploadDesc: "Trascina qui un'immagine con codice QR o clicca per caricarla",
+      cameraStart: "Avvia Scanner Fotocamera",
+      cameraStop: "Ferma Fotocamera",
+      resultTitle: "Risultato Scansione",
+      copyBtn: "Copia Link",
+      copyToast: "Risultato copiato negli appunti!",
+      noCamera: "Fotocamera non disponibile o accesso negato.",
+      scanning: "Allinea il codice QR nell'inquadratura..."
+    },
+    bulk: {
+      title: "Generatore QR Multiplo",
+      inputLabel: "Inserisci i link (uno per riga)",
+      placeholder: "https://esempio1.com\nhttps://esempio2.com\nhttps://esempio3.com",
+      generateBtn: "Genera e Scarica ZIP",
+      successToast: "ZIP creato e scaricato con successo!",
+      progress: "Generazione in corso... Attendere"
+    },
+    apiTitle: "Integrazione API per Sviluppatori",
+    apiDesc: "Integra la generazione istantanea di codici QR nel tuo sito o applicazione con un semplice snippet lato client.",
+    industries: {
+      restaurants: "Ristoranti e Bar",
+      realEstate: "Immobiliare",
+      education: "Istruzione e Scuole",
+      events: "Eventi e Biglietti",
+      retail: "Vendita al Dettaglio ed E-commerce",
+      marketing: "Campagne di Marketing"
+    },
+    typeDescriptions: {
+      url: "Collega a siti web e pagine",
+      text: "Codifica messaggi di testo semplice",
+      wifi: "Connessione automatica al Wi-Fi",
+      contact: "Condividi biglietti da visita digitali",
+      whatsapp: "Invia messaggi WhatsApp precompilati",
+      crypto: "Accetta pagamenti in criptovaluta",
+      email: "Componi modelli email pronti",
+      phone: "Chiama o invia messaggi SMS",
+      social: "Collega a tutti i profili social",
+      feedback: "Raccogli recensioni e valutazioni"
+    },
+    industryDescriptions: {
+      restaurants: "Menu contactless e ordini al tavolo",
+      realEstate: "Collega cartelli immobiliari a tour virtuali",
+      education: "Schede didattiche e apprendimento interattivo",
+      events: "Check-in rapido per biglietti e prenotazioni",
+      retail: "Collega i clienti a prodotti e negozi",
+      marketing: "Monitora conversioni e fidelizza clienti"
+    },
+    errors: {
+      notFound: {
+        badge: "Errore 404 • Pagina Non Trovata",
+        title: "Perso nella Dimensione Digitale",
+        description: "La pagina o la destinazione del codice QR che stai cercando non esiste, è stata spostata o è scaduta. Torniamo sulla strada giusta.",
+        homeBtn: "Torna al Generatore QR",
+        scanBtn: "Scansiona un Codice QR",
+        exploreTypes: "Esplora Tipi di QR",
+        popularTitle: "Destinazioni Popolari",
+        helpTitle: "Hai bisogno di aiuto?",
+        helpDesc: "Se ritieni che si tratti di un link interrotto, non esitare a contattare il nostro team."
+      },
+      serverError: {
+        badge: "Errore 500 • Problema Rilevato",
+        title: "Segnale di Sistema Interrotto",
+        description: "Si è verificato un errore imprevisto durante il rendering della pagina. Il motore di generazione QR lato client e i dati locali sono al sicuro.",
+        retryBtn: "Ricarica Pagina",
+        homeBtn: "Torna al Generatore QR",
+        contactBtn: "Contatta il Supporto",
+        statusTitle: "Diagnostica di Sistema",
+        statusClient: "Generatore Client: Operativo",
+        statusStorage: "Cronologia Locale: Salvata e Intatta",
+        statusReady: "Pronto per il Ripristino"
+      }
+    }
+  },
+  ja: {
+    title: "オンラインQRコード作成ツール",
+    subtitle: "登録不要ですぐに作れる、高品質なカスタムQRコードジェネレーター。",
+    tagline: "カスタムQRコードを瞬時に作成。",
+    description: "お好みのカラー、形状、ロゴを組み合わせて高解像度ベクターQRコードを無料作成。透かしロゴなしで商用利用も可能です。",
+    dir: 'ltr',
+    nav: {
+      generator: "作成ツール",
+      history: "履歴",
+      api: "開発者API",
+      faq: "よくある質問",
+      scanner: "QRスキャナー",
+      bulk: "一括作成",
+      industries: "活用事例",
+      types: "QRタイプ一覧",
+      privacyPolicy: "プライバシーポリシー",
+      aboutUs: "当サイトについて",
+      terms: "利用規約",
+      contactUs: "お問い合わせ"
+    },
+    types: {
+      url: "URL",
+      text: "テキスト",
+      wifi: "Wi-Fi接続",
+      contact: "連絡先(vCard)",
+      whatsapp: "WhatsApp",
+      email: "メール",
+      phone: "電話・SMS",
+      crypto: "仮想通貨",
+      social: "SNSリンク",
+      feedback: "評価・レビュー"
+    },
+    fields: {
+      urlPlaceholder: "URLを入力 (例: https://example.com)",
+      textPlaceholder: "テキストをここに入力...",
+      wifiSsid: "ネットワーク名 (SSID)",
+      wifiPassword: "パスワード",
+      wifiEncryption: "暗号化方式",
+      contactName: "氏名",
+      contactPhone: "電話番号",
+      contactEmail: "メールアドレス",
+      contactCompany: "会社名・組織名",
+      contactAddress: "住所",
+      whatsappPhone: "WhatsApp番号 (国番号付き, 例: +819012345678)",
+      whatsappMessage: "定型メッセージ (任意)",
+      emailTo: "送信先メールアドレス",
+      emailSubject: "件名",
+      emailBody: "本文",
+      phonePlaceholder: "電話番号 (国番号付き)",
+      cryptoAddress: "ウォレットアドレス",
+      cryptoCurrency: "暗号資産",
+      cryptoAmount: "送金額 (任意)"
+    },
+    customization: {
+      title: "QRコードのデザインカスタマイズ",
+      colors: "1. カラー＆グラデーション",
+      shapes: "2. デザインと形状",
+      frame: "3. フレーム枠",
+      logo: "4. ロゴの追加",
+      advanced: "5. 詳細設定",
+      fgColor: "メインカラー",
+      bgColor: "背景カラー",
+      presets: "カラープリセット",
+      bodyStyle: "コード模様パターン",
+      eyeBorder: "角枠の形状",
+      eyeCenter: "角の中心形状",
+      logoUpload: "ロゴ画像をアップロード (ドラッグ＆ドロップまたはクリック)",
+      logoPreset: "プリセットロゴを選択",
+      logoNone: "ロゴなし / クリア",
+      errorCorrection: "誤り訂正レベル",
+      errorCorrectionDesc: "ロゴを追加する場合は「高 (H)」を推奨します。",
+      size: "画像サイズ (ピクセル)",
+      styles: {
+        square: "四角",
+        dots: "ドット",
+        rounded: "丸角",
+        classy: "クラシック",
+        extraRounded: "円形"
+      },
+      colorType: "カラー形式",
+      solid: "単色",
+      gradient: "グラデーション",
+      gradType: "グラデーションタイプ",
+      linear: "線形",
+      radial: "円形",
+      gradStart: "開始色",
+      gradEnd: "終了色",
+      gradAngle: "角度",
+      frameStyle: "ビジュアルフレーム",
+      frameNone: "フレームなし",
+      frameClassic: "クラシック枠",
+      frameCapsule: "カプセル枠",
+      frameMinimal: "ミニマル枠",
+      frameTicket: "チケット枠",
+      framePointer: "ポインター枠",
+      framePhone: "スマートフォン風",
+      frameShadow: "シャドウカード",
+      frameTopBottom: "上下フレーム",
+      frameTopLabel: "上部テキスト",
+      frameLabel: "フレームテキスト",
+      frameColor: "フレームカラー",
+      frameGlassmorphic: "グラスモーフィズム",
+      frameNeon: "ネオンサイバー",
+      frameViewfinder: "カメラファインダー",
+      frameStamp: "レトロスタンプ"
+    },
+    actions: {
+      downloadPng: "PNG画像を保存",
+      downloadSvg: "SVGベクターを保存",
+      copySuccess: "コピーしました！",
+      historyTitle: "作成履歴",
+      historyEmpty: "履歴はありません。QRコードを作成・保存するとここに表示されます。",
+      historyDate: "作成日時",
+      historyRecall: "再編集",
+      historyDelete: "削除"
+    },
+    scanner: {
+      title: "QRコードリーダー・スキャナー",
+      uploadDesc: "QRコード画像をここにドラッグ＆ドロップ、またはクリックして選択",
+      cameraStart: "カメラで読み取る",
+      cameraStop: "カメラを停止",
+      resultTitle: "読み取り結果",
+      copyBtn: "リンクをコピー",
+      copyToast: "クリップボードにコピーしました！",
+      noCamera: "カメラが利用できないか、アクセスが拒否されました。",
+      scanning: "QRコードを枠に合わせてください..."
+    },
+    bulk: {
+      title: "QRコード一括生成",
+      inputLabel: "リンクを入力 (1行に1つ)",
+      placeholder: "https://example1.com\nhttps://example2.com\nhttps://example3.com",
+      generateBtn: "一括作成してZIP保存",
+      successToast: "ZIPファイルが正常に作成・ダウンロードされました！",
+      progress: "生成中... しばらくお待ちください"
+    },
+    apiTitle: "開発者向けAPI連携",
+    apiDesc: "軽量なクライアントスクリプトで、Webサイトやアプリに瞬時のQRコード生成機能を組み込めます。",
+    industries: {
+      restaurants: "飲食店・カフェ",
+      realEstate: "不動産",
+      education: "教育・学校",
+      events: "イベント・チケット",
+      retail: "小売・EC店舗",
+      marketing: "マーケティング"
+    },
+    typeDescriptions: {
+      url: "WebサイトやLPへの直接リンク",
+      text: "テキストメッセージのエンコード",
+      wifi: "Wi-Fiネットワークへ自動接続",
+      contact: "電子名刺(vCard)の連絡先共有",
+      whatsapp: "定型文付きWhatsAppメッセージ",
+      crypto: "暗号資産・仮想通貨の支払い受付",
+      email: "件名や本文入りのメール作成",
+      phone: "電話発信やSMS送信",
+      social: "各SNSプロフィールへのリンク",
+      feedback: "口コミや顧客アンケートの収集"
+    },
+    industryDescriptions: {
+      restaurants: "非接触テーブルメニューとセルフオーダー",
+      realEstate: "看板からバーチャル内覧ツアーへ誘導",
+      education: "教材プリントやインタラクティブな学習",
+      events: "電子チケットのスムーズな入場受付",
+      retail: "商品パッケージから店舗ページへ接続",
+      marketing: "キャンペーン効果測定と会員登録の促進"
+    },
+    errors: {
+      notFound: {
+        badge: "404 エラー • ページが見つかりません",
+        title: "デジタル空間で見失いました",
+        description: "お探しのページまたはQRコードのリンク先は存在しないか、移動または期限切れの可能性があります。",
+        homeBtn: "QR作成ツールに戻る",
+        scanBtn: "QRコードをスキャン",
+        exploreTypes: "QRタイプ一覧を見る",
+        popularTitle: "よく使われているページ",
+        helpTitle: "お困りですか？",
+        helpDesc: "リンクの不具合と思われる場合は、サポートまでお気軽にお問い合わせください。"
+      },
+      serverError: {
+        badge: "500 エラー • システムエラー",
+        title: "システム信号が中断されました",
+        description: "ページの表示中に予期せぬエラーが発生しました。ブラウザ内のQR生成エンジンとお手元のデータは安全です。",
+        retryBtn: "ページを再読み込み",
+        homeBtn: "QR作成ツールに戻る",
+        contactBtn: "サポートへ連絡",
+        statusTitle: "システム診断",
+        statusClient: "クライアント生成エンジン: 正常稼働中",
+        statusStorage: "ローカル保存履歴: 正常に保護されています",
+        statusReady: "復旧準備完了"
+      }
+    }
+  },
+  ko: {
+    title: "온라인 QR 코드 생성기",
+    subtitle: "회원가입 없이 1초 만에 맞춤형 QR 코드를 무료로 제작하세요.",
+    tagline: "나만의 맞춤 QR 코드를 즉시 생성하세요.",
+    description: "원하는 색상, 디자인, 로고를 조합하여 고해상도 벡터 QR 코드를 몇 초 만에 무료로 생성하세요. 워터마크가 없습니다.",
+    dir: 'ltr',
+    nav: {
+      generator: "생성기",
+      history: "최근 QR 코드",
+      api: "API 스니펫",
+      faq: "자주 묻는 질문",
+      scanner: "스캐너",
+      bulk: "대량 생성",
+      industries: "활용 분야",
+      types: "QR 종류",
+      privacyPolicy: "개인정보처리방침",
+      aboutUs: "소개",
+      terms: "이용약관",
+      contactUs: "문의하기"
+    },
+    types: {
+      url: "웹사이트 URL",
+      text: "텍스트",
+      wifi: "와이파이",
+      contact: "연락처(vCard)",
+      whatsapp: "WhatsApp",
+      email: "이메일",
+      phone: "전화·SMS",
+      crypto: "암호화폐",
+      social: "소셜 미디어",
+      feedback: "피드백·리뷰"
+    },
+    fields: {
+      urlPlaceholder: "URL 입력 (예: https://example.com)",
+      textPlaceholder: "텍스트를 입력하세요...",
+      wifiSsid: "네트워크 이름 (SSID)",
+      wifiPassword: "비밀번호",
+      wifiEncryption: "보안 방식",
+      contactName: "이름",
+      contactPhone: "전화번호",
+      contactEmail: "이메일 주소",
+      contactCompany: "회사 또는 소속",
+      contactAddress: "주소",
+      whatsappPhone: "WhatsApp 번호 (국가번호 포함, 예: +821012345678)",
+      whatsappMessage: "사전 작성 메시지 (선택 사항)",
+      emailTo: "받는 사람 이메일",
+      emailSubject: "제목",
+      emailBody: "이메일 내용",
+      phonePlaceholder: "전화번호 (국가번호 포함)",
+      cryptoAddress: "지갑 주소",
+      cryptoCurrency: "암호화폐 종류",
+      cryptoAmount: "금액 (선택 사항)"
+    },
+    customization: {
+      title: "QR 디자인 맞춤 설정",
+      colors: "1. 색상 및 그라데이션",
+      shapes: "2. 모양 및 디자인",
+      frame: "3. 비주얼 프레임",
+      logo: "4. 로고 추가",
+      advanced: "5. 고급 설정",
+      fgColor: "전경 색상",
+      bgColor: "배경 색상",
+      presets: "색상 프리셋",
+      bodyStyle: "본체 패턴",
+      eyeBorder: "모서리 외곽 모양",
+      eyeCenter: "모서리 내부 모양",
+      logoUpload: "사용자 로고 업로드 (드래그 앤 드롭 또는 클릭)",
+      logoPreset: "프리셋 로고 선택",
+      logoNone: "로고 없음 / 제거",
+      errorCorrection: "오류 복원 수준",
+      errorCorrectionDesc: "로고 삽입 시 '높음(H)' 설정을 권장합니다.",
+      size: "크기 (픽셀)",
+      styles: {
+        square: "기본 사각",
+        dots: "도트",
+        rounded: "둥근 사각",
+        classy: "클래식",
+        extraRounded: "원형"
+      },
+      colorType: "색상 유형",
+      solid: "단색",
+      gradient: "그라데이션",
+      gradType: "그라데이션 방향",
+      linear: "선형",
+      radial: "원형",
+      gradStart: "시작 색상",
+      gradEnd: "끝 색상",
+      gradAngle: "회전 각도",
+      frameStyle: "비주얼 프레임",
+      frameNone: "프레임 없음",
+      frameClassic: "클래식 태그 테두리",
+      frameCapsule: "캡슐 프레임",
+      frameMinimal: "미니멀 프레임",
+      frameTicket: "티켓 프레임",
+      framePointer: "포인터 프레임",
+      framePhone: "스마트폰 목업",
+      frameShadow: "그림자 카드",
+      frameTopBottom: "상하 프레임",
+      frameTopLabel: "상단 문구",
+      frameLabel: "프레임 문구",
+      frameColor: "프레임 색상",
+      frameGlassmorphic: "글래스모피즘",
+      frameNeon: "네온 사이버펑크",
+      frameViewfinder: "카메라 뷰파인더",
+      frameStamp: "레트로 스탬프"
+    },
+    actions: {
+      downloadPng: "PNG 다운로드",
+      downloadSvg: "SVG 다운로드",
+      copySuccess: "복사되었습니다!",
+      historyTitle: "내 로컬 보관함",
+      historyEmpty: "저장된 기록이 없습니다. QR 코드를 생성하고 다운로드하면 여기에 보관됩니다!",
+      historyDate: "생성일",
+      historyRecall: "코드 편집",
+      historyDelete: "삭제"
+    },
+    scanner: {
+      title: "QR 코드 스캐너",
+      uploadDesc: "QR 코드 이미지를 드래그 앤 드롭하거나 클릭하여 업로드하세요",
+      cameraStart: "카메라 스캔 시작",
+      cameraStop: "카메라 중지",
+      resultTitle: "스캔 결과",
+      copyBtn: "링크 복사",
+      copyToast: "결과가 클립보드에 복사되었습니다!",
+      noCamera: "카메라를 사용할 수 없거나 접근이 거부되었습니다.",
+      scanning: "카메라 화면에 QR 코드를 맞춰주세요..."
+    },
+    bulk: {
+      title: "QR 코드 대량 생성기",
+      inputLabel: "링크 입력 (한 줄에 하나씩)",
+      placeholder: "https://example1.com\nhttps://example2.com\nhttps://example3.com",
+      generateBtn: "대량 생성 및 ZIP 다운로드",
+      successToast: "ZIP 파일이 성공적으로 생성되어 다운로드되었습니다!",
+      progress: "생성 중입니다... 잠시만 기다려주세요"
+    },
+    apiTitle: "개발자 API 연동",
+    apiDesc: "가벼운 클라이언트 스크립트를 통해 웹사이트나 앱에 즉각적인 QR 코드 생성 기능을 손쉽게 연동하세요.",
+    industries: {
+      restaurants: "식당 및 카페",
+      realEstate: "부동산",
+      education: "교육 및 학교",
+      events: "행사 및 티켓",
+      retail: "소매 및 이커머스",
+      marketing: "마케팅 캠페인"
+    },
+    typeDescriptions: {
+      url: "웹사이트 및 랜딩페이지 연결",
+      text: "일반 텍스트 메시지 인코딩",
+      wifi: "비밀번호 없이 Wi-Fi 자동 연결",
+      contact: "디지털 명함(vCard) 연락처 공유",
+      whatsapp: "사전 작성된 WhatsApp 메시지 전송",
+      crypto: "암호화폐 지갑 결제 수령",
+      email: "제목과 본문이 포함된 이메일 작성",
+      phone: "전화 걸기 또는 SMS 문자 전송",
+      social: "모든 소셜 미디어 프로필 연결",
+      feedback: "고객 리뷰 및 설문조사 수집"
+    },
+    industryDescriptions: {
+      restaurants: "비접촉 스마트 메뉴판 및 테이블 주문",
+      realEstate: "부동산 안내판에서 가상 투어로 바로 연결",
+      education: "인터랙티브 학습지 및 스마트 교실 수업",
+      events: "빠른 전자 티켓 확인 및 예약 안내",
+      retail: "고객을 상품 상세 페이지와 매장으로 연결",
+      marketing: "전환율 추적 및 뉴스레터 구독자 확보"
+    },
+    errors: {
+      notFound: {
+        badge: "404 오류 • 페이지를 찾을 수 없음",
+        title: "디지털 공간에서 길을 잃었습니다",
+        description: "찾으시는 페이지 또는 QR 코드 대상이 존재하지 않거나, 이동되었거나 만료되었습니다. 다시 홈으로 안내해 드릴게요.",
+        homeBtn: "QR 생성기로 돌아가기",
+        scanBtn: "QR 코드 스캔하기",
+        exploreTypes: "QR 종류 둘러보기",
+        popularTitle: "인기 바로가기",
+        helpTitle: "도움이 필요하신가요?",
+        helpDesc: "잘못된 링크라고 생각되시면 언제든지 저희 지원팀에 문의해 주세요."
+      },
+      serverError: {
+        badge: "500 오류 • 시스템 문제 발생",
+        title: "시스템 신호가 일시 중단되었습니다",
+        description: "페이지를 불러오는 중 예상치 못한 문제가 발생했습니다. 브라우저 내 QR 생성 엔진과 보관된 데이터는 안전합니다.",
+        retryBtn: "페이지 새로고침",
+        homeBtn: "QR 생성기로 돌아가기",
+        contactBtn: "고객 지원팀 문의",
+        statusTitle: "시스템 진단",
+        statusClient: "클라이언트 생성기: 정상 작동 중",
+        statusStorage: "로컬 보관함: 안전하게 유지됨",
+        statusReady: "복구 준비 완료"
+      }
     }
   }
 };

@@ -11,6 +11,7 @@ import Api from './mainpage/Api.astro';
 import Faq from './mainpage/Faq.astro';
 import Footer from './mainpage/Footer.astro';
 import Toast from './mainpage/Toast.astro';
+import SeoContent from './mainpage/SeoContent.astro';
 
 interface Props {
   defaultActiveType?: string;
@@ -30,8 +31,20 @@ interface Props {
 const { defaultActiveType = 'url', landingPageData } = Astro.props;
 ---
 
-<!-- Background Grid Overlay -->
-<div class="fixed inset-0 grid-pattern pointer-events-none z-0"></div>
+<!-- Background Grid & Premium Blur Glows Overlay -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <!-- Grid lines -->
+  <div class="absolute inset-0 grid-pattern opacity-60 dark:opacity-30"></div>
+  
+  <!-- Top Right Brand Glow -->
+  <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#ff1b6b]/15 to-[#eca0ff]/15 blur-[120px] dark:from-[#ff1b6b]/10 dark:to-[#eca0ff]/10"></div>
+  
+  <!-- Center Left Accenting Glow -->
+  <div class="absolute top-[40%] -left-60 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-indigo-500/10 to-[#eca0ff]/10 blur-[100px] dark:from-indigo-900/5 dark:to-[#eca0ff]/5"></div>
+  
+  <!-- Bottom Right Accenting Glow -->
+  <div class="absolute -bottom-20 -right-20 w-[450px] h-[450px] rounded-full bg-gradient-to-br from-[#ff1b6b]/10 to-blue-500/10 blur-[90px] dark:from-[#ff1b6b]/5 dark:to-blue-900/5"></div>
+</div>
 
 <Header landingPageData={landingPageData} />
 
@@ -55,6 +68,8 @@ const { defaultActiveType = 'url', landingPageData } = Astro.props;
   <History />
   
   <Api />
+  
+  {!landingPageData && <SeoContent />}
   
   <Faq />
 </main>

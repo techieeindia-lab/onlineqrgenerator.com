@@ -1,25 +1,27 @@
 ---
 import { translations } from '../../i18n/translations';
+import { getUiStrings } from '../../i18n/uiStrings';
 
 const locale = Astro.currentLocale || 'en';
 const t = translations[locale] || translations.en;
+const ui = getUiStrings(locale);
 ---
     <div id="view-scan" class="widget-view scroll-mt-24 hidden max-w-2xl mx-auto">
-      <div class="bg-canvas border border-hairline rounded-lg shadow-md p-6 flex flex-col gap-6">
+      <div class="glass-card rounded-2xl premium-shadow p-6 flex flex-col gap-6">
         <h2 class="text-xl font-bold font-sans text-ink">{t.scanner.title}</h2>
         
         <!-- Toggle Upload or Camera stream -->
         <div class="grid grid-cols-2 gap-3 p-1 bg-canvas-soft-2 rounded-sm border border-hairline">
           <button id="scan-toggle-upload" class="py-1.5 text-xs font-semibold rounded-sm bg-canvas text-ink shadow-sm cursor-pointer transition-all">
-            Upload Image
+            {ui.scanner.uploadImage}
           </button>
           <button id="scan-toggle-camera" class="py-1.5 text-xs font-medium text-body hover:text-ink cursor-pointer transition-all">
-            Use Webcam
+            {ui.scanner.useWebcam}
           </button>
         </div>
 
         <!-- 1. Drag Drop Upload Zone -->
-        <div id="scan-upload-zone" class="border-2 border-dashed border-hairline hover:border-hairline-strong rounded-sm p-12 text-center cursor-pointer transition-all bg-canvas hover:bg-canvas-soft flex flex-col items-center gap-3">
+        <div id="scan-upload-zone" class="border-2 border-dashed border-hairline hover:border-[#ff1b6b] rounded-xl p-12 text-center cursor-pointer transition-all duration-300 bg-canvas/40 hover:bg-canvas-soft flex flex-col items-center gap-3 hover:-translate-y-0.5 hover:shadow-md">
           <input type="file" id="scan-image-file" class="hidden" accept="image/*" />
           <svg class="w-10 h-10 text-mute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
           <p class="text-sm text-body">{t.scanner.uploadDesc}</p>
@@ -27,14 +29,21 @@ const t = translations[locale] || translations.en;
 
         <!-- 2. Camera Stream Scanner (Hidden by default) -->
         <div id="scan-camera-zone" class="flex flex-col items-center gap-4 hidden">
-          <div class="relative w-full max-w-md aspect-video bg-black rounded-sm overflow-hidden border border-hairline">
+          <div class="relative w-full max-w-md aspect-video bg-black rounded-lg overflow-hidden border border-hairline">
             <video id="scan-video" class="w-full h-full object-cover pointer-events-none" autoplay playsinline></video>
+            
+            <!-- Viewfinder Corner Brackets -->
+            <div class="absolute top-6 left-6 w-4 h-4 border-t-2 border-l-2 border-[#ff1b6b] rounded-tl animate-pulse pointer-events-none z-10"></div>
+            <div class="absolute top-6 right-6 w-4 h-4 border-t-2 border-r-2 border-[#ff1b6b] rounded-tr animate-pulse pointer-events-none z-10"></div>
+            <div class="absolute bottom-6 left-6 w-4 h-4 border-b-2 border-l-2 border-[#ff1b6b] rounded-bl animate-pulse pointer-events-none z-10"></div>
+            <div class="absolute bottom-6 right-6 w-4 h-4 border-b-2 border-r-2 border-[#ff1b6b] rounded-br animate-pulse pointer-events-none z-10"></div>
+
             <!-- Custom scanner viewfinder animation -->
-            <div id="scanner-viewfinder" class="absolute inset-8 border border-success/40 flex items-center justify-center hidden">
-              <div class="absolute inset-0 bg-success/5 animate-pulse"></div>
-              <div class="w-full h-0.5 bg-success absolute top-0 animate-[scanner-line_2.5s_ease-in-out_infinite]"></div>
+            <div id="scanner-viewfinder" class="absolute inset-8 border border-[#eca0ff]/20 flex items-center justify-center hidden">
+              <div class="absolute inset-0 bg-[#ff1b6b]/5 animate-pulse"></div>
+              <div class="w-full h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] absolute top-0 animate-[scanner-line_2.5s_ease-in-out_infinite]"></div>
             </div>
-            <div id="scanner-status" class="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/70 font-mono tracking-wide">
+            <div id="scanner-status" class="absolute bottom-4 left-0 right-0 text-center text-[10px] text-white/70 font-mono tracking-wide z-10">
               {t.scanner.scanning}
             </div>
           </div>
@@ -49,11 +58,11 @@ const t = translations[locale] || translations.en;
         </div>
 
         <!-- Scanner Result Card -->
-        <div id="scan-result-panel" class="border border-hairline rounded-sm p-4 bg-canvas-soft flex flex-col gap-3 hidden">
+        <div id="scan-result-panel" class="border border-hairline rounded-xl p-4 bg-canvas-soft-2 flex flex-col gap-3 hidden">
           <span class="text-xs font-mono uppercase tracking-wider text-mute">{t.scanner.resultTitle}</span>
           <div class="flex items-center gap-3">
-            <input type="text" id="scan-result-text" readonly class="flex-1 h-9 px-3 text-xs rounded-sm border border-hairline font-mono bg-canvas select-all" />
-            <button id="scan-result-copy-btn" class="px-4 h-9 bg-primary text-on-primary font-semibold text-xs rounded-sm hover:opacity-90 transition-all cursor-pointer">
+            <input type="text" id="scan-result-text" readonly class="flex-1 h-9 px-3 text-xs rounded-lg border border-hairline font-mono bg-canvas select-all" />
+            <button id="scan-result-copy-btn" class="px-4 h-9 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] text-white font-semibold text-xs rounded-lg hover:opacity-95 transition-all duration-200 hover:-translate-y-0.5 shadow-sm border-0 cursor-pointer">
               {t.scanner.copyBtn}
             </button>
           </div>

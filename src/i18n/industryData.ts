@@ -1056,6 +1056,192 @@ export const typePagesData: Record<string, Record<string, Partial<LandingPageDat
       description: "Genere códigos QR estáticos que contengan texto sin formato, notas o instrucciones legibles sin conexión a internet.",
       defaultType: "text"
     }
+  },
+  it: {
+    wifi: {
+      title: "Generatore di Codici QR per Reti Wi-Fi",
+      headline: "Condividi la tua Connessione Wi-Fi con una Semplice Scansione.",
+      description: "Non serve più digitare password complesse. Genera un codice QR Wi-Fi che permette agli ospiti di connettersi a internet automaticamente.",
+      defaultType: "wifi"
+    },
+    vcard: {
+      title: "Generatore di Codici QR per Biglietti da Visita vCard",
+      headline: "Crea Biglietti da Visita Digitali e Interattivi.",
+      description: "Condividi le tue informazioni professionali all'istante. Scansiona per salvare nome, telefono, email e indirizzo direttamente in rubrica.",
+      defaultType: "contact"
+    },
+    whatsapp: {
+      title: "Generatore di Codici QR per WhatsApp",
+      headline: "Apri Chat WhatsApp Istantaneamente con una Scansione.",
+      description: "Genera un codice QR che apre direttamente una chat WhatsApp con un messaggio preimpostato per facilitare le richieste dei clienti.",
+      defaultType: "whatsapp"
+    },
+    crypto: {
+      title: "Generatore di Codici QR per Portafogli Cripto",
+      headline: "Ricevi Pagamenti in Criptovaluta in Modo Semplice.",
+      description: "Genera codici QR per Bitcoin, Ethereum o Solana in tutta sicurezza, azzerando il rischio di errori nell'indirizzo del wallet.",
+      defaultType: "crypto"
+    },
+    email: {
+      title: "Generatore di Codici QR per Email",
+      headline: "Componi Email con un Solo Tocco.",
+      description: "Permetti agli utenti di inviarti email in pochi secondi. Genera codici QR preimpostati con destinatario, oggetto e testo.",
+      defaultType: "email"
+    },
+    sms: {
+      title: "Generatore di Codici QR per Messaggi SMS",
+      headline: "Invia Messaggi di Testo all'Istante.",
+      description: "Semplifica l'invio di messaggi SMS su smartphone. Genera codici QR che aprono l'editor con numero e testo già compilati.",
+      defaultType: "phone"
+    },
+    url: {
+      title: "Generatore di Codici QR per Link URL",
+      headline: "Indirizza gli Utenti Direttamente a Qualsiasi Link Web.",
+      description: "Il classico codice QR. Collega volantini cartacei, biglietti e poster direttamente alle tue pagine web, prodotti o portfolio.",
+      defaultType: "url"
+    },
+    social: {
+      title: "Generatore di Codici QR per Social Media",
+      headline: "Collega i tuoi Follower Direttamente ai Tuoi Profili Social.",
+      description: "Crea eleganti codici QR per i tuoi profili Instagram, Facebook, YouTube, TikTok, LinkedIn o Twitter/X.",
+      defaultType: "social"
+    },
+    feedback: {
+      title: "Generatore di Codici QR per Recensioni e Feedback",
+      headline: "Raccogli Recensioni e Valutazioni dai Clienti.",
+      description: "Crea codici QR personalizzati che puntano direttamente alle tue recensioni Google, Trustpilot, Yelp o sondaggi dedicati.",
+      defaultType: "feedback"
+    },
+    text: {
+      title: "Generatore di Codici QR per Testo Semplice",
+      headline: "Codifica Testo Diretto nei Codici QR.",
+      description: "Genera codici QR statici contenenti testo normale, note o istruzioni leggibili anche senza connessione internet.",
+      defaultType: "text"
+    }
+  },
+  ja: {
+    wifi: {
+      title: "Wi-Fi接続用QRコード作成ツール",
+      headline: "スキャンするだけでWi-Fiに自動接続。",
+      description: "長いパスワードの入力は不要です。スマートフォンで読み取るだけでゲストが即座にWi-Fi接続できるQRコードを作成します。",
+      defaultType: "wifi"
+    },
+    vcard: {
+      title: "vCard電子名刺QRコード作成ツール",
+      headline: "スマートなデジタル名刺(vCard)を作成。",
+      description: "ビジネス連絡先を瞬時に共有。スキャンするだけで氏名、電話番号、メール、会社情報をスマホの連絡帳に直接保存できます。",
+      defaultType: "contact"
+    },
+    whatsapp: {
+      title: "WhatsApp用QRコード作成ツール",
+      headline: "スキャンで即座にWhatsAppチャットを開始。",
+      description: "電話番号の手動登録なしで、定型文付きのWhatsAppメッセージ送信画面を直接開くQRコードを作成します。",
+      defaultType: "whatsapp"
+    },
+    crypto: {
+      title: "仮想通貨・暗号資産ウォレットQRコード作成ツール",
+      headline: "仮想通貨の送金受付QRコードを作成。",
+      description: "Bitcoin、Ethereum、Solanaなどのアドレス入力ミスを防ぎ、安全で素早い仮想通貨決済を可能にします。",
+      defaultType: "crypto"
+    },
+    email: {
+      title: "メール作成用QRコードジェネレーター",
+      headline: "ワンタップでメール作成画面を起動。",
+      description: "宛先アドレス、件名、本文があらかじめ入力されたQRコードを作成し、ユーザーからの問い合わせをスムーズにします。",
+      defaultType: "email"
+    },
+    sms: {
+      title: "SMS・ショートメッセージQRコード作成ツール",
+      headline: "スキャンして即座にSMSメッセージを作成。",
+      description: "送信先電話番号とメッセージ文面がセットされたQRコードを作成し、携帯電話のメッセージアプリを立ち上げます。",
+      defaultType: "phone"
+    },
+    url: {
+      title: "WebサイトURL用QRコード作成ツール",
+      headline: "あらゆるWebページ・リンクへ瞬時に誘導。",
+      description: "最も定番のQRコード。チラシや名刺、ポスターから自社のホームページ、商品ページ、SNSへダイレクトに誘導します。",
+      defaultType: "url"
+    },
+    social: {
+      title: "SNSリンク用QRコード作成ツール",
+      headline: "フォロワーを各種SNSプロフィールへ誘導。",
+      description: "Instagram、Facebook、YouTube、TikTok、X(Twitter)、LinkedInなどのリンクをまとめたカスタムQRコードを作成。",
+      defaultType: "social"
+    },
+    feedback: {
+      title: "口コミ・アンケート用QRコード作成ツール",
+      headline: "お客様の声やレビューを素早く収集。",
+      description: "Googleマップのクチコミ、評価ページ、アンケートフォームにダイレクト接続するQRコードを作成します。",
+      defaultType: "feedback"
+    },
+    text: {
+      title: "テキスト用QRコード作成ツール",
+      headline: "プレーンテキストをそのままQRコードに記録。",
+      description: "メモ、メッセージ、案内文などを直接コード化。インターネット接続がなくても読み取れる静的QRコードです。",
+      defaultType: "text"
+    }
+  },
+  ko: {
+    wifi: {
+      title: "와이파이(Wi-Fi) 접속 QR 코드 생성기",
+      headline: "스캔 한 번으로 와이파이에 자동 연결하세요.",
+      description: "복잡한 비밀번호를 일일이 입력할 필요 없이, 카메라 스캔 즉시 손님이 와이파이에 접속할 수 있는 QR 코드를 만듭니다.",
+      defaultType: "wifi"
+    },
+    vcard: {
+      title: "vCard 디지털 명함 QR 코드 생성기",
+      headline: "스마트한 디지털 모바일 명함을 만드세요.",
+      description: "전문적인 비즈니스 연락처를 즉시 공유하세요. 스캔 한 번으로 이름, 전화번호, 이메일, 주소를 스마트폰 주소록에 자동 저장합니다.",
+      defaultType: "contact"
+    },
+    whatsapp: {
+      title: "WhatsApp 맞춤 QR 코드 생성기",
+      headline: "스캔 즉시 WhatsApp 대화방을 시작하세요.",
+      description: "전화번호를 수동으로 저장하지 않아도, 사전 작성된 메시지와 함께 바로 채팅을 시작할 수 있는 QR 코드를 생성합니다.",
+      defaultType: "whatsapp"
+    },
+    crypto: {
+      title: "암호화폐 지갑 QR 코드 생성기",
+      headline: "암호화폐 결제 및 송금을 간편하게 수령하세요.",
+      description: "비트코인, 이더리움, 솔라나 지갑 주소를 안전하게 인코딩하여 오타 걱정 없는 빠르고 정확한 결제를 지원합니다.",
+      defaultType: "crypto"
+    },
+    email: {
+      title: "이메일 자동 작성 QR 코드 생성기",
+      headline: "터치 한 번으로 사전 작성된 이메일을 띄우세요.",
+      description: "받는 사람 이메일 주소, 제목, 본문이 미리 채워진 이메일 클라이언트를 즉시 열어주는 QR 코드를 생성합니다.",
+      defaultType: "email"
+    },
+    sms: {
+      title: "SMS 문자 전송 QR 코드 생성기",
+      headline: "스캔 즉시 메시지 입력창을 띄우세요.",
+      description: "전화번호와 템플릿 문구가 미리 입력된 SMS QR 코드를 생성하여 모바일 문의 및 이벤트 참여를 편리하게 만듭니다.",
+      defaultType: "phone"
+    },
+    url: {
+      title: "웹사이트 URL 링크 QR 코드 생성기",
+      headline: "원하는 모든 웹페이지 링크로 즉시 연결하세요.",
+      description: "가장 대중적인 기본 QR 코드. 홍보 전단지, 명함, 포스터를 통해 온라인 홈페이지나 제품 상세 페이지로 고객을 안내하세요.",
+      defaultType: "url"
+    },
+    social: {
+      title: "소셜 미디어 프로필 QR 코드 생성기",
+      headline: "모든 SNS 채널로 팔로워를 바로 안내하세요.",
+      description: "인스타그램, 유튜브, 틱톡, 페이스북, 링크드인, X(트위터) 프로필로 연결되는 감각적인 QR 코드를 제작하세요.",
+      defaultType: "social"
+    },
+    feedback: {
+      title: "고객 피드백 및 리뷰 수집 QR 코드 생성기",
+      headline: "고객의 소중한 리뷰와 만족도를 손쉽게 수집하세요.",
+      description: "구글 지도 리뷰, 네이버 영수증 리뷰, 설문조사 페이지로 바로 연결되는 맞춤 QR 코드를 만듭니다.",
+      defaultType: "feedback"
+    },
+    text: {
+      title: "일반 텍스트 인코딩 QR 코드 생성기",
+      headline: "텍스트 문구를 QR 코드 안에 직접 인코딩하세요.",
+      description: "인터넷 연결이 필요 없는 정적 QR 코드. 메시지, 메모, 안내 문구를 오프라인에서도 언제든 확인할 수 있습니다.",
+      defaultType: "text"
+    }
   }
 };
 

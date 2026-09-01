@@ -1,0 +1,248 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/mainpage/Header.astro';
+import Footer from '../components/mainpage/Footer.astro';
+import { translations } from '../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+
+function localizePath(path: string): string {
+  return locale === 'en' ? path : `/${locale}${path}`;
+}
+
+const recoveryLinks = [
+  {
+    title: t.nav.generator,
+    desc: t.tagline,
+    path: '/',
+    icon: 'generator',
+    color: 'from-blue-500/20 to-blue-600/5',
+    borderColor: 'hover:border-blue-500/40',
+    iconColor: 'text-blue-500 dark:text-blue-400 bg-blue-500/10'
+  },
+  {
+    title: t.nav.scanner,
+    desc: t.scanner.uploadDesc,
+    path: '/#scanner',
+    icon: 'scanner',
+    color: 'from-purple-500/20 to-purple-600/5',
+    borderColor: 'hover:border-purple-500/40',
+    iconColor: 'text-purple-500 dark:text-purple-400 bg-purple-500/10'
+  },
+  {
+    title: t.nav.bulk,
+    desc: t.bulk.title,
+    path: '/#bulk',
+    icon: 'bulk',
+    color: 'from-amber-500/20 to-amber-600/5',
+    borderColor: 'hover:border-amber-500/40',
+    iconColor: 'text-amber-500 dark:text-amber-400 bg-amber-500/10'
+  },
+  {
+    title: t.nav.faq,
+    desc: 'Frequently asked questions and troubleshooting guides.',
+    path: '/#faq',
+    icon: 'faq',
+    color: 'from-emerald-500/20 to-emerald-600/5',
+    borderColor: 'hover:border-emerald-500/40',
+    iconColor: 'text-emerald-500 dark:text-emerald-400 bg-emerald-500/10'
+  }
+];
+---
+
+<Layout 
+  title={`500 - ${t.errors.serverError.title} | ${t.title}`} 
+  description={t.errors.serverError.description}
+  noIndex={true}
+>
+  <!-- Background Grid & Atmospheric Glows Overlay -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-60 dark:opacity-30"></div>
+    <div class="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-rose-500/15 to-orange-500/15 blur-[120px] dark:from-rose-600/10 dark:to-orange-600/10"></div>
+    <div class="absolute top-[45%] -right-60 w-[500px] h-[500px] rounded-full bg-gradient-to-tl from-purple-600/10 to-rose-500/10 blur-[100px] dark:from-purple-900/5 dark:to-rose-900/5"></div>
+  </div>
+
+  <Header />
+
+  <main class="relative z-10 flex-1 max-w-4xl mx-auto px-4 py-12 md:py-20 w-full flex flex-col items-center gap-14">
+    <!-- Hero Error Section -->
+    <div class="flex flex-col items-center text-center gap-6 max-w-2xl w-full">
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold text-rose-500 bg-rose-500/10 border border-rose-500/20 shadow-xs backdrop-blur-xs">
+        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+        <span>{t.errors.serverError.badge}</span>
+      </div>
+
+      <!-- Stylized 500 Graphic Card -->
+      <div class="relative group my-2">
+        <div class="absolute -inset-4 bg-gradient-to-r from-rose-500/30 via-pink-500/30 to-purple-600/30 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
+        
+        <div class="relative bg-canvas/90 backdrop-blur-md border border-hairline-strong rounded-2xl p-6 shadow-xl flex flex-col items-center gap-4">
+          <!-- Stylized Giant 500 Number -->
+          <div class="text-7xl sm:text-8xl md:text-9xl font-sans font-black tracking-tighter bg-gradient-to-r from-rose-500 via-[#ff1b6b] to-purple-600 bg-clip-text text-transparent select-none leading-none">
+            500
+          </div>
+
+          <!-- Pulsing Diagnostic Visual Bar -->
+          <div class="relative w-52 h-11 bg-canvas-soft-2/80 rounded-lg border border-hairline overflow-hidden flex items-center justify-between px-3">
+            <div class="flex items-center gap-2 font-mono text-[11px] text-rose-500 dark:text-rose-400">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+              <span class="tracking-wider">SIGNAL_INTERRUPTED</span>
+            </div>
+            
+            <svg class="w-4 h-4 text-mute shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title & Explanation -->
+      <div class="flex flex-col gap-3">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-sans font-bold tracking-tight text-ink">
+          {t.errors.serverError.title}
+        </h1>
+        <p class="text-base sm:text-lg text-body leading-relaxed max-w-xl mx-auto">
+          {t.errors.serverError.description}
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <!-- Retry Button (Reload Window) -->
+        <button 
+          id="reload-page-btn"
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-sans font-bold text-xs sm:text-sm bg-gradient-to-r from-rose-500 to-[#ff1b6b] text-white rounded-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-rose-500/25 active:scale-95 cursor-pointer shadow-md"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          <span>{t.errors.serverError.retryBtn}</span>
+        </button>
+
+        <!-- Home / Generator Button -->
+        <a 
+          href={localizePath('/')} 
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-sans font-semibold text-xs sm:text-sm bg-canvas border border-hairline hover:border-hairline-strong text-ink rounded-xl transition-all duration-300 hover:bg-canvas-soft-2 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-xs"
+        >
+          <svg class="w-4 h-4 text-mute" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+          </svg>
+          <span>{t.errors.serverError.homeBtn}</span>
+        </a>
+
+        <!-- Support Link -->
+        <a 
+          href={localizePath('/contact-us')} 
+          class="inline-flex items-center gap-2 px-5 py-3.5 font-sans font-semibold text-xs sm:text-sm text-body hover:text-ink transition-colors cursor-pointer"
+        >
+          <span>{t.errors.serverError.contactBtn}</span>
+          <svg class="w-3.5 h-3.5 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Client Diagnostics Panel -->
+    <div class="w-full bg-canvas border border-hairline rounded-2xl p-6 sm:p-7 shadow-xs flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-hairline pb-3">
+        <span class="text-xs font-mono font-semibold uppercase tracking-wider text-mute flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          {t.errors.serverError.statusTitle}
+        </span>
+        <span class="text-[11px] font-mono text-mute bg-canvas-soft-2 px-2.5 py-1 rounded-md border border-hairline">
+          HTTP 500
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
+        <div class="p-3 rounded-xl bg-canvas-soft-2/70 border border-hairline flex flex-col gap-1">
+          <span class="text-[10px] text-mute uppercase">QR Generation Engine</span>
+          <span class="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            {t.errors.serverError.statusClient}
+          </span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-canvas-soft-2/70 border border-hairline flex flex-col gap-1">
+          <span class="text-[10px] text-mute uppercase">Local History & Data</span>
+          <span class="font-semibold text-blue-600 dark:text-blue-400 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+            {t.errors.serverError.statusStorage}
+          </span>
+        </div>
+
+        <div class="p-3 rounded-xl bg-canvas-soft-2/70 border border-hairline flex flex-col gap-1">
+          <span class="text-[10px] text-mute uppercase">Recovery Readiness</span>
+          <span class="font-semibold text-[#ff1b6b] flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff1b6b]"></span>
+            {t.errors.serverError.statusReady}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Recovery Grid -->
+    <div class="w-full flex flex-col gap-4">
+      <h2 class="text-xs font-mono uppercase tracking-wider text-mute">
+        Instant Recovery Navigation
+      </h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {recoveryLinks.map(item => (
+          <a
+            href={localizePath(item.path)}
+            class={`group bg-canvas border border-hairline ${item.borderColor} rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md flex items-center gap-4 hover:-translate-y-0.5`}
+          >
+            <div class={`w-10 h-10 rounded-xl ${item.iconColor} flex items-center justify-center shrink-0 transition-transform group-hover:scale-110`}>
+              {item.icon === 'generator' && (
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                </svg>
+              )}
+              {item.icon === 'scanner' && (
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                </svg>
+              )}
+              {item.icon === 'bulk' && (
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m-15 0A2.25 2.25 0 003 12v6.75A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V12a2.25 2.25 0 00-1.5-2.122" />
+                </svg>
+              )}
+              {item.icon === 'faq' && (
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                </svg>
+              )}
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <h3 class="font-sans font-bold text-sm text-ink group-hover:text-rose-500 transition-colors truncate">{item.title}</h3>
+              <p class="text-xs text-body line-clamp-1 mt-0.5 leading-relaxed">{item.desc}</p>
+            </div>
+
+            <span class="text-mute group-hover:text-ink transition-colors">
+              <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+              </svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+
+  <script>
+    const reloadBtn = document.getElementById('reload-page-btn');
+    if (reloadBtn) {
+      reloadBtn.addEventListener('click', () => {
+        window.location.reload();
+      });
+    }
+  </script>
+</Layout>

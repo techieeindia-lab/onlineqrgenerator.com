@@ -1,18 +1,30 @@
 ---
 import { translations } from '../../i18n/translations';
+import { getUiStrings } from '../../i18n/uiStrings';
 
 const locale = Astro.currentLocale || 'en';
 const t = translations[locale] || translations.en;
+const ui = getUiStrings(locale);
 ---
     <div id="view-bulk" class="widget-view scroll-mt-24 hidden max-w-2xl mx-auto">
-      <div class="bg-canvas border border-hairline rounded-lg shadow-md p-6 flex flex-col gap-6">
+      <div class="glass-card rounded-2xl premium-shadow p-6 flex flex-col gap-6">
         <h2 class="text-xl font-bold font-sans text-ink">{t.bulk.title}</h2>
         <div class="flex flex-col gap-1.5">
           <span class="text-xs text-body">{t.bulk.inputLabel}</span>
-          <textarea id="bulk-input-links" rows="6" class="w-full p-4 text-xs font-mono rounded-sm resize-none" placeholder={t.bulk.placeholder}></textarea>
+          <textarea id="bulk-input-links" rows="6" class="w-full p-4 text-xs font-mono rounded-lg resize-none" placeholder={t.bulk.placeholder}></textarea>
         </div>
 
-        <button id="bulk-generate-btn" class="h-11 bg-primary text-on-primary hover:opacity-90 font-semibold text-sm rounded-pill flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm">
+        <!-- File upload dropzone alternative -->
+        <div class="flex flex-col gap-2">
+          <span class="text-xs text-body font-medium">{ui.bulk.uploadList}</span>
+          <div id="bulk-drop-zone" class="border-2 border-dashed border-hairline hover:border-[#ff1b6b] rounded-xl p-5 text-center cursor-pointer transition-all duration-300 bg-canvas/30 hover:bg-canvas-soft flex flex-col items-center gap-2 hover:-translate-y-0.5 hover:shadow-sm select-none">
+            <input type="file" id="bulk-file-input" class="hidden" accept=".csv,.txt" />
+            <svg class="w-6 h-6 text-mute" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V4a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
+            <span class="text-xs text-mute font-medium" id="bulk-file-name">{ui.bulk.dropzoneText}</span>
+          </div>
+        </div>
+
+        <button id="bulk-generate-btn" class="h-11 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] text-white hover:opacity-95 font-semibold text-sm rounded-xl flex items-center justify-center gap-2 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md cursor-pointer border-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
           <span id="bulk-btn-text">{t.bulk.generateBtn}</span>
         </button>

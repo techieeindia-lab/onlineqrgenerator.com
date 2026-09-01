@@ -6,15 +6,18 @@ const t = translations[locale] || translations.en;
 ---
   <!-- Dynamic Feature Tabs Toggles -->
   <div class="flex justify-center max-w-md mx-auto w-full border-b border-hairline pb-1">
-    <div class="flex bg-canvas-soft-2 p-1 rounded-sm border border-hairline w-full">
-      <button id="tab-btn-generate" class="flex-1 py-2 text-xs font-semibold rounded-sm bg-canvas text-ink shadow-sm transition-all cursor-pointer">
-        {t.nav.generator}
+    <div class="flex bg-canvas-soft-2/50 backdrop-blur-sm p-1 rounded-xl border border-hairline w-full">
+      <button id="tab-btn-generate" class="flex-1 py-2 text-xs font-semibold rounded-lg bg-canvas text-ink shadow-sm transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-0.5">
+        <span>{t.nav.generator}</span>
+        <span class="tab-indicator w-1 h-1 rounded-full bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff]"></span>
       </button>
-      <button id="tab-btn-scan" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink transition-all cursor-pointer">
-        {t.scanner.title}
+      <button id="tab-btn-scan" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink rounded-lg transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-0.5">
+        <span>{t.scanner.title}</span>
+        <span class="tab-indicator w-1 h-1 rounded-full bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] opacity-0 transition-opacity duration-200"></span>
       </button>
-      <button id="tab-btn-bulk" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink transition-all cursor-pointer">
-        {t.bulk.title}
+      <button id="tab-btn-bulk" class="flex-1 py-2 text-xs font-medium text-body hover:text-ink rounded-lg transition-all duration-200 cursor-pointer flex flex-col items-center justify-center gap-0.5">
+        <span>{t.bulk.title}</span>
+        <span class="tab-indicator w-1 h-1 rounded-full bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] opacity-0 transition-opacity duration-200"></span>
       </button>
     </div>
   </div>

@@ -1,0 +1,11 @@
+---
+import PrivacyPolicyPage from '../privacy-policy.astro';
+
+export function getStaticPaths() {
+  const locales = ['es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
+  return locales.map(locale => ({
+    params: { locale }
+  }));
+}
+---
+<PrivacyPolicyPage />

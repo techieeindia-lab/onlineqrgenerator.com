@@ -1,0 +1,273 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/mainpage/Header.astro';
+import Footer from '../components/mainpage/Footer.astro';
+import { translations } from '../i18n/translations';
+
+const locale = Astro.currentLocale || 'en';
+const t = translations[locale] || translations.en;
+
+function localizePath(path: string): string {
+  return locale === 'en' ? path : `/${locale}${path}`;
+}
+
+const popularDestinations = [
+  {
+    title: t.types.url,
+    desc: t.typeDescriptions.url,
+    path: '/types/url',
+    color: 'from-blue-500/20 to-blue-600/5',
+    borderColor: 'hover:border-blue-500/40',
+    iconColor: 'text-blue-500 dark:text-blue-400 bg-blue-500/10',
+    icon: 'url'
+  },
+  {
+    title: t.types.wifi,
+    desc: t.typeDescriptions.wifi,
+    path: '/types/wifi',
+    color: 'from-emerald-500/20 to-emerald-600/5',
+    borderColor: 'hover:border-emerald-500/40',
+    iconColor: 'text-emerald-500 dark:text-emerald-400 bg-emerald-500/10',
+    icon: 'wifi'
+  },
+  {
+    title: t.types.contact,
+    desc: t.typeDescriptions.contact,
+    path: '/types/vcard',
+    color: 'from-indigo-500/20 to-indigo-600/5',
+    borderColor: 'hover:border-indigo-500/40',
+    iconColor: 'text-indigo-500 dark:text-indigo-400 bg-indigo-500/10',
+    icon: 'vcard'
+  },
+  {
+    title: t.nav.scanner,
+    desc: t.scanner.uploadDesc,
+    path: '/#scanner',
+    color: 'from-purple-500/20 to-purple-600/5',
+    borderColor: 'hover:border-purple-500/40',
+    iconColor: 'text-purple-500 dark:text-purple-400 bg-purple-500/10',
+    icon: 'scanner'
+  },
+  {
+    title: t.nav.bulk,
+    desc: t.bulk.title,
+    path: '/#bulk',
+    color: 'from-amber-500/20 to-amber-600/5',
+    borderColor: 'hover:border-amber-500/40',
+    iconColor: 'text-amber-500 dark:text-amber-400 bg-amber-500/10',
+    icon: 'bulk'
+  },
+  {
+    title: t.nav.api,
+    desc: t.apiDesc,
+    path: '/#api',
+    color: 'from-rose-500/20 to-rose-600/5',
+    borderColor: 'hover:border-rose-500/40',
+    iconColor: 'text-rose-500 dark:text-rose-400 bg-rose-500/10',
+    icon: 'api'
+  }
+];
+---
+
+<Layout 
+  title={`404 - ${t.errors.notFound.title} | ${t.title}`} 
+  description={t.errors.notFound.description}
+  noIndex={true}
+>
+  <!-- Background Grid & Premium Blur Glows Overlay -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute inset-0 grid-pattern opacity-60 dark:opacity-30"></div>
+    <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#ff1b6b]/15 to-[#eca0ff]/15 blur-[120px] dark:from-[#ff1b6b]/10 dark:to-[#eca0ff]/10"></div>
+    <div class="absolute top-[45%] -left-60 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-purple-600/10 to-[#eca0ff]/10 blur-[100px] dark:from-purple-900/5 dark:to-[#eca0ff]/5"></div>
+  </div>
+
+  <Header />
+
+  <main class="relative z-10 flex-1 max-w-5xl mx-auto px-4 py-12 md:py-20 w-full flex flex-col items-center gap-16">
+    <!-- Hero Error Section -->
+    <div class="flex flex-col items-center text-center gap-6 max-w-2xl w-full">
+      <!-- Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold text-[#ff1b6b] bg-[#ff1b6b]/10 border border-[#ff1b6b]/20 shadow-xs backdrop-blur-xs">
+        <span class="w-2 h-2 rounded-full bg-[#ff1b6b] animate-ping"></span>
+        <span>{t.errors.notFound.badge}</span>
+      </div>
+
+      <!-- Interactive / Animated High-Tech QR 404 Matrix -->
+      <div class="relative group my-2">
+        <div class="absolute -inset-4 bg-gradient-to-r from-[#ff1b6b]/30 via-[#eca0ff]/30 to-[#7928ca]/30 rounded-3xl blur-xl opacity-60 group-hover:opacity-100 transition duration-500"></div>
+        
+        <div class="relative bg-canvas/90 backdrop-blur-md border border-hairline-strong rounded-2xl p-6 shadow-xl flex flex-col items-center gap-4">
+          <!-- Stylized Giant 404 Number -->
+          <div class="text-7xl sm:text-8xl md:text-9xl font-sans font-black tracking-tighter bg-gradient-to-r from-[#ff1b6b] via-[#eca0ff] to-[#7928ca] bg-clip-text text-transparent select-none leading-none">
+            404
+          </div>
+
+          <!-- Stylized Cyber QR Scanner Visual Indicator -->
+          <div class="relative w-48 h-12 bg-canvas-soft-2/80 rounded-lg border border-hairline overflow-hidden flex items-center justify-between px-3">
+            <div class="flex items-center gap-1.5 font-mono text-[11px] text-mute">
+              <span class="w-1.5 h-1.5 rounded-xs bg-[#ff1b6b]"></span>
+              <span class="tracking-wider">CODE_NOT_FOUND</span>
+            </div>
+            
+            <!-- Scanning laser beam animation -->
+            <div class="absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-[#ff1b6b]/40 to-transparent animate-[laser_2s_easeInOut_infinite]"></div>
+            
+            <svg class="w-4 h-4 text-mute shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title & Explanation -->
+      <div class="flex flex-col gap-3">
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-sans font-bold tracking-tight text-ink">
+          {t.errors.notFound.title}
+        </h1>
+        <p class="text-base sm:text-lg text-body leading-relaxed max-w-xl mx-auto">
+          {t.errors.notFound.description}
+        </p>
+      </div>
+
+      <!-- Primary Action Buttons -->
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <a 
+          href={localizePath('/')} 
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-sans font-bold text-xs sm:text-sm bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] text-white rounded-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-[#ff1b6b]/25 active:scale-95 cursor-pointer shadow-md"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+          </svg>
+          <span>{t.errors.notFound.homeBtn}</span>
+        </a>
+
+        <a 
+          href={localizePath('/#scanner')} 
+          class="inline-flex items-center gap-2 px-6 py-3.5 font-sans font-semibold text-xs sm:text-sm bg-canvas border border-hairline hover:border-hairline-strong text-ink rounded-xl transition-all duration-300 hover:bg-canvas-soft-2 hover:scale-[1.02] active:scale-95 cursor-pointer shadow-xs"
+        >
+          <svg class="w-4 h-4 text-mute" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h3.75v3.75H13.5zM13.5 19.5h3.75M19.5 13.5v6" />
+          </svg>
+          <span>{t.errors.notFound.scanBtn}</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Popular Destinations Grid -->
+    <div class="w-full flex flex-col gap-6">
+      <div class="flex items-center justify-between border-b border-hairline pb-4">
+        <div>
+          <h2 class="text-xs font-mono uppercase tracking-wider text-mute">
+            {t.errors.notFound.popularTitle}
+          </h2>
+          <p class="text-sm font-semibold text-ink mt-0.5">{t.errors.notFound.helpTitle}</p>
+        </div>
+        <a href={localizePath('/types/url')} class="text-xs font-semibold text-[#ff1b6b] hover:underline inline-flex items-center gap-1">
+          <span>{t.errors.notFound.exploreTypes}</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {popularDestinations.map(item => (
+          <a
+            href={localizePath(item.path)}
+            class={`group bg-canvas border border-hairline ${item.borderColor} rounded-2xl p-5 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col gap-3 hover:-translate-y-0.5`}
+          >
+            <div class="flex items-center justify-between">
+              <div class={`w-9 h-9 rounded-xl ${item.iconColor} flex items-center justify-center transition-transform group-hover:scale-110`}>
+                {item.icon === 'url' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+                  </svg>
+                )}
+                {item.icon === 'wifi' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+                  </svg>
+                )}
+                {item.icon === 'vcard' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                  </svg>
+                )}
+                {item.icon === 'scanner' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
+                  </svg>
+                )}
+                {item.icon === 'bulk' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 6.878V6a2.25 2.25 0 012.25-2.25h7.5A2.25 2.25 0 0118 6v.878m-12 0c.235-.083.487-.128.75-.128h10.5c.263 0 .515.045.75.128m-12 0A2.25 2.25 0 004.5 9v.878m13.5-3A2.25 2.25 0 0119.5 9v.878m-15 0A2.25 2.25 0 003 12v6.75A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V12a2.25 2.25 0 00-1.5-2.122" />
+                  </svg>
+                )}
+                {item.icon === 'api' && (
+                  <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                  </svg>
+                )}
+              </div>
+
+              <span class="text-mute group-hover:text-ink transition-colors">
+                <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+              </span>
+            </div>
+
+            <div>
+              <h3 class="font-sans font-bold text-sm text-ink group-hover:text-[#ff1b6b] transition-colors">{item.title}</h3>
+              <p class="text-xs text-body line-clamp-2 mt-1 leading-relaxed">{item.desc}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <!-- Help & Support Callout Card -->
+    <div class="w-full bg-canvas border border-hairline rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative overflow-hidden">
+      <div class="absolute -right-16 -bottom-16 w-60 h-60 rounded-full bg-gradient-to-tr from-[#ff1b6b]/10 to-[#eca0ff]/10 blur-[50px] pointer-events-none"></div>
+
+      <div class="flex items-center gap-4 text-center sm:text-left rtl:sm:text-right">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0 hidden sm:flex">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+          </svg>
+        </div>
+        <div class="flex flex-col gap-1">
+          <h3 class="font-sans font-bold text-base text-ink">{t.errors.notFound.helpTitle}</h3>
+          <p class="text-xs sm:text-sm text-body leading-relaxed max-w-lg">{t.errors.notFound.helpDesc}</p>
+        </div>
+      </div>
+
+      <a 
+        href={localizePath('/contact-us')}
+        class="inline-flex items-center gap-2 px-5 py-2.5 font-sans font-semibold text-xs bg-canvas-soft-2 hover:bg-canvas-soft border border-hairline hover:border-hairline-strong text-ink rounded-xl transition-all shrink-0 cursor-pointer shadow-xs"
+      >
+        <span>{t.nav.contactUs}</span>
+        <svg class="w-3.5 h-3.5 rtl:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+        </svg>
+      </a>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  @keyframes laser {
+    0% {
+      left: -20%;
+    }
+    50% {
+      left: 100%;
+    }
+    100% {
+      left: -20%;
+    }
+  }
+</style>

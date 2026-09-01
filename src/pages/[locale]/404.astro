@@ -1,0 +1,11 @@
+---
+import NotFoundPage from '../404.astro';
+
+export function getStaticPaths() {
+  const locales = ['es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
+  return locales.map(locale => ({
+    params: { locale }
+  }));
+}
+---
+<NotFoundPage />
