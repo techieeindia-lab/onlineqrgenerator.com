@@ -42,13 +42,31 @@ export interface UiLocaleStrings {
       dots: string;
       rounded: string;
       classy: string;
+      classyRounded: string;
       extra: string;
       circle: string;
+      matrixShape: string;
+      matrixSquare: string;
+      matrixCircle: string;
     };
+  };
+  templates: {
+    title: string;
+    subtitle: string;
+    surpriseMe: string;
+    categories: {
+      all: string;
+      modern: string;
+      luxury: string;
+      gradients: string;
+      social: string;
+      cafe: string;
+    };
+    appliedToast: string;
   };
 }
 
-export const uiStrings: Record<string, UiLocaleStrings> = {
+export const uiStrings: Record<string, any> = {
   en: {
     scanner: {
       uploadImage: "Upload Image",
@@ -93,9 +111,27 @@ export const uiStrings: Record<string, UiLocaleStrings> = {
         dots: "Dots",
         rounded: "Rounded",
         classy: "Classy",
+        classyRounded: "Leaf / Flow",
         extra: "Extra",
-        circle: "Circle"
+        circle: "Circle",
+        matrixShape: "Matrix Shape",
+        matrixSquare: "Square Grid",
+        matrixCircle: "Circle (Radial)"
       }
+    },
+    templates: {
+      title: "Designer Templates",
+      subtitle: "1-Click curated visual styles & palettes",
+      surpriseMe: "Surprise Me",
+      categories: {
+        all: "All",
+        modern: "Modern & Tech",
+        luxury: "Luxury",
+        gradients: "Gradients",
+        social: "Social",
+        cafe: "Cafe & Dining"
+      },
+      appliedToast: "Template applied!"
     }
   },
   es: {
@@ -538,9 +574,85 @@ export const uiStrings: Record<string, UiLocaleStrings> = {
         circle: "دائري"
       }
     }
+  },
+  id: {
+    scanner: {
+      uploadImage: "Unggah Gambar",
+      useWebcam: "Gunakan Kamera",
+      noQrDetected: "Tidak ada kode QR yang terdeteksi pada gambar."
+    },
+    bulk: {
+      uploadList: "Atau Unggah File Daftar (CSV / TXT)",
+      dropzoneText: "Tarik & lepas file CSV atau TXT berisi tautan, atau klik untuk mengunggah",
+      emptyError: "Silakan masukkan setidaknya satu tautan.",
+      zipError: "Terjadi kesalahan saat pembuatan ZIP.",
+      invalidFile: "Harap unggah file berformat .txt atau .csv",
+      fileLoaded: "File daftar berhasil dimuat"
+    },
+    history: {
+      clearHistory: "Hapus Riwayat",
+      confirmClear: "Apakah Anda yakin ingin menghapus seluruh riwayat kode QR lokal Anda?",
+      clearedToast: "Riwayat kode QR berhasil dibersihkan",
+      itemRemovedToast: "Item berhasil dihapus dari riwayat",
+      configRecalled: "Konfigurasi berhasil dipulihkan!"
+    },
+    generator: {
+      livePreview: "Pratinjau Langsung",
+      activeBadge: "Aktif",
+      syncForeground: "Samakan dengan warna depan",
+      scanMeDefault: "PINDAI SAYA",
+      scanCodeDefault: "PINDAI KODE",
+      frameBg: "Latar Belakang Bingkai",
+      logoScale: "Ukuran Logo",
+      scaleSmall: "Kecil (25%)",
+      scaleMedium: "Sedang (33%)",
+      scaleLarge: "Besar (40%)",
+      softShadow: "Terapkan bayangan halus",
+      logoTooLarge: "Ukuran file terlalu besar. Maksimum 1MB diizinkan.",
+      logoLoaded: "Logo berhasil dimuat!",
+      eccLow: "L - Rendah (~7%)",
+      eccMedium: "M - Sedang (~15%)",
+      eccQuartile: "Q - Kuartil (~25%)",
+      eccHigh: "H - Tinggi (~30%)",
+      shapes: {
+        square: "Kotak",
+        dots: "Titik",
+        rounded: "Sudut Membulat",
+        classy: "Elegan",
+        classyRounded: "Daun / Melengkung",
+        extra: "Ekstra Bulat",
+        circle: "Lingkaran",
+        matrixShape: "Bentuk Matriks",
+        matrixSquare: "Kisi Persegi",
+        matrixCircle: "Lingkaran (Radial)"
+      }
+    },
+    templates: {
+      title: "Templat Desain",
+      subtitle: "Gaya visual & palet pilihan sekali klik",
+      surpriseMe: "Pilihan Acak",
+      categories: {
+        all: "Semua",
+        modern: "Modern & Teknologi",
+        luxury: "Mewah",
+        gradients: "Gradien",
+        social: "Sosial Media",
+        cafe: "Kafe & Resto"
+      },
+      appliedToast: "Templat berhasil diterapkan!"
+    }
   }
 };
 
 export function getUiStrings(locale: string): UiLocaleStrings {
-  return uiStrings[locale] || uiStrings.en;
+  const current = uiStrings[locale] || uiStrings.en;
+  return {
+    ...uiStrings.en,
+    ...current,
+    generator: {
+      ...uiStrings.en.generator,
+      ...(current.generator || {})
+    },
+    templates: current.templates || uiStrings.en.templates
+  };
 }

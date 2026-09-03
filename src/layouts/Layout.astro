@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Toast from '../components/mainpage/Toast.astro';
 import { translations } from '../i18n/translations';
 
 interface Props {
@@ -17,8 +18,8 @@ const pageTitle = title || t.title;
 const pageDesc = description || t.description;
 
 // SEO Configurations
-const locales = ['en', 'es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
-const siteUrl = 'https://onlineqrgenerator.com';
+const locales = ['en', 'es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko', 'id'];
+const siteUrl = 'https://onlineqrgenerators.com';
 const pathname = Astro.url.pathname;
 
 const getLocaleUrl = (loc: string) => {
@@ -53,7 +54,8 @@ const ogLocales: Record<string, string> = {
   ru: 'ru_RU',
   it: 'it_IT',
   ja: 'ja_JP',
-  ko: 'ko_KR'
+  ko: 'ko_KR',
+  id: 'id_ID'
 };
 const ogLocale = ogLocales[locale] || 'en_US';
 ---
@@ -66,7 +68,7 @@ const ogLocale = ogLocales[locale] || 'en_US';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="shortcut icon" href="/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-		<meta name="apple-mobile-web-app-title" content="onlineqrgenerator" />
+		<meta name="apple-mobile-web-app-title" content="onlineqrgenerators" />
 		<link rel="manifest" href="/site.webmanifest" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
@@ -131,6 +133,7 @@ const ogLocale = ogLocales[locale] || 'en_US';
 	</head>
 	<body class="min-h-screen bg-canvas-soft text-ink flex flex-col antialiased">
 		<slot />
+		<Toast />
 		
 		<script>
 			// Global theme toggler for sub-pages (where mainpage-client.ts is not loaded)

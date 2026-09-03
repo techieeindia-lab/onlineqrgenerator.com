@@ -40,13 +40,13 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Is there a 100% free QR code generator online with no sign-up?",
-        answer: "Yes, onlineqrgenerator.com is a 100% free online QR code generator that requires no sign-up or registration. You can create unlimited static QR codes for links, text, Wi-Fi, and contacts with no cost, no limits, and no watermarks."
+        answer: "Yes, onlineqrgenerators.com is a 100% free online QR code generator that requires no sign-up or registration. You can create unlimited static QR codes for links, text, Wi-Fi, and contacts with no cost, no limits, and no watermarks."
       },
       {
         id: "faq-free-forever-safe",
         tag: "safe",
         question: "Which QR code generator is free forever and safe to use?",
-        answer: "Online QR Code Generator (onlineqrgenerator.com) is free for a lifetime and highly secure. Because it runs client-side inside your browser, the data you enter is never uploaded to any external server. This ensures that your private details, Wi-Fi passwords, and links remain completely safe."
+        answer: "Online QR Code Generator (onlineqrgenerators.com) is free for a lifetime and highly secure. Because it runs client-side inside your browser, the data you enter is never uploaded to any external server. This ensures that your private details, Wi-Fi passwords, and links remain completely safe."
       },
       {
         id: "faq-custom-design-logo",
@@ -112,7 +112,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-download-generator",
         tag: "free",
         question: "How do I download the QR Code Generator?",
-        answer: "You do not need to download or install any app or software. Online QR Code Generator (onlineqrgenerator.com) is a fully responsive, web-based tool. It runs directly inside any modern mobile or desktop browser (like Chrome, Safari, or Edge) without taking up any storage space on your device."
+        answer: "You do not need to download or install any app or software. Online QR Code Generator (onlineqrgenerators.com) is a fully responsive, web-based tool. It runs directly inside any modern mobile or desktop browser (like Chrome, Safari, or Edge) without taking up any storage space on your device."
       }
     ]
   },
@@ -134,7 +134,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "¿Existe un generador de códigos QR 100% gratuito sin registro?",
-        answer: "Sí, onlineqrgenerator.com es un generador de códigos QR 100% gratuito que no requiere registro ni suscripción. Puede crear códigos QR estáticos ilimitados para enlaces, texto, Wi-Fi y contactos sin coste, sin límites y sin marcas de agua."
+        answer: "Sí, onlineqrgenerators.com es un generador de códigos QR 100% gratuito que no requiere registro ni suscripción. Puede crear códigos QR estáticos ilimitados para enlaces, texto, Wi-Fi y contactos sin coste, sin límites y sin marcas de agua."
       },
       {
         id: "faq-free-forever-safe",
@@ -228,7 +228,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Existe-t-il un générateur de QR code 100% gratuit sans inscription ?",
-        answer: "Oui, onlineqrgenerator.com est un générateur de QR code 100% gratuit qui ne requiert aucune inscription. Créez des QR codes statiques illimités pour liens, texte, Wi-Fi et contacts sans frais ni filigrane."
+        answer: "Oui, onlineqrgenerators.com est un générateur de QR code 100% gratuit qui ne requiert aucune inscription. Créez des QR codes statiques illimités pour liens, texte, Wi-Fi et contacts sans frais ni filigrane."
       },
       {
         id: "faq-free-forever-safe",
@@ -322,7 +322,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Gibt es einen 100% kostenlosen QR-Code-Generator ohne Registrierung?",
-        answer: "Ja, onlineqrgenerator.com ist komplett kostenlos und erfordert weder Anmeldung noch Registrierung. Erstellen Sie unbegrenzt viele statische QR-Codes für Links, Texte, WLAN und Kontakte ohne Wasserzeichen."
+        answer: "Ja, onlineqrgenerators.com ist komplett kostenlos und erfordert weder Anmeldung noch Registrierung. Erstellen Sie unbegrenzt viele statische QR-Codes für Links, Texte, WLAN und Kontakte ohne Wasserzeichen."
       },
       {
         id: "faq-free-forever-safe",
@@ -416,7 +416,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Esiste un generatore di codici QR gratuito al 100% senza registrazione?",
-        answer: "Sì, onlineqrgenerator.com è gratuito al 100% e non richiede alcuna registrazione. Puoi creare codici QR statici illimitati per link, testo, Wi-Fi e contatti senza limiti né watermark."
+        answer: "Sì, onlineqrgenerators.com è gratuito al 100% e non richiede alcuna registrazione. Puoi creare codici QR statici illimitati per link, testo, Wi-Fi e contatti senza limiti né watermark."
       },
       {
         id: "faq-free-forever-safe",
@@ -510,7 +510,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Existe um gerador de QR Code 100% gratuito sem registo?",
-        answer: "Sim, o onlineqrgenerator.com é 100% gratuito e não exige qualquer registo ou conta. Crie códigos QR estáticos ilimitados para links, textos, Wi-Fi e contactos sem marcas de água."
+        answer: "Sim, o onlineqrgenerators.com é 100% gratuito e não exige qualquer registo ou conta. Crie códigos QR estáticos ilimitados para links, textos, Wi-Fi e contactos sem marcas de água."
       },
       {
         id: "faq-free-forever-safe",
@@ -604,7 +604,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "Существует ли 100% бесплатный генератор QR-кодов без регистрации?",
-        answer: "Да, onlineqrgenerator.com полностью бесплатен и не требует регистрации. Вы можете создавать неограниченное количество статических QR-кодов для ссылок, текста, Wi-Fi и контактов без водяных знаков."
+        answer: "Да, onlineqrgenerators.com полностью бесплатен и не требует регистрации. Вы можете создавать неограниченное количество статических QR-кодов для ссылок, текста, Wi-Fi и контактов без водяных знаков."
       },
       {
         id: "faq-free-forever-safe",
@@ -698,7 +698,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "会員登録なしで完全無料のQRコード作成ツールはありますか？",
-        answer: "はい、onlineqrgenerator.comは登録不要かつ完全無料のオンラインQRコード作成サービスです。URL、テキスト、Wi-Fi、連絡先などの静的QRコードを商用・個人問わず無制限に作成でき、透かし（ウォーターマーク）も入りません。"
+        answer: "はい、onlineqrgenerators.comは登録不要かつ完全無料のオンラインQRコード作成サービスです。URL、テキスト、Wi-Fi、連絡先などの静的QRコードを商用・個人問わず無制限に作成でき、透かし（ウォーターマーク）も入りません。"
       },
       {
         id: "faq-free-forever-safe",
@@ -792,7 +792,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "회원가입 없이 100% 무료로 쓸 수 있는 QR 코드 생성기가 있나요?",
-        answer: "네! onlineqrgenerator.com은 가입이나 로그인 없이 100% 무료로 제공되는 온라인 QR 코드 생성기입니다. 웹 링크, 텍스트, Wi-Fi, 연락처 등 정적 QR 코드를 제한 없이 무료로 생성할 수 있으며 워터마크가 전혀 없습니다."
+        answer: "네! onlineqrgenerators.com은 가입이나 로그인 없이 100% 무료로 제공되는 온라인 QR 코드 생성기입니다. 웹 링크, 텍스트, Wi-Fi, 연락처 등 정적 QR 코드를 제한 없이 무료로 생성할 수 있으며 워터마크가 전혀 없습니다."
       },
       {
         id: "faq-free-forever-safe",
@@ -886,7 +886,7 @@ export const faqData: Record<string, FaqLocaleData> = {
         id: "faq-free-no-signup",
         tag: "free",
         question: "هل يوجد مولد رموز QR مجاني تماماً وبدون تسجيل؟",
-        answer: "نعم، موقع onlineqrgenerator.com مجاني 100% ولا يتطلب أي تسجيل أو اشتراك. يمكنك إنشاء رموز QR ثابتة غير محدودة للروابط والنصوص والواي فاي وجهات الاتصال مجاناً وبدون أي علامة مائية."
+        answer: "نعم، موقع onlineqrgenerators.com مجاني 100% ولا يتطلب أي تسجيل أو اشتراك. يمكنك إنشاء رموز QR ثابتة غير محدودة للروابط والنصوص والواي فاي وجهات الاتصال مجاناً وبدون أي علامة مائية."
       },
       {
         id: "faq-free-forever-safe",
@@ -959,6 +959,100 @@ export const faqData: Record<string, FaqLocaleData> = {
         tag: "free",
         question: "كيف أقوم بتنزيل برنامج مولد رموز QR؟",
         answer: "لا حاجة لتنزيل أو تثبيت أي برنامج. يعمل موقعنا مباشرة في جميع متصفحات الإنترنت على الحواسيب والهواتف الذكية."
+      }
+    ]
+  },
+  id: {
+    title: "Pertanyaan yang Sering Diajukan (FAQ)",
+    subtitle: "Punya pertanyaan tentang cara membuat atau menggunakan kode QR? Cari jawabannya di bawah ini.",
+    searchPlaceholder: "Cari pertanyaan atau kata kunci...",
+    showMore: "Tampilkan Lebih Banyak Pertanyaan",
+    showLess: "Tampilkan Lebih Sedikit",
+    tags: {
+      all: "Semua",
+      free: "Gratis / Permanen",
+      logo: "Kustomisasi & Logo",
+      safe: "Keamanan & Masa Aktif",
+      api: "API / Teknis"
+    },
+    items: [
+      {
+        id: "faq-free-no-signup",
+        tag: "free",
+        question: "Apakah generator kode QR online ini benar-benar 100% gratis tanpa daftar?",
+        answer: "Ya, onlineqrgenerators.com adalah generator kode QR online 100% gratis yang tidak memerlukan pendaftaran atau pembuatan akun sama sekali. Anda dapat membuat kode QR statis tanpa batas untuk tautan, teks, Wi-Fi, dan kontak tanpa biaya, batasan waktu, atau watermark."
+      },
+      {
+        id: "faq-free-forever-safe",
+        tag: "safe",
+        question: "Which QR code generator is free forever and safe to use? (Generator kode QR yang aman & gratis selamanya)",
+        answer: "Online QR Code Generator (onlineqrgenerators.com) gratis seumur hidup dan sangat aman. Karena pemrosesan berjalan langsung di peramban (client-side), data yang Anda masukkan tidak pernah diunggah ke server eksternal mana pun. Rincian pribadi, kata sandi Wi-Fi, dan tautan Anda tetap terjaga kerahasiaannya."
+      },
+      {
+        id: "faq-custom-design-logo",
+        tag: "logo",
+        question: "Bisakah saya membuat kode QR dengan desain kustom dan logo secara gratis?",
+        answer: "Tentu saja. Generator kode QR kami memungkinkan Anda merancang kode QR bermerek tanpa biaya. Anda dapat menyesuaikan warna dan gradien, memilih bentuk sudut dan pola titik, menambahkan bingkai teks yang menarik, serta mengunggah logo perusahaan Anda atau memilih dari ikon populer (seperti WhatsApp, Instagram, Facebook, atau YouTube)."
+      },
+      {
+        id: "faq-monthly-fee",
+        tag: "free",
+        question: "Apakah saya harus membayar biaya langganan bulanan untuk kode QR?",
+        answer: "Tidak, tidak ada biaya bulanan, biaya pendaftaran, ataupun langganan tahunan untuk kode QR yang dihasilkan di situs kami. Kode QR statis yang Anda unduh berfungsi bebas biaya selamanya."
+      },
+      {
+        id: "faq-lifespan-activation",
+        tag: "safe",
+        question: "Berapa lama kode QR bertahan dan bagaimana cara mengaktifkannya?",
+        answer: "Kode QR statis bertahan selamanya dan tidak pernah kedaluwarsa. Karena informasi (seperti URL atau teks) dienkode langsung ke dalam pola piksel visual, kode tersebut langsung aktif setelah dibuat dan akan terus berfungsi selama tautan tujuan Anda aktif. Tidak memerlukan aktivasi manual apa pun."
+      },
+      {
+        id: "faq-data-types",
+        tag: "free",
+        question: "Jenis data apa saja yang dapat saya enkode (URL, Teks, Tautan)?",
+        answer: "Anda dapat membuat kode QR untuk beragam kebutuhan: URL (tautan situs web), teks biasa, email, nomor telepon, percakapan WhatsApp, kontak vCard digital, informasi Wi-Fi, alamat dompet kripto, dan profil media sosial."
+      },
+      {
+        id: "faq-make-from-link",
+        tag: "free",
+        question: "Bagaimana cara membuat kode QR online dari sebuah tautan link?",
+        answer: "Caranya sangat mudah: pilih tab 'URL', tempelkan tautan Anda, sesuaikan gaya desain (bentuk, warna, logo) sesuai keinginan, lalu unduh gambar PNG atau SVG beresolusi tinggi untuk dicetak atau dibagikan."
+      },
+      {
+        id: "faq-what-is-qr",
+        tag: "safe",
+        question: "Apa sebenarnya kode QR itu dan bagaimana cara kerjanya?",
+        answer: "Kode QR (Quick Response) adalah kode batang dua dimensi yang menyimpan data secara horizontal dan vertikal. Saat dipindai dengan kamera ponsel cerdas, perangkat membaca pola matriks kotak hitam dan putih, menerjemahkannya ke teks atau tautan, lalu membuka konten tujuan secara instan."
+      },
+      {
+        id: "faq-scan-phone-picture",
+        tag: "safe",
+        question: "Bisakah saya memindai kode QR online menggunakan ponsel atau dari gambar tangkapan layar?",
+        answer: "Ya! Selain membuat, situs kami menyediakan tab Pemindai QR bawaan. Anda dapat memindai kode fisik secara langsung menggunakan kamera peramban perangkat Anda, atau mengunggah gambar/foto tangkapan layar kode QR untuk melihat isinya seketika."
+      },
+      {
+        id: "faq-phone-compatibility",
+        tag: "safe",
+        question: "Apakah semua ponsel cerdas dapat memindai kode QR secara otomatis?",
+        answer: "Sebagian besar ponsel pintar iOS (iPhone) dan Android modern sudah mendukung pemindaian kode QR langsung melalui aplikasi kamera bawaan. Jika perangkat Anda belum mendukungnya, Anda cukup menggunakan alat pemindai berbasis web di situs kami."
+      },
+      {
+        id: "faq-api",
+        tag: "api",
+        question: "Apakah Anda menyediakan API generator kode QR untuk pengembang?",
+        answer: "Ya, kami menyediakan cuplikan JavaScript ringan untuk pengembang web. Anda dapat menyematkan pembuatan kode QR dinamis di sisi klien langsung ke dalam aplikasi atau situs web Anda tanpa memerlukan server tambahan."
+      },
+      {
+        id: "faq-business-benefits",
+        tag: "logo",
+        question: "Apa keuntungan menggunakan generator kode QR untuk bisnis dan UMKM?",
+        answer: "Kode QR menjembatani media cetak fisik dengan platform online: menu digital tanpa sentuhan untuk restoran, tur virtual untuk agen properti, akses Wi-Fi cepat untuk pelanggan kafe, tiket acara tanpa kertas, dan pelacakan hasil promosi."
+      },
+      {
+        id: "faq-download-generator",
+        tag: "free",
+        question: "Bagaimana cara mengunduh aplikasi Generator Kode QR?",
+        answer: "Anda tidak perlu mengunduh atau memasang aplikasi apa pun. Online QR Code Generator (onlineqrgenerators.com) adalah aplikasi berbasis web yang sepenuhnya responsif. Anda dapat langsung membukanya di peramban ponsel atau komputer (seperti Chrome, Safari, atau Edge) tanpa menghabiskan ruang penyimpanan perangkat."
       }
     ]
   }

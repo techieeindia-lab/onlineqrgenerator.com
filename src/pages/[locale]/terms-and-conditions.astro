@@ -2,7 +2,7 @@
 import TermsAndConditionsPage from '../terms-and-conditions.astro';
 
 export function getStaticPaths() {
-  const locales = ['es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
+  const locales = ['es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko', 'id'];
   return locales.map(locale => ({
     params: { locale }
   }));

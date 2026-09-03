@@ -94,10 +94,10 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   en: {
     about: {
       title: "About Us",
-      metaDesc: "Learn about onlineqrgenerator.com, our privacy-first philosophy, tech stack, and mission to build the world's finest QR code suite.",
+      metaDesc: "Learn about onlineqrgenerators.com, our privacy-first philosophy, tech stack, and mission to build the world's finest QR code suite.",
       badge: "Our Mission",
       heading: "Bridging the physical and digital worlds, beautifully.",
-      subheading: "At onlineqrgenerator.com, we believe sharing information should be fast, private, and stunning. We built a browser-first, high-fidelity QR suite that is 100% free with no signups, ads, or watermarks.",
+      subheading: "At onlineqrgenerators.com, we believe sharing information should be fast, private, and stunning. We built a browser-first, high-fidelity QR suite that is 100% free with no signups, ads, or watermarks.",
       principlesTitle: "Core Principles",
       principles: [
         {
@@ -132,7 +132,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
     },
     contact: {
       title: "Contact Us",
-      metaDesc: "Have questions, ideas, or feedback? Get in touch with the team at onlineqrgenerator.com.",
+      metaDesc: "Have questions, ideas, or feedback? Get in touch with the team at onlineqrgenerators.com.",
       badge: "Get In Touch",
       heading: "We'd love to hear from you.",
       subheading: "Have questions about custom designs, commercial licensing, integrations, or just want to say hi? Send us a message.",
@@ -178,7 +178,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. Introduction",
           title: "1. Introduction",
           paragraphs: [
-            "Welcome to onlineqrgenerator.com. We are committed to protecting your privacy. This Privacy Policy details how we handle information when you interact with our free online QR code generation service.",
+            "Welcome to onlineqrgenerators.com. We are committed to protecting your privacy. This Privacy Policy details how we handle information when you interact with our free online QR code generation service.",
             "Unlike typical online tools, our platform is designed from the ground up to operate without centralized databases. We do not require registration, subscription, or user profiles, meaning you can generate high-resolution codes completely anonymously."
           ]
         },
@@ -247,14 +247,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. Contact Information",
           title: "7. Contact Information",
           paragraphs: [
-            "If you have questions regarding this Privacy Policy or how client-side encryption works, please feel free to reach out to us at support@onlineqrgenerator.com or visit our Contact Us page."
+            "If you have questions regarding this Privacy Policy or how client-side encryption works, please feel free to reach out to us at support@onlineqrgenerators.com or visit our Contact Us page."
           ]
         }
       ]
     },
     terms: {
       title: "Terms & Conditions",
-      metaDesc: "Terms and conditions for using onlineqrgenerator.com free QR code generation platform.",
+      metaDesc: "Terms and conditions for using onlineqrgenerators.com free QR code generation platform.",
       badge: "Usage Guidelines",
       heading: "Terms & Conditions",
       lastUpdated: "Last Updated: August 31, 2026",
@@ -265,7 +265,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. Agreement to Terms",
           title: "1. Agreement to Terms",
           paragraphs: [
-            "By accessing or using onlineqrgenerator.com, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our services.",
+            "By accessing or using onlineqrgenerators.com, you agree to comply with and be bound by these Terms and Conditions. If you do not agree to these terms, please do not use our services.",
             "These terms govern your use of our website, code generation services, scanner, and related web components."
           ]
         },
@@ -327,7 +327,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "5. Limitation of Liability",
           title: "5. Limitation of Liability",
           paragraphs: [
-            "To the maximum extent permitted by law, onlineqrgenerator.com and its developers shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, including print costs or lost revenue."
+            "To the maximum extent permitted by law, onlineqrgenerators.com and its developers shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, including print costs or lost revenue."
           ]
         },
         {
@@ -343,7 +343,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. Contact Info",
           title: "7. Contact Information",
           paragraphs: [
-            "For questions or requests regarding our terms of service, please contact us at support@onlineqrgenerator.com or visit our Contact Us page."
+            "For questions or requests regarding our terms of service, please contact us at support@onlineqrgenerators.com or visit our Contact Us page."
           ]
         }
       ]
@@ -352,10 +352,10 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   es: {
     about: {
       title: "Sobre Nosotros",
-      metaDesc: "Conozca onlineqrgenerator.com, nuestra filosofía de privacidad, tecnología y misión para crear la mejor herramienta de códigos QR.",
+      metaDesc: "Conozca onlineqrgenerators.com, nuestra filosofía de privacidad, tecnología y misión para crear la mejor herramienta de códigos QR.",
       badge: "Nuestra Misión",
       heading: "Conectando el mundo físico y digital con elegancia.",
-      subheading: "En onlineqrgenerator.com creemos que compartir datos debe ser rápido, privado y visualmente atractivo. Una suite de códigos QR 100% gratuita, sin registros ni marcas de agua.",
+      subheading: "En onlineqrgenerators.com creemos que compartir datos debe ser rápido, privado y visualmente atractivo. Una suite de códigos QR 100% gratuita, sin registros ni marcas de agua.",
       principlesTitle: "Principios Fundamentales",
       principles: [
         {
@@ -390,7 +390,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
     },
     contact: {
       title: "Contacto",
-      metaDesc: "¿Preguntas o sugerencias? Póngase en contacto con el equipo de onlineqrgenerator.com.",
+      metaDesc: "¿Preguntas o sugerencias? Póngase en contacto con el equipo de onlineqrgenerators.com.",
       badge: "Póngase en Contacto",
       heading: "Nos encantaría saber de usted.",
       subheading: "¿Tiene dudas sobre diseños personalizados, integraciones o sugerencias? Envíenos un mensaje.",
@@ -436,7 +436,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. Introducción",
           title: "1. Introducción",
           paragraphs: [
-            "Bienvenido a onlineqrgenerator.com. Nos comprometemos a proteger su privacidad. Esta Política detalla cómo gestionamos la información al interactuar con nuestra herramienta gratuita de códigos QR.",
+            "Bienvenido a onlineqrgenerators.com. Nos comprometemos a proteger su privacidad. Esta Política detalla cómo gestionamos la información al interactuar con nuestra herramienta gratuita de códigos QR.",
             "Nuestra plataforma opera sin bases de datos centralizadas. No exigimos registros ni perfiles, lo que le permite crear códigos de alta resolución de forma completamente anónima."
           ]
         },
@@ -503,14 +503,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. Información de Contacto",
           title: "7. Información de Contacto",
           paragraphs: [
-            "Para preguntas sobre esta política, escríbanos a support@onlineqrgenerator.com o visite nuestra página de Contacto."
+            "Para preguntas sobre esta política, escríbanos a support@onlineqrgenerators.com o visite nuestra página de Contacto."
           ]
         }
       ]
     },
     terms: {
       title: "Términos y Condiciones",
-      metaDesc: "Términos de servicio para el uso del generador de códigos QR onlineqrgenerator.com.",
+      metaDesc: "Términos de servicio para el uso del generador de códigos QR onlineqrgenerators.com.",
       badge: "Condiciones de Uso",
       heading: "Términos y Condiciones",
       lastUpdated: "Última actualización: 31 de agosto de 2026",
@@ -521,7 +521,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. Aceptación de los Términos",
           title: "1. Aceptación de los Términos",
           paragraphs: [
-            "Al utilizar onlineqrgenerator.com, usted acepta estos Términos y Condiciones. Si no está de acuerdo, por favor no utilice nuestros servicios.",
+            "Al utilizar onlineqrgenerators.com, usted acepta estos Términos y Condiciones. Si no está de acuerdo, por favor no utilice nuestros servicios.",
             "Estos términos rigen el uso de nuestro generador, escáner y herramientas asociadas."
           ]
         },
@@ -582,7 +582,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "5. Límite de Responsabilidad",
           title: "5. Limitación de Responsabilidad",
           paragraphs: [
-            "onlineqrgenerator.com no será responsable de costes de imprenta, pérdidas de ingresos o fallos en el escaneo derivados del mal uso de la herramienta."
+            "onlineqrgenerators.com no será responsable de costes de imprenta, pérdidas de ingresos o fallos en el escaneo derivados del mal uso de la herramienta."
           ]
         },
         {
@@ -598,7 +598,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. Contacto",
           title: "7. Información de Contacto",
           paragraphs: [
-            "Para cualquier duda, comuníquese con support@onlineqrgenerator.com o visite nuestra página de Contacto."
+            "Para cualquier duda, comuníquese con support@onlineqrgenerators.com o visite nuestra página de Contacto."
           ]
         }
       ]
@@ -607,10 +607,10 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   ko: {
     about: {
       title: "서비스 소개",
-      metaDesc: "onlineqrgenerator.com의 프라이버시 우선 철학과 최첨단 웹 기반 QR 코드 생성 기술을 확인해 보세요.",
+      metaDesc: "onlineqrgenerators.com의 프라이버시 우선 철학과 최첨단 웹 기반 QR 코드 생성 기술을 확인해 보세요.",
       badge: "우리의 미션",
       heading: "오프라인과 디지털 세상을 가장 아름답게 잇습니다.",
-      subheading: "onlineqrgenerator.com은 정보 공유가 빠르고, 안전하며, 감각적이어야 한다고 믿습니다. 가입이나 광고, 워터마크 없이 누구나 자유롭게 이용할 수 있는 고해상도 QR 도구를 제작했습니다.",
+      subheading: "onlineqrgenerators.com은 정보 공유가 빠르고, 안전하며, 감각적이어야 한다고 믿습니다. 가입이나 광고, 워터마크 없이 누구나 자유롭게 이용할 수 있는 고해상도 QR 도구를 제작했습니다.",
       principlesTitle: "핵심 원칙",
       principles: [
         {
@@ -645,7 +645,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
     },
     contact: {
       title: "문의하기",
-      metaDesc: "궁금한 점이나 피드백이 있으신가요? onlineqrgenerator.com 팀에 언제든 문의해 주세요.",
+      metaDesc: "궁금한 점이나 피드백이 있으신가요? onlineqrgenerators.com 팀에 언제든 문의해 주세요.",
       badge: "고객 문의",
       heading: "언제든 편리하게 문의해 주세요.",
       subheading: "대량 생성, 디자인 커스텀, 개발자 연동 등 서비스 이용에 관한 모든 질문을 환영합니다.",
@@ -691,7 +691,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. 개요 및 목적",
           title: "1. 개요 및 목적",
           paragraphs: [
-            "onlineqrgenerator.com에 오신 것을 환영합니다. 당사는 사용자의 개인정보와 프라이버시 보호를 최우선으로 생각합니다. 본 방침은 당사의 무료 온라인 QR 코드 생성 서비스를 이용할 때 정보가 어떻게 처리되는지 상세히 설명합니다.",
+            "onlineqrgenerators.com에 오신 것을 환영합니다. 당사는 사용자의 개인정보와 프라이버시 보호를 최우선으로 생각합니다. 본 방침은 당사의 무료 온라인 QR 코드 생성 서비스를 이용할 때 정보가 어떻게 처리되는지 상세히 설명합니다.",
             "기존의 상용 서비스들과 달리, 당사 플랫폼은 중앙 집중형 데이터베이스 없이 작동하도록 설계되었습니다. 회원가입, 구독, 로그인 프로필을 일체 요구하지 않으므로 사용자는 완전한 익명 상태에서 고화질 QR 코드를 생성할 수 있습니다."
           ]
         },
@@ -760,14 +760,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. 프라이버시 문의처",
           title: "7. 프라이버시 문의처",
           paragraphs: [
-            "본 개인정보처리방침에 관한 의문이나 제안 사항이 있으시면 support@onlineqrgenerator.com으로 연락해 주시거나 고객 문의 페이지를 이용해 주시기 바랍니다."
+            "본 개인정보처리방침에 관한 의문이나 제안 사항이 있으시면 support@onlineqrgenerators.com으로 연락해 주시거나 고객 문의 페이지를 이용해 주시기 바랍니다."
           ]
         }
       ]
     },
     terms: {
       title: "서비스 이용약관",
-      metaDesc: "onlineqrgenerator.com 서비스 이용에 관한 약관 안내입니다.",
+      metaDesc: "onlineqrgenerators.com 서비스 이용에 관한 약관 안내입니다.",
       badge: "서비스 약관",
       heading: "서비스 이용약관",
       lastUpdated: "최종 업데이트: 2026년 8월 31일",
@@ -778,7 +778,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. 약관의 동의",
           title: "1. 약관의 동의",
           paragraphs: [
-            "onlineqrgenerator.com 웹사이트 및 관련 서비스를 이용함으로써 귀하는 본 이용약관의 내용을 숙지하고 이에 동의하는 것으로 간주됩니다. 본 약관에 동의하지 않으실 경우 서비스 이용이 제한될 수 있습니다.",
+            "onlineqrgenerators.com 웹사이트 및 관련 서비스를 이용함으로써 귀하는 본 이용약관의 내용을 숙지하고 이에 동의하는 것으로 간주됩니다. 본 약관에 동의하지 않으실 경우 서비스 이용이 제한될 수 있습니다.",
             "본 약관은 당사가 제공하는 QR 코드 생성기, 스캐너, 대량 생성 도구 및 관련 제반 서비스 전반에 적용됩니다."
           ]
         },
@@ -856,7 +856,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. 문의처 안내",
           title: "7. 문의처 안내",
           paragraphs: [
-            "본 이용약관에 관한 문의나 의견이 있으시면 support@onlineqrgenerator.com 또는 고객 문의 페이지를 통해 문의해 주시기 바랍니다."
+            "본 이용약관에 관한 문의나 의견이 있으시면 support@onlineqrgenerators.com 또는 고객 문의 페이지를 통해 문의해 주시기 바랍니다."
           ]
         }
       ]
@@ -865,7 +865,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   ja: {
     about: {
       title: "サイト概要",
-      metaDesc: "onlineqrgenerator.comのプライバシー重視の理念、技術スタック、最高峰のQRコードツール開発への取り組みをご紹介します。",
+      metaDesc: "onlineqrgenerators.comのプライバシー重視の理念、技術スタック、最高峰のQRコードツール開発への取り組みをご紹介します。",
       badge: "私たちの使命",
       heading: "アナログとデジタルの世界を、美しくつなぐ。",
       subheading: "情報共有はシンプルで安全、かつ魅力的であるべきです。登録不要・広告なし・透かしなしの完全無料QRコード作成ツールをお届けします。",
@@ -949,7 +949,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. はじめに",
           title: "1. はじめに",
           paragraphs: [
-            "onlineqrgenerator.comへようこそ。当サイトはユーザーのプライバシー保護を最優先事項として運営しています。本ポリシーでは、無料QRコード作成ツールの利用におけるデータの取り扱いについてご説明します。",
+            "onlineqrgenerators.comへようこそ。当サイトはユーザーのプライバシー保護を最優先事項として運営しています。本ポリシーでは、無料QRコード作成ツールの利用におけるデータの取り扱いについてご説明します。",
             "当サービスは中央サーバーのデータベースを一切持たない設計となっており、会員登録やログインを求めることなく完全な匿名でコードを作成できます。"
           ]
         },
@@ -1016,14 +1016,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. お問い合わせ窓口",
           title: "7. お問い合わせ窓口",
           paragraphs: [
-            "本ポリシーについてご不明な点がございましたら、support@onlineqrgenerator.comまたはお問い合わせページよりご連絡ください。"
+            "本ポリシーについてご不明な点がございましたら、support@onlineqrgenerators.comまたはお問い合わせページよりご連絡ください。"
           ]
         }
       ]
     },
     terms: {
       title: "利用規約",
-      metaDesc: "onlineqrgenerator.comのサービス利用規約についてご案内します。",
+      metaDesc: "onlineqrgenerators.comのサービス利用規約についてご案内します。",
       badge: "利用規約",
       heading: "利用規約",
       lastUpdated: "最終更新日: 2026年8月31日",
@@ -1034,7 +1034,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. 規約への同意",
           title: "1. 規約への同意",
           paragraphs: [
-            "onlineqrgenerator.comを利用することにより、本規約に同意したものとみなされます。同意いただけない場合はサービスのご利用をお控えください。",
+            "onlineqrgenerators.comを利用することにより、本規約に同意したものとみなされます。同意いただけない場合はサービスのご利用をお控えください。",
             "本規約は当サイトが提供するQRコード作成ツール、スキャナー、一括生成機能等すべての機能に適用されます。"
           ]
         },
@@ -1112,7 +1112,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. お問い合わせ",
           title: "7. お問い合わせ",
           paragraphs: [
-            "利用規約に関するご質問は、support@onlineqrgenerator.comまたはお問い合わせページよりご連絡ください。"
+            "利用規約に関するご質問は、support@onlineqrgenerators.comまたはお問い合わせページよりご連絡ください。"
           ]
         }
       ]
@@ -1121,7 +1121,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   ar: {
     about: {
       title: "من نحن",
-      metaDesc: "تعرف على موقع onlineqrgenerator.com، فلسفتنا في حماية الخصوصية، ورؤيتنا لتقديم أفضل أداة مجانية لتوليد رموز QR.",
+      metaDesc: "تعرف على موقع onlineqrgenerators.com، فلسفتنا في حماية الخصوصية، ورؤيتنا لتقديم أفضل أداة مجانية لتوليد رموز QR.",
       badge: "مهمتنا",
       heading: "ربط الواقع الفعلي بالعالم الرقمي بكل سهولة وأناقة.",
       subheading: "نؤمن بأن مشاركة البيانات يجب أن تكون سريعة وآمنة ومميزة. قمنا ببناء هذه الأداة لتعمل في المتصفح مباشرة دون أي تسجيل أو علامات مائية وبشكل مجاني 100%.",
@@ -1159,7 +1159,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
     },
     contact: {
       title: "اتصل بنا",
-      metaDesc: "هل لديك أي استفسار أو اقتراح؟ تواصل مع فريق onlineqrgenerator.com في أي وقت.",
+      metaDesc: "هل لديك أي استفسار أو اقتراح؟ تواصل مع فريق onlineqrgenerators.com في أي وقت.",
       badge: "تواصل معنا",
       heading: "يسعدنا دائماً الاستماع إليك.",
       subheading: "سواء كان لديك سؤال حول التخصيص أو دمج واجهة المطورين أو التعاون التجاري، نحن هنا للمساعدة.",
@@ -1205,7 +1205,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. مقدمة عامة",
           title: "1. مقدمة عامة",
           paragraphs: [
-            "مرحباً بك في onlineqrgenerator.com. نحن نضع حماية خصوصيتك في صدارة أولوياتنا. توضح هذه السياسة كيفية التعامل مع البيانات عند استخدام منصتنا المجانية لتوليد رموز الاستجابة السريعة.",
+            "مرحباً بك في onlineqrgenerators.com. نحن نضع حماية خصوصيتك في صدارة أولوياتنا. توضح هذه السياسة كيفية التعامل مع البيانات عند استخدام منصتنا المجانية لتوليد رموز الاستجابة السريعة.",
             "صممت منصتنا لتعمل بدون خوادم مركزية لحفظ البيانات، ولا نطلب منك إنشاء حساب أو تسجيل بيانات شخصية، مما يتيح لك إنشاء الرموز بسرية تامة."
           ]
         },
@@ -1272,14 +1272,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. معلومات التواصل",
           title: "7. معلومات التواصل",
           paragraphs: [
-            "لأي استفسار يخص سياسة الخصوصية، يرجى التواصل معنا عبر support@onlineqrgenerator.com أو صفحة اتصل بنا."
+            "لأي استفسار يخص سياسة الخصوصية، يرجى التواصل معنا عبر support@onlineqrgenerators.com أو صفحة اتصل بنا."
           ]
         }
       ]
     },
     terms: {
       title: "الشروط والأحكام",
-      metaDesc: "شروط استخدام منصة onlineqrgenerator.com المجانية لتوليد رموز QR.",
+      metaDesc: "شروط استخدام منصة onlineqrgenerators.com المجانية لتوليد رموز QR.",
       badge: "شروط الخدمة",
       heading: "الشروط والأحكام",
       lastUpdated: "آخر تحديث: 31 أغسطس 2026",
@@ -1290,7 +1290,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "1. الموافقة على الشروط",
           title: "1. الموافقة على الشروط",
           paragraphs: [
-            "باستخدامك لموقع onlineqrgenerator.com، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق، يُرجى التوقف عن استخدام الموقع.",
+            "باستخدامك لموقع onlineqrgenerators.com، فإنك تقر وتوافق على الالتزام بهذه الشروط والأحكام. إذا كنت لا توافق، يُرجى التوقف عن استخدام الموقع.",
             "تنطبق هذه الشروط على جميع خدمات توليد الرموز والماسح الضوئي والأدوات التابعة للمنصة."
           ]
         },
@@ -1367,7 +1367,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
           tocLabel: "7. التواصل والاستفسارات",
           title: "7. معلومات التواصل",
           paragraphs: [
-            "لأي استفسارات بخصوص هذه الشروط، يرجى التواصل معنا عبر support@onlineqrgenerator.com أو زيارة صفحة اتصل بنا."
+            "لأي استفسارات بخصوص هذه الشروط، يرجى التواصل معنا عبر support@onlineqrgenerators.com أو زيارة صفحة اتصل بنا."
           ]
         }
       ]
@@ -1377,10 +1377,10 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   fr: {
   "about": {
     "title": "À Propos",
-    "metaDesc": "Découvrez onlineqrgenerator.com, notre engagement pour la confidentialité et notre générateur de QR codes gratuit.",
+    "metaDesc": "Découvrez onlineqrgenerators.com, notre engagement pour la confidentialité et notre générateur de QR codes gratuit.",
     "badge": "Notre Mission",
     "heading": "Relier le monde physique et numérique avec élégance.",
-    "subheading": "Chez onlineqrgenerator.com, le partage d'information doit être rapide, sécurisé et visuel. Une suite de QR codes 100% gratuite, sans inscription ni filigrane.",
+    "subheading": "Chez onlineqrgenerators.com, le partage d'information doit être rapide, sécurisé et visuel. Une suite de QR codes 100% gratuite, sans inscription ni filigrane.",
     "principlesTitle": "Principes Fondamentaux",
     "principles": [
       {
@@ -1415,7 +1415,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   },
   "contact": {
     "title": "Contactez-nous",
-    "metaDesc": "Une question ou suggestion ? Contactez l'équipe de onlineqrgenerator.com.",
+    "metaDesc": "Une question ou suggestion ? Contactez l'équipe de onlineqrgenerators.com.",
     "badge": "Contact",
     "heading": "Nous serions ravis d'échanger avec vous.",
     "subheading": "Une demande sur la personnalisation, une intégration ou une suggestion ? Envoyez-nous un message.",
@@ -1461,7 +1461,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Introduction",
         "title": "1. Introduction",
         "paragraphs": [
-          "Bienvenue sur onlineqrgenerator.com. Nous nous engageons à protéger votre vie privée. Cette politique détaille notre gestion des données lors de l'utilisation de nos outils.",
+          "Bienvenue sur onlineqrgenerators.com. Nous nous engageons à protéger votre vie privée. Cette politique détaille notre gestion des données lors de l'utilisation de nos outils.",
           "Notre plateforme fonctionne sans base de données centralisée. Sans inscription ni profil obligatoire, vous générez vos codes en toute discrétion et anonymat."
         ]
       },
@@ -1528,14 +1528,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contact",
         "title": "7. Informations de Contact",
         "paragraphs": [
-          "Pour toute question relative à cette politique, contactez-nous à support@onlineqrgenerator.com ou via notre formulaire de contact."
+          "Pour toute question relative à cette politique, contactez-nous à support@onlineqrgenerators.com ou via notre formulaire de contact."
         ]
       }
     ]
   },
   "terms": {
     "title": "Conditions Générales d'Utilisation",
-    "metaDesc": "Conditions d'utilisation de la plateforme de génération de QR codes onlineqrgenerator.com.",
+    "metaDesc": "Conditions d'utilisation de la plateforme de génération de QR codes onlineqrgenerators.com.",
     "badge": "Conditions d'Utilisation",
     "heading": "Conditions Générales d'Utilisation",
     "lastUpdated": "Dernière mise à jour : 31 août 2026",
@@ -1546,7 +1546,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Acceptation des Conditions",
         "title": "1. Acceptation des Conditions",
         "paragraphs": [
-          "En utilisant onlineqrgenerator.com, vous acceptez d'être lié par les présentes conditions. Si vous ne les approuvez pas, veuillez cesser l'utilisation de nos services."
+          "En utilisant onlineqrgenerators.com, vous acceptez d'être lié par les présentes conditions. Si vous ne les approuvez pas, veuillez cesser l'utilisation de nos services."
         ]
       },
       {
@@ -1592,7 +1592,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "5. Limitation de Responsabilité",
         "title": "5. Limitation de Responsabilité",
         "paragraphs": [
-          "onlineqrgenerator.com décline toute responsabilité pour tout coût d'impression ou manque à gagner découlant d'une mauvaise lisibilité des codes personnalisés."
+          "onlineqrgenerators.com décline toute responsabilité pour tout coût d'impression ou manque à gagner découlant d'une mauvaise lisibilité des codes personnalisés."
         ]
       },
       {
@@ -1608,7 +1608,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contact",
         "title": "7. Contact et Assistance",
         "paragraphs": [
-          "Pour toute interrogation, adressez-vous à support@onlineqrgenerator.com ou via notre page Contactez-nous."
+          "Pour toute interrogation, adressez-vous à support@onlineqrgenerators.com ou via notre page Contactez-nous."
         ]
       }
     ]
@@ -1617,10 +1617,10 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   de: {
   "about": {
     "title": "Über Uns",
-    "metaDesc": "Erfahren Sie mehr über onlineqrgenerator.com, unsere Datenschutz-Philosophie und moderne QR-Code-Lösungen.",
+    "metaDesc": "Erfahren Sie mehr über onlineqrgenerators.com, unsere Datenschutz-Philosophie und moderne QR-Code-Lösungen.",
     "badge": "Unsere Mission",
     "heading": "Die physische und digitale Welt elegant verbinden.",
-    "subheading": "Wir bei onlineqrgenerator.com sind überzeugt: Informationsaustausch muss schnell, sicher und ansprechend sein. Eine kostenlose Suite ohne Registrierungszwang oder Wasserzeichen.",
+    "subheading": "Wir bei onlineqrgenerators.com sind überzeugt: Informationsaustausch muss schnell, sicher und ansprechend sein. Eine kostenlose Suite ohne Registrierungszwang oder Wasserzeichen.",
     "principlesTitle": "Grundprinzipien",
     "principles": [
       {
@@ -1655,7 +1655,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   },
   "contact": {
     "title": "Kontakt",
-    "metaDesc": "Haben Sie Fragen oder Feedback? Kontaktieren Sie das Team von onlineqrgenerator.com.",
+    "metaDesc": "Haben Sie Fragen oder Feedback? Kontaktieren Sie das Team von onlineqrgenerators.com.",
     "badge": "Kontakt aufnehmen",
     "heading": "Wir freuen uns auf Ihre Nachricht.",
     "subheading": "Haben Sie Fragen zu individuellen Designs, Entwickler-Schnittstellen oder Kooperationen? Schreiben Sie uns.",
@@ -1701,7 +1701,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Einleitung",
         "title": "1. Einleitung",
         "paragraphs": [
-          "Willkommen bei onlineqrgenerator.com. Der Schutz Ihrer Privatsphäre ist unser oberstes Gebot. Diese Erklärung erläutert unseren Umgang mit Daten beim Erstellen von QR-Codes.",
+          "Willkommen bei onlineqrgenerators.com. Der Schutz Ihrer Privatsphäre ist unser oberstes Gebot. Diese Erklärung erläutert unseren Umgang mit Daten beim Erstellen von QR-Codes.",
           "Unsere Plattform verzichtet bewusst auf zentrale Server-Datenbanken. Es ist weder eine Registrierung noch ein Nutzerprofil erforderlich."
         ]
       },
@@ -1768,14 +1768,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Kontakt",
         "title": "7. Kontaktmöglichkeiten",
         "paragraphs": [
-          "Fragen zu dieser Datenschutzerklärung richten Sie bitte an support@onlineqrgenerator.com oder nutzen Sie unser Kontaktformular."
+          "Fragen zu dieser Datenschutzerklärung richten Sie bitte an support@onlineqrgenerators.com oder nutzen Sie unser Kontaktformular."
         ]
       }
     ]
   },
   "terms": {
     "title": "Nutzungsbedingungen",
-    "metaDesc": "Nutzungsbedingungen für die Verwendung von onlineqrgenerator.com.",
+    "metaDesc": "Nutzungsbedingungen für die Verwendung von onlineqrgenerators.com.",
     "badge": "Nutzungsrichtlinien",
     "heading": "Nutzungsbedingungen",
     "lastUpdated": "Zuletzt aktualisiert: 31. August 2026",
@@ -1786,7 +1786,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Zustimmung",
         "title": "1. Zustimmung zu den Bedingungen",
         "paragraphs": [
-          "Mit dem Zugriff auf onlineqrgenerator.com erklären Sie sich mit diesen Bedingungen einverstanden."
+          "Mit dem Zugriff auf onlineqrgenerators.com erklären Sie sich mit diesen Bedingungen einverstanden."
         ]
       },
       {
@@ -1832,7 +1832,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "5. Haftungsbeschränkung",
         "title": "5. Beschränkung der Haftung",
         "paragraphs": [
-          "onlineqrgenerator.com haftet nicht für Druckkosten oder Einnahmeausfälle durch unleserliche Farb- oder Kontrastwahlen."
+          "onlineqrgenerators.com haftet nicht für Druckkosten oder Einnahmeausfälle durch unleserliche Farb- oder Kontrastwahlen."
         ]
       },
       {
@@ -1848,7 +1848,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Kontakt",
         "title": "7. Kontakt",
         "paragraphs": [
-          "Bei Fragen wenden Sie sich bitte an support@onlineqrgenerator.com oder besuchen Sie unsere Kontaktseite."
+          "Bei Fragen wenden Sie sich bitte an support@onlineqrgenerators.com oder besuchen Sie unsere Kontaktseite."
         ]
       }
     ]
@@ -1857,7 +1857,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   it: {
   "about": {
     "title": "Chi Siamo",
-    "metaDesc": "Scopri onlineqrgenerator.com, la nostra filosofia orientata alla privacy e il generatore di codici QR gratuito.",
+    "metaDesc": "Scopri onlineqrgenerators.com, la nostra filosofia orientata alla privacy e il generatore di codici QR gratuito.",
     "badge": "La Nostra Missione",
     "heading": "Connettere il mondo fisico e digitale con eleganza.",
     "subheading": "Condividere informazioni deve essere veloce, sicuro e intuitivo. Una suite QR 100% gratuita senza registrazioni né filigrane.",
@@ -1895,7 +1895,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   },
   "contact": {
     "title": "Contattaci",
-    "metaDesc": "Hai domande o suggerimenti? Scrivi al team di onlineqrgenerator.com.",
+    "metaDesc": "Hai domande o suggerimenti? Scrivi al team di onlineqrgenerators.com.",
     "badge": "Contatti",
     "heading": "Siamo felici di ascoltarti.",
     "subheading": "Dubbi su design, loghi personalizzati o integrazioni? Inviaci un messaggio.",
@@ -1941,7 +1941,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Introduzione",
         "title": "1. Introduzione",
         "paragraphs": [
-          "Benvenuto su onlineqrgenerator.com. La tutela della tua privacy è il nostro impegno primario. Questa informativa descrive la gestione dei dati sulla nostra piattaforma.",
+          "Benvenuto su onlineqrgenerators.com. La tutela della tua privacy è il nostro impegno primario. Questa informativa descrive la gestione dei dati sulla nostra piattaforma.",
           "La piattaforma non impiega database centralizzati. Non richiediamo alcuna registrazione, garantendo un utilizzo completamente anonimo."
         ]
       },
@@ -2008,14 +2008,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contatti",
         "title": "7. Informazioni di Contatto",
         "paragraphs": [
-          "Per chiarimenti, scrivici a support@onlineqrgenerator.com o visita la nostra pagina Contatti."
+          "Per chiarimenti, scrivici a support@onlineqrgenerators.com o visita la nostra pagina Contatti."
         ]
       }
     ]
   },
   "terms": {
     "title": "Termini e Condizioni",
-    "metaDesc": "Termini e condizioni per l'utilizzo del servizio onlineqrgenerator.com.",
+    "metaDesc": "Termini e condizioni per l'utilizzo del servizio onlineqrgenerators.com.",
     "badge": "Linee Guida",
     "heading": "Termini e Condizioni",
     "lastUpdated": "Ultimo aggiornamento: 31 agosto 2026",
@@ -2026,7 +2026,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Accettazione",
         "title": "1. Accettazione dei Termini",
         "paragraphs": [
-          "Utilizzando onlineqrgenerator.com, accetti di rispettare questi termini e condizioni."
+          "Utilizzando onlineqrgenerators.com, accetti di rispettare questi termini e condizioni."
         ]
       },
       {
@@ -2072,7 +2072,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "5. Limitazione di Responsabilità",
         "title": "5. Limitazione di Responsabilità",
         "paragraphs": [
-          "onlineqrgenerator.com non risponde di costi tipografici o mancati ricavi derivanti da un'insufficiente leggibilità dei codici stampati."
+          "onlineqrgenerators.com non risponde di costi tipografici o mancati ricavi derivanti da un'insufficiente leggibilità dei codici stampati."
         ]
       },
       {
@@ -2088,7 +2088,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contatti",
         "title": "7. Informazioni di Contatto",
         "paragraphs": [
-          "Per chiarimenti, scrivici all'indirizzo support@onlineqrgenerator.com o tramite la pagina Contattaci."
+          "Per chiarimenti, scrivici all'indirizzo support@onlineqrgenerators.com o tramite la pagina Contattaci."
         ]
       }
     ]
@@ -2097,7 +2097,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   pt: {
   "about": {
     "title": "Sobre Nós",
-    "metaDesc": "Conheça o onlineqrgenerator.com, nossa dedicação à privacidade e o gerador de QR codes gratuito.",
+    "metaDesc": "Conheça o onlineqrgenerators.com, nossa dedicação à privacidade e o gerador de QR codes gratuito.",
     "badge": "Nossa Missão",
     "heading": "Conectando o mundo físico e digital com elegância.",
     "subheading": "Acreditamos que compartilhar informações deve ser simples, seguro e elegante. Uma ferramenta 100% gratuita, sem necessidade de cadastro ou marcas d'água.",
@@ -2135,7 +2135,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   },
   "contact": {
     "title": "Fale Conosco",
-    "metaDesc": "Tem dúvidas ou sugestões? Entre em contato com a equipe do onlineqrgenerator.com.",
+    "metaDesc": "Tem dúvidas ou sugestões? Entre em contato com a equipe do onlineqrgenerators.com.",
     "badge": "Contato",
     "heading": "Adoramos ouvir sua opinião.",
     "subheading": "Tem dúvidas sobre personalizações, integração de desenvolvedores ou parcerias? Fale conosco.",
@@ -2181,7 +2181,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Introdução",
         "title": "1. Introdução",
         "paragraphs": [
-          "Bem-vindo ao onlineqrgenerator.com. Proteger sua privacidade é nosso compromisso essencial.",
+          "Bem-vindo ao onlineqrgenerators.com. Proteger sua privacidade é nosso compromisso essencial.",
           "Nossa plataforma foi concebida para funcionar sem servidores de banco de dados, sem exigir logins nem cadastros."
         ]
       },
@@ -2248,14 +2248,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contato",
         "title": "7. Informações de Contato",
         "paragraphs": [
-          "Dúvidas sobre esta política podem ser enviadas para support@onlineqrgenerator.com ou pela nossa página de contato."
+          "Dúvidas sobre esta política podem ser enviadas para support@onlineqrgenerators.com ou pela nossa página de contato."
         ]
       }
     ]
   },
   "terms": {
     "title": "Termos e Condições",
-    "metaDesc": "Termos e condições de uso da plataforma onlineqrgenerator.com.",
+    "metaDesc": "Termos e condições de uso da plataforma onlineqrgenerators.com.",
     "badge": "Regras de Uso",
     "heading": "Termos e Condições",
     "lastUpdated": "Última atualização: 31 de agosto de 2026",
@@ -2266,7 +2266,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Aceitação dos Termos",
         "title": "1. Aceitação dos Termos",
         "paragraphs": [
-          "Ao utilizar o onlineqrgenerator.com, você concorda com estes termos de serviço."
+          "Ao utilizar o onlineqrgenerators.com, você concorda com estes termos de serviço."
         ]
       },
       {
@@ -2312,7 +2312,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "5. Limitação de Responsabilidade",
         "title": "5. Limitação de Responsabilidade",
         "paragraphs": [
-          "O onlineqrgenerator.com não se responsabiliza por custos gráficos ou prejuízos comerciais decorrentes de má leitura de códigos."
+          "O onlineqrgenerators.com não se responsabiliza por custos gráficos ou prejuízos comerciais decorrentes de má leitura de códigos."
         ]
       },
       {
@@ -2328,7 +2328,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Contato",
         "title": "7. Atendimento",
         "paragraphs": [
-          "Em caso de dúvidas, envie mensagem para support@onlineqrgenerator.com ou use a página Fale Conosco."
+          "Em caso de dúvidas, envie mensagem para support@onlineqrgenerators.com ou use a página Fale Conosco."
         ]
       }
     ]
@@ -2337,7 +2337,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   ru: {
   "about": {
     "title": "О нас",
-    "metaDesc": "Узнайте больше о onlineqrgenerator.com, нашей политике конфиденциальности и бесплатном генераторе QR-кодов.",
+    "metaDesc": "Узнайте больше о onlineqrgenerators.com, нашей политике конфиденциальности и бесплатном генераторе QR-кодов.",
     "badge": "Наша миссия",
     "heading": "Объединяем реальный и цифровой мир с безупречным стилем.",
     "subheading": "Мы уверены, что обмен информацией должен быть быстрым, безопасным и наглядным. Создали сервис генерации QR-кодов без регистрации, рекламы и водяных знаков.",
@@ -2375,7 +2375,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
   },
   "contact": {
     "title": "Контакты",
-    "metaDesc": "Есть вопросы или предложения? Свяжитесь с командой onlineqrgenerator.com.",
+    "metaDesc": "Есть вопросы или предложения? Свяжитесь с командой onlineqrgenerators.com.",
     "badge": "Свяжитесь с нами",
     "heading": "Мы всегда рады вашим отзывам.",
     "subheading": "Интересует коммерческое использование, добавление функций или интеграция? Напишите нам.",
@@ -2421,7 +2421,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Введение",
         "title": "1. Введение",
         "paragraphs": [
-          "Добро пожаловать на onlineqrgenerator.com. Мы уделяем первостепенное внимание защите вашей приватности.",
+          "Добро пожаловать на onlineqrgenerators.com. Мы уделяем первостепенное внимание защите вашей приватности.",
           "Сервис спроектирован без использования централизованных баз данных и не требует регистрации личных профилей."
         ]
       },
@@ -2488,14 +2488,14 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Контакты",
         "title": "7. Контактные данные",
         "paragraphs": [
-          "По вопросам приватности обращайтесь по адресу support@onlineqrgenerator.com или через страницу контактов."
+          "По вопросам приватности обращайтесь по адресу support@onlineqrgenerators.com или через страницу контактов."
         ]
       }
     ]
   },
   "terms": {
     "title": "Условия использования",
-    "metaDesc": "Условия использования бесплатного сервиса onlineqrgenerator.com.",
+    "metaDesc": "Условия использования бесплатного сервиса onlineqrgenerators.com.",
     "badge": "Правила сервиса",
     "heading": "Условия использования",
     "lastUpdated": "Последнее обновление: 31 августа 2026",
@@ -2506,7 +2506,7 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "1. Согласие с условиями",
         "title": "1. Согласие с условиями",
         "paragraphs": [
-          "Используя onlineqrgenerator.com, вы подтверждаете свое согласие с настоящими Условиями использования."
+          "Используя onlineqrgenerators.com, вы подтверждаете свое согласие с настоящими Условиями использования."
         ]
       },
       {
@@ -2568,12 +2568,270 @@ export const subpageData: Record<string, SubpageLocaleData> = {
         "tocLabel": "7. Контакты",
         "title": "7. Контакты",
         "paragraphs": [
-          "По всем вопросам обращайтесь по адресу support@onlineqrgenerator.com или через форму обратной связи."
+          "По всем вопросам обращайтесь по адресу support@onlineqrgenerators.com или через форму обратной связи."
         ]
       }
     ]
   }
-}
+},
+  id: {
+    about: {
+      title: "Tentang Kami",
+      metaDesc: "Pelajari tentang onlineqrgenerators.com, filosofi privasi kami, teknologi di balik layar, dan misi menghadirkan aplikasi generator kode QR terbaik di dunia.",
+      badge: "Misi Kami",
+      heading: "Menghubungkan dunia fisik dan digital dengan indah.",
+      subheading: "Di onlineqrgenerators.com, kami percaya bahwa berbagi informasi harus berlangsung cepat, privat, dan memikat. Kami membangun suite kode QR berbasis peramban berkualitas tinggi yang 100% gratis tanpa pendaftaran, iklan mengganggu, atau watermark.",
+      principlesTitle: "Prinsip Utama Kami",
+      principles: [
+        {
+          title: "Privasi Tanpa Kompromi",
+          desc: "Setiap kode QR dihitung dan dibuat langsung di dalam peramban Anda menggunakan JavaScript lokal. Tautan, kontak, dan kata sandi Wi-Fi Anda tidak pernah dikirim ke server mana pun."
+        },
+        {
+          title: "100% Gratis Selamanya",
+          desc: "Tanpa biaya langganan bulanan tersembunyi, tanpa jebakan masa uji coba, dan tanpa watermark. Kode QR statis Anda aktif selamanya dan tidak pernah kedaluwarsa."
+        },
+        {
+          title: "Desain Berkelas & Presisi Vektor",
+          desc: "Kami menghadirkan opsi kustomisasi mendalam: gradien warna, bentuk sudut unik, penempatan logo, dan ekspor format SVG vektor beresolusi tajam untuk cetak spanduk."
+        },
+        {
+          title: "Kecepatan Super Kilat",
+          desc: "Dibangun dengan arsitektur modern tanpa dependensi berat. Halaman dimuat dalam sekejap, memungkinkan pembuatan kode QR instan tanpa jeda."
+        }
+      ],
+      speedBadge: "Kinerja Sisi Klien",
+      speedTitle: "Pemrosesan Lokal 100% di Perangkat Anda",
+      speedDesc: "Dengan menjalankan seluruh kalkulasi pembuatan QR di peramban web Anda, kami menghapus latensi jaringan antar server dan menjamin keamanan privasi data Anda seutuhnya.",
+      techLabels: {
+        framework: "Astro Modern",
+        css: "Tailwind CSS v4",
+        generation: "qr-code-styling",
+        build: "Edge Deployed"
+      },
+      ctaTitle: "Siap Membuat Kode QR Kustom Anda?",
+      ctaSubtitle: "Mulai buat kode QR pertama Anda sekarang juga—tanpa biaya dan tanpa perlu mendaftar akun.",
+      ctaBtn: "Buka Generator QR"
+    },
+    contact: {
+      title: "Hubungi Kami",
+      metaDesc: "Hubungi tim onlineqrgenerators.com untuk pertanyaan, masukan, kerja sama, atau bantuan teknis.",
+      badge: "Pusat Bantuan",
+      heading: "Kami Siap Membantu Anda",
+      subheading: "Punya pertanyaan seputar pembuatan kode QR, masukan fitur baru, atau kerja sama bisnis? Jangan ragu untuk mengirimkan pesan kepada kami.",
+      infoTitle: "Saluran Komunikasi",
+      infoDesc: "Pilih cara tercepat dan ternyaman bagi Anda untuk terhubung dengan pengembang kami.",
+      channels: {
+        email: "support@onlineqrgenerators.com",
+        github: "techieeindia-lab/onlineqrgenerators.com",
+        discord: "Komunitas Discord Pengembang"
+      },
+      responseBadge: "Waktu Respon Cepat",
+      responseTime: "< 24 Jam",
+      responseTitle: "Dukungan Responsif",
+      responseDesc: "Tim kami meninjau setiap pesan yang masuk dan berupaya memberikan balasan dalam waktu 1 hari kerja.",
+      faqPrompt: "Butuh jawaban cepat? Buka Tanya Jawab (FAQ) →",
+      formTitle: "Kirim Pesan",
+      formSubtitle: "Isi formulir di bawah ini dan kami akan segera membalas pesan Anda.",
+      nameLabel: "Nama Lengkap",
+      namePlaceholder: "Budi Santoso",
+      emailLabel: "Alamat Email",
+      emailPlaceholder: "budi@contoh.com",
+      subjectLabel: "Subjek Pesan",
+      subjectPlaceholder: "Apa yang bisa kami bantu?",
+      messageLabel: "Isi Pesan",
+      messagePlaceholder: "Tuliskan detail pertanyaan atau masukan Anda di sini...",
+      submitBtn: "Kirim Pesan",
+      success: {
+        title: "Pesan Berhasil Terkirim!",
+        desc: "Terima kasih telah menghubungi kami. Pesan Anda telah kami terima dan tim kami akan segera membalasnya.",
+        resetBtn: "Kirim pesan lain"
+      }
+    },
+    privacy: {
+      title: "Kebijakan Privasi",
+      metaDesc: "Baca panduan privasi kami. Semua kode QR dibuat langsung di peramban Anda, memastikan data tidak pernah meninggalkan perangkat Anda.",
+      badge: "Dokumen Hukum",
+      heading: "Kebijakan Privasi",
+      lastUpdated: "Terakhir Diperbarui: 31 Agustus 2026",
+      tocTitle: "Daftar Isi",
+      sections: [
+        {
+          id: "introduction",
+          tocLabel: "1. Pendahuluan",
+          title: "1. Pendahuluan",
+          paragraphs: [
+            "Selamat datang di onlineqrgenerators.com. Kami berkomitmen penuh untuk menjaga privasi Anda. Kebijakan Privasi ini menjelaskan bagaimana informasi ditangani saat Anda menggunakan layanan generator kode QR gratis kami.",
+            "Berbeda dengan platform online konvensional, layanan kami dirancang dari awal untuk beroperasi tanpa database terpusat. Kami tidak memerlukan pendaftaran akun, data kartu kredit, atau profil pengguna, sehingga Anda dapat membuat kode QR dengan anonimitas penuh."
+          ]
+        },
+        {
+          id: "browser-first",
+          tocLabel: "2. Pemrosesan di Peramban",
+          title: "2. Pembuatan di Sisi Peramban (Zero Data Retention)",
+          callout: {
+            strong: "Catatan Teknis Privasi:",
+            text: "Seluruh kalkulasi pengenkodean piksel, palet warna, templat, logo, dan bingkai berlangsung langsung di perangkat Anda menggunakan JavaScript lokal. Data yang Anda masukkan untuk membuat kode QR tidak pernah dikirim ke server kami."
+          },
+          paragraphs: [
+            "Saat Anda memasukkan URL, kata sandi Wi-Fi, atau kartu nama kontak (vCard), input tersebut langsung dirender ke elemen kanvas di jendela peramban Anda. Karena mesin generator bekerja secara lokal (client-side), kami tidak memiliki sistem atau akses apa pun untuk melihat, merekam, menyimpan, atau menjual data Anda."
+          ]
+        },
+        {
+          id: "information-collection",
+          tocLabel: "3. Pengumpulan Informasi",
+          title: "3. Pengumpulan Informasi",
+          paragraphs: [
+            "Karena layanan kami berjalan sepenuhnya di dalam peramban Anda, kami menerapkan kebijakan tanpa pengumpulan data:"
+          ],
+          bullets: [
+            {
+              strong: "Tanpa Data Pribadi (PII):",
+              text: "Kami tidak mengumpulkan nama, alamat email, nomor telepon, atau kata sandi Anda."
+            },
+            {
+              strong: "Tanpa Penyimpanan Konten QR:",
+              text: "Konten yang Anda sematkan (seperti URL tujuan, draf pesan WhatsApp, atau alamat dompet kripto) tidak pernah dikirimkan ke server kami."
+            },
+            {
+              strong: "Riwayat Tersimpan Lokal:",
+              text: "Kode yang Anda buat disimpan di penyimpanan lokal (Local Storage) peramban Anda agar dapat diakses kembali di tab 'Kode QR Terkini'. Data ini tersimpan murni di perangkat Anda dan dapat dihapus kapan saja."
+            }
+          ]
+        },
+        {
+          id: "cookies-analytics",
+          tocLabel: "4. Cookie & Analitik",
+          title: "4. Cookie dan Analitik Web",
+          paragraphs: [
+            "Kami menggunakan cookie minimal dan alat analitik agregat untuk memahami bagaimana pengunjung berinteraksi dengan situs, mengukur performa halaman, dan memperbaiki masalah teknis.",
+            "Semua pelacakan analitik dikonfigurasi dengan filter anonimitas, di mana alamat IP disamarkan (masked). Data ini digunakan semata-mata untuk laporan statistik umum demi meningkatkan kenyamanan pengguna."
+          ]
+        },
+        {
+          id: "third-party-links",
+          tocLabel: "5. Tautan Eksternal",
+          title: "5. Tautan ke Layanan Pihak Ketiga",
+          paragraphs: [
+            "Situs web kami mungkin menyertakan tautan ke platform eksternal (seperti GitHub, Discord, atau sumber industri). Harap diperhatikan bahwa begitu Anda meninggalkan situs kami, kami tidak bertanggung jawab atas kebijakan privasi platform pihak ketiga tersebut."
+          ]
+        },
+        {
+          id: "gdpr-compliance",
+          tocLabel: "6. Kepatuhan GDPR & Perlindungan Data",
+          title: "6. Kepatuhan Standar Perlindungan Data (GDPR)",
+          paragraphs: [
+            "Sebagai aplikasi web yang mengutamakan privasi, kami mendukung prinsip-prinsip General Data Protection Regulation (GDPR) dan standar perlindungan privasi internasional lainnya.",
+            "Karena kami tidak menyimpan atau memproses data pribadi di server kami, tidak ada database yang dapat kami ambil atau ekspor. Anda memiliki kendali dan kepemilikan mutlak atas data Anda yang berada di memori peramban lokal."
+          ]
+        },
+        {
+          id: "contact",
+          tocLabel: "7. Informasi Kontak",
+          title: "7. Informasi Kontak",
+          paragraphs: [
+            "Jika Anda memiliki pertanyaan seputar Kebijakan Privasi ini atau mekanisme enkripsi di sisi klien, silakan hubungi kami di support@onlineqrgenerators.com atau kunjungi halaman Hubungi Kami."
+          ]
+        }
+      ]
+    },
+    terms: {
+      title: "Syarat & Ketentuan",
+      metaDesc: "Syarat dan ketentuan penggunaan platform generator kode QR gratis onlineqrgenerators.com.",
+      badge: "Pedoman Penggunaan",
+      heading: "Syarat & Ketentuan",
+      lastUpdated: "Terakhir Diperbarui: 31 Agustus 2026",
+      tocTitle: "Daftar Isi",
+      sections: [
+        {
+          id: "agreement",
+          tocLabel: "1. Persetujuan Syarat",
+          title: "1. Persetujuan atas Syarat & Ketentuan",
+          paragraphs: [
+            "Dengan mengakses dan menggunakan onlineqrgenerators.com, Anda menyetujui untuk mematuhi dan terikat oleh Syarat dan Ketentuan ini. Jika Anda tidak menyetujui ketentuan ini, mohon untuk tidak menggunakan layanan kami.",
+            "Ketentuan ini mengatur penggunaan situs web, generator kode QR, alat pemindai, dan seluruh komponen terkait."
+          ]
+        },
+        {
+          id: "usage-license",
+          tocLabel: "2. Lisensi Penggunaan",
+          title: "2. Lisensi Penggunaan & Hak Kekayaan Intelektual",
+          paragraphs: [
+            "Kami memberikan Anda lisensi bebas biaya, non-eksklusif, berlaku di seluruh dunia, dan abadi untuk menggunakan kode QR yang dihasilkan melalui platform kami:",
+          ],
+          bullets: [
+            {
+              strong: "Penggunaan Komersial & Pribadi:",
+              text: "Anda bebas menggunakan kode QR untuk kebutuhan bisnis, kemasan produk, materi iklan cetak, layar digital, ataupun proyek pribadi."
+            },
+            {
+              strong: "Tanpa Watermark & Tanpa Biaya:",
+              text: "Semua kode QR 100% bebas biaya dan tidak memuat watermark, pelacakan terselubung, atau pengalihan iklan."
+            },
+            {
+              strong: "Kepemilikan Konten:",
+              text: "Anda memegang kepemilikan dan tanggung jawab penuh atas seluruh tautan, teks, kontak, atau informasi yang Anda sematkan ke dalam kode QR."
+            }
+          ]
+        },
+        {
+          id: "acceptable-use",
+          tocLabel: "3. Kebijakan Penggunaan Wajar",
+          title: "3. Kebijakan Penggunaan yang Diperbolehkan",
+          paragraphs: [
+            "Meskipun layanan kami gratis, Anda berkewajiban menggunakan platform kami secara bertanggung jawab. Anda dilarang menggunakan generator kami untuk membuat kode QR yang:"
+          ],
+          bullets: [
+            {
+              strong: "Perangkat Perusak & Phishing:",
+              text: "Menautkan ke malware, virus, situs web phishing, penipuan online, atau spyware berbahaya."
+            },
+            {
+              strong: "Konten Melanggar Hukum:",
+              text: "Mengandung atau mengarahkan ke konten ilegal, ujaran kebencian, atau melanggar hak cipta serta hukum yang berlaku di Indonesia maupun internasional."
+            },
+            {
+              strong: "Eksploitasi Keamanan:",
+              text: "Dirancang untuk meretas sistem jaringan atau menyusupkan skrip berbahaya ke perangkat pengguna."
+            }
+          ]
+        },
+        {
+          id: "warranties-disclaimer",
+          tocLabel: "4. Penafian Jaminan",
+          title: "4. Penafian Jaminan (Disclaimer of Warranties)",
+          paragraphs: [
+            "Layanan kami disediakan apa adanya ('AS-IS') dan sebagaimana tersedia ('AS-AVAILABLE'). Kami tidak memberikan jaminan eksplisit maupun implisit terkait keterbacaan kode pada semua jenis perangkat kamera lama atau kamera berkualitas rendah.",
+            "Selalu lakukan pengujian pemindaian secara fisik menggunakan beberapa kamera smartphone sebelum mencetak kode QR dalam jumlah besar atau memulai kampanye iklan."
+          ]
+        },
+        {
+          id: "liability-limits",
+          tocLabel: "5. Batasan Tanggung Jawab",
+          title: "5. Batasan Tanggung Jawab",
+          paragraphs: [
+            "Sejauh diizinkan oleh hukum yang berlaku, onlineqrgenerators.com dan para pengembangnya tidak bertanggung jawab atas kerugian langsung, tidak langsung, atau insidental yang timbul dari penggunaan layanan, termasuk biaya cetak atau potensi hilangnya peluang usaha."
+          ]
+        },
+        {
+          id: "terms-changes",
+          tocLabel: "6. Perubahan Ketentuan",
+          title: "6. Perubahan Syarat & Ketentuan",
+          paragraphs: [
+            "Kami berhak memperbarui Syarat dan Ketentuan ini sewaktu-waktu. Setiap revisi akan dicantumkan pada halaman ini beserta tanggal pembaruan terbaru. Penggunaan berkelanjutan Anda atas situs ini menandakan persetujuan Anda terhadap ketentuan yang diperbarui."
+          ]
+        },
+        {
+          id: "contact-us",
+          tocLabel: "7. Kontak",
+          title: "7. Informasi Kontak",
+          paragraphs: [
+            "Untuk pertanyaan atau permohonan informasi seputar Syarat dan Ketentuan kami, silakan hubungi tim kami di support@onlineqrgenerators.com atau kunjungi halaman Hubungi Kami."
+          ]
+        }
+      ]
+    }
+  }
 };
 
 export function getSubpageData(locale: string): SubpageLocaleData {

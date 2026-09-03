@@ -10,7 +10,6 @@ import History from './mainpage/History.astro';
 import Api from './mainpage/Api.astro';
 import Faq from './mainpage/Faq.astro';
 import Footer from './mainpage/Footer.astro';
-import Toast from './mainpage/Toast.astro';
 import SeoContent from './mainpage/SeoContent.astro';
 
 interface Props {
@@ -29,7 +28,33 @@ interface Props {
 }
 
 const { defaultActiveType = 'url', landingPageData } = Astro.props;
+
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "OnlineQRGenerators.com",
+  "url": "https://onlineqrgenerators.com",
+  "description": landingPageData?.description || "Free, instant, and private QR Code Generator with custom designs, colors, frames, and logos. 100% client-side and secure.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript. Requires HTML5.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "featureList": [
+    "100% Client-Side Private QR Code Generation",
+    "Vector SVG, PNG, and PDF Download",
+    "Custom Logo Embedding and Framing",
+    "Multi-color and Gradient Palettes",
+    "Bulk QR Code Generation and ZIP Export",
+    "Webcam and Image QR Code Scanner"
+  ]
+};
 ---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(webAppJsonLd)} />
 
 <!-- Background Grid & Premium Blur Glows Overlay -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -75,7 +100,5 @@ const { defaultActiveType = 'url', landingPageData } = Astro.props;
 </main>
 
 <Footer />
-
-<Toast />
 
 <script src="./mainpage/mainpage-client.ts"></script>

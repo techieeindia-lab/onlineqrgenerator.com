@@ -6,6 +6,7 @@ const locale = Astro.currentLocale || 'en';
 const t = translations[locale] || translations.en;
 const ui = getUiStrings(locale);
 ---
+    <div id="bulk" class="scroll-mt-24"></div>
     <div id="view-bulk" class="widget-view scroll-mt-24 hidden max-w-2xl mx-auto">
       <div class="glass-card rounded-2xl premium-shadow p-6 flex flex-col gap-6">
         <h2 class="text-xl font-bold font-sans text-ink">{t.bulk.title}</h2>

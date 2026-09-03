@@ -1,6 +1,6 @@
 {
-  "name": "onlineqrgenerator",
-  "short_name": "onlineqrgenerator",
+  "name": "onlineqrgenerators",
+  "short_name": "onlineqrgenerators",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

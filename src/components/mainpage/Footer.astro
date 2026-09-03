@@ -30,12 +30,14 @@ const labels = footerLabels[locale] || footerLabels.en;
     <div class="col-span-2 sm:col-span-4 md:col-span-2 lg:col-span-2 flex flex-col gap-3.5">
       <div class="flex items-center gap-2">
         <Logo class="w-6 h-6 shrink-0" />
-        <span class="font-sans font-bold text-base tracking-tight">{t.title}.</span>
+        <span class="font-sans font-bold text-base tracking-tight text-ink">
+          OnlineQR <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff]">Generators</span>
+        </span>
       </div>
       <p class="text-xs text-body max-w-sm leading-relaxed">{t.subtitle}</p>
       
       <!-- Newsletter Form -->
-      <form id="newsletter-form" class="flex flex-col gap-1.5 w-full max-w-xs mt-2" onsubmit="event.preventDefault(); alert('Subscribed successfully!'); this.reset();">
+      <form id="newsletter-form" class="flex flex-col gap-1.5 w-full max-w-xs mt-2" onsubmit="event.preventDefault(); window.dispatchEvent(new CustomEvent('app:toast', { detail: { message: 'Subscribed successfully!' } })); this.reset();">
         <span class="text-[10px] font-mono uppercase tracking-wider text-mute">{labels.stayUpdated}</span>
         <div class="flex bg-canvas border border-hairline rounded-lg p-1.5 shadow-sm hover:border-[#ff1b6b]/40 focus-within:border-[#ff1b6b] transition-all">
           <input type="email" required placeholder={labels.placeholder} class="bg-transparent border-0 outline-none text-[11px] text-ink px-2 py-1 w-full" />
@@ -56,7 +58,7 @@ const labels = footerLabels[locale] || footerLabels.en;
         </a>
       </div>
 
-      <span class="text-[10px] text-mute font-mono mt-4">© 2026 onlineqrgenerator.com. {labels.rights}</span>
+      <span class="text-[10px] text-mute font-mono mt-4">© 2026 onlineqrgenerators.com. {labels.rights}</span>
     </div>
     
     <!-- Column 3: Product -->

@@ -8,7 +8,8 @@ const t = translations[locale] || translations.en;
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
       <div class="md:col-span-5 flex flex-col gap-4">
         <div class="inline-flex w-fit items-center gap-1.5 px-3 py-1 rounded-pill bg-canvas border border-hairline text-[10px] font-mono text-body">
-          <span>v1.0 API</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#ff1b6b] animate-pulse"></span>
+          <span>Client SDK & REST API (Preview)</span>
         </div>
         <h2 class="text-2xl md:text-3xl font-bold font-sans tracking-tight text-ink leading-tight">{t.apiTitle}</h2>
         <p class="text-sm text-body">{t.apiDesc}</p>
@@ -37,7 +38,7 @@ const t = translations[locale] || translations.en;
 <span class="text-[#00dfd8]">const</span> qrCode = <span class="text-[#00dfd8]">new</span> <span class="text-[#00dfd8]">QRCodeStyling</span>(&#123;
   width: <span class="text-[#f9cb28]">300</span>,
   height: <span class="text-[#f9cb28]">300</span>,
-  data: <span class="text-[#f9cb28]">'https://onlineqrgenerator.com'</span>,
+  data: <span class="text-[#f9cb28]">'https://onlineqrgenerators.com'</span>,
   dotsOptions: &#123; color: <span class="text-[#f9cb28]">'#171717'</span>, type: <span class="text-[#f9cb28]">'rounded'</span> &#125;,
   backgroundOptions: &#123; color: <span class="text-[#f9cb28]">'#ffffff'</span> &#125;,
   image: <span class="text-[#f9cb28]">'/logo.png'</span>
@@ -48,10 +49,10 @@ qrCode.append(document.getElementById(<span class="text-[#f9cb28]">'qr-holder'</
           <!-- Python Code Block -->
           <pre class="api-code-block overflow-x-auto text-[11px] leading-relaxed hidden" data-lang="python"><span class="text-[#00dfd8]">import</span> requests
 
-<span class="text-[#a1a1a1]">// Post parameters to generate PNG</span>
-url = <span class="text-[#f9cb28]">'https://api.onlineqrgenerator.com/v1/create'</span>
+<span class="text-[#a1a1a1]"># Post parameters to generate PNG</span>
+url = <span class="text-[#f9cb28]">'https://api.onlineqrgenerators.com/v1/create'</span>
 payload = &#123;
-    <span class="text-[#f9cb28]">'data'</span>: <span class="text-[#f9cb28]">'https://onlineqrgenerator.com'</span>,
+    <span class="text-[#f9cb28]">'data'</span>: <span class="text-[#f9cb28]">'https://onlineqrgenerators.com'</span>,
     <span class="text-[#f9cb28]">'size'</span>: <span class="text-[#f9cb28]">300</span>,
     <span class="text-[#f9cb28]">'color'</span>: <span class="text-[#f9cb28]">'#171717'</span>,
     <span class="text-[#f9cb28]">'bg_color'</span>: <span class="text-[#f9cb28]">'#ffffff'</span>
@@ -61,10 +62,10 @@ response = requests.post(url, json=payload)
     f.write(response.content)</pre>
 
           <!-- cURL Code Block -->
-          <pre class="api-code-block overflow-x-auto text-[11px] leading-relaxed hidden" data-lang="curl">curl -X POST https://api.onlineqrgenerator.com/v1/create \
+          <pre class="api-code-block overflow-x-auto text-[11px] leading-relaxed hidden" data-lang="curl">curl -X POST https://api.onlineqrgenerators.com/v1/create \
   -H <span class="text-[#f9cb28]">'Content-Type: application/json'</span> \
   -d <span class="text-[#f9cb28]">'&#123;
-    "data": "https://onlineqrgenerator.com",
+    "data": "https://onlineqrgenerators.com",
     "size": 300,
     "color": "#171717",
     "bg_color": "#ffffff"
@@ -75,21 +76,21 @@ response = requests.post(url, json=payload)
           <pre class="api-code-block overflow-x-auto text-[11px] leading-relaxed hidden" data-lang="go"><span class="text-[#00dfd8]">package</span> main
 
 <span class="text-[#00dfd8]">import</span> (
-	<span class="text-[#f9cb28]">'bytes'</span>
-	<span class="text-[#f9cb28]">'encoding/json'</span>
-	<span class="text-[#f9cb28]">'io'</span>
-	<span class="text-[#f9cb28]">'net/http'</span>
-	<span class="text-[#f9cb28]">'os'</span>
+	<span class="text-[#f9cb28]">"bytes"</span>
+	<span class="text-[#f9cb28]">"encoding/json"</span>
+	<span class="text-[#f9cb28]">"io"</span>
+	<span class="text-[#f9cb28]">"net/http"</span>
+	<span class="text-[#f9cb28]">"os"</span>
 )
 
 <span class="text-[#00dfd8]">func</span> main() &#123;
 	payload, _ := json.Marshal(<span class="text-[#00dfd8]">map</span>[string]interface&#123;&#125;&#123;
-		<span class="text-[#f9cb28]">'data'</span>: <span class="text-[#f9cb28]">'https://onlineqrgenerator.com'</span>,
-		<span class="text-[#f9cb28]">'size'</span>: <span class="text-[#f9cb28]">300</span>,
+		<span class="text-[#f9cb28]">"data"</span>: <span class="text-[#f9cb28]">"https://onlineqrgenerators.com"</span>,
+		<span class="text-[#f9cb28]">"size"</span>: <span class="text-[#f9cb28]">300</span>,
 	&#125;)
-	resp, _ := http.Post(<span class="text-[#f9cb28]">'https://api.onlineqrgenerator.com/v1/create'</span>, <span class="text-[#f9cb28]">'application/json'</span>, bytes.NewBuffer(payload))
+	resp, _ := http.Post(<span class="text-[#f9cb28]">"https://api.onlineqrgenerators.com/v1/create"</span>, <span class="text-[#f9cb28]">"application/json"</span>, bytes.NewBuffer(payload))
 	<span class="text-[#00dfd8]">defer</span> resp.Body.Close()
-	out, _ := os.Create(<span class="text-[#f9cb28]">'qr.png'</span>)
+	out, _ := os.Create(<span class="text-[#f9cb28]">"qr.png"</span>)
 	<span class="text-[#00dfd8]">defer</span> out.Close()
 	io.Copy(out, resp.Body)
 &#125;</pre>

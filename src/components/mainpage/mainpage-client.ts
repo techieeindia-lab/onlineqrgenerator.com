@@ -1,9 +1,8 @@
 // Client Side script
 import QRCodeStyling from 'qr-code-styling';
-import JSZip from 'jszip';
-import jsQR from 'jsqr';
 import { translations } from '../../i18n/translations';
 import { getUiStrings } from '../../i18n/uiStrings';
+import { QR_TEMPLATES, INDUSTRY_TEMPLATES, INDUSTRY_EMBLEMS, getAllTemplates, getDefaultTemplateForIndustry, type QRTemplate } from '../../data/qrTemplates';
 
 // State Management
 let currentLocale = document.documentElement.lang || 'en';
@@ -28,6 +27,7 @@ if (activeTabEl) {
 let qrCodeInstance: any = null;
 
 // Customization State
+let activeTemplateId: string | null = null;
 let fgColor = '#171717';
 let bgColor = '#ffffff';
 let activeLogoPreset: string | null = null;
@@ -52,6 +52,7 @@ let frameTopText = 'SCAN CODE';
 let frameColor = '#171717';
 let isCustomFrameColor = false;
 
+let matrixShape = 'square'; // 'square' or 'circle'
 let dotType = 'rounded';
 let eyeFrameType = 'extra-rounded';
 let eyeBallType = 'rounded';
@@ -122,6 +123,7 @@ function setupVisualButtonSelectors() {
     selectEl.addEventListener('change', updateActiveButton);
   };
 
+  syncSelectWithButtons('matrix-shape', 'matrix-shape-buttons');
   syncSelectWithButtons('body-style', 'body-style-buttons');
   syncSelectWithButtons('eye-border-style', 'eye-border-style-buttons');
   syncSelectWithButtons('eye-center-style', 'eye-center-style-buttons');
@@ -188,6 +190,34 @@ function initApp() {
   tabBtnGen?.addEventListener('click', () => selectView(tabBtnGen, viewGen!));
   tabBtnScan?.addEventListener('click', () => selectView(tabBtnScan, viewScan!));
   tabBtnBulk?.addEventListener('click', () => selectView(tabBtnBulk, viewBulk!));
+
+  function handleHashRoute() {
+    const hash = window.location.hash.toLowerCase();
+    if (hash === '#scanner' || hash === '#scan') {
+      if (tabBtnScan && viewScan) {
+        selectView(tabBtnScan, viewScan);
+        const scannerEl = document.getElementById('scanner') || viewScan;
+        scannerEl?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (hash === '#bulk') {
+      if (tabBtnBulk && viewBulk) {
+        selectView(tabBtnBulk, viewBulk);
+        const bulkEl = document.getElementById('bulk') || viewBulk;
+        bulkEl?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else if (hash === '#generator' || hash === '#generate') {
+      if (tabBtnGen && viewGen) {
+        selectView(tabBtnGen, viewGen);
+        const genEl = document.getElementById('generator') || viewGen;
+        genEl?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+
+  window.addEventListener('hashchange', handleHashRoute);
+  if (window.location.hash) {
+    setTimeout(handleHashRoute, 120);
+  }
 
   // Type Selector tabs
   const tabs = document.querySelectorAll('.qr-type-tab');
@@ -419,6 +449,10 @@ function initApp() {
   });
 
   // Shapes selectors
+  document.getElementById('matrix-shape')?.addEventListener('change', (e) => {
+    matrixShape = (e.target as HTMLSelectElement).value;
+    updateQRCode();
+  });
   document.getElementById('body-style')?.addEventListener('change', (e) => {
     dotType = (e.target as HTMLSelectElement).value;
     updateQRCode();
@@ -586,12 +620,64 @@ function initApp() {
     updateQRCode();
   });
 
-  // Downloads
+  // Downloads & Actions
   document.getElementById('download-png-btn')?.addEventListener('click', () => {
     downloadQR('png');
   });
   document.getElementById('download-svg-btn')?.addEventListener('click', () => {
     downloadQR('svg');
+  });
+  document.getElementById('download-pdf-btn')?.addEventListener('click', () => {
+    toggleMoreFormatsMenu(false);
+    downloadQR('pdf');
+  });
+  document.getElementById('download-webp-btn')?.addEventListener('click', () => {
+    toggleMoreFormatsMenu(false);
+    downloadQR('webp');
+  });
+  document.getElementById('download-jpg-btn')?.addEventListener('click', () => {
+    toggleMoreFormatsMenu(false);
+    downloadQR('jpeg');
+  });
+  document.getElementById('copy-image-btn')?.addEventListener('click', () => {
+    copyQRImage();
+  });
+  document.getElementById('print-qr-btn')?.addEventListener('click', () => {
+    toggleMoreFormatsMenu(false);
+    printQRCode();
+  });
+
+  // More Formats Dropdown
+  const moreFormatsBtn = document.getElementById('more-formats-btn');
+  const moreFormatsMenu = document.getElementById('more-formats-menu');
+  const moreFormatsChevron = document.getElementById('more-formats-chevron');
+
+  function toggleMoreFormatsMenu(open?: boolean) {
+    if (!moreFormatsMenu) return;
+    const shouldOpen = open !== undefined ? open : moreFormatsMenu.classList.contains('hidden');
+    if (shouldOpen) {
+      moreFormatsMenu.classList.remove('hidden');
+      moreFormatsBtn?.setAttribute('aria-expanded', 'true');
+      moreFormatsChevron?.classList.add('rotate-180');
+    } else {
+      moreFormatsMenu.classList.add('hidden');
+      moreFormatsBtn?.setAttribute('aria-expanded', 'false');
+      moreFormatsChevron?.classList.remove('rotate-180');
+    }
+  }
+
+  moreFormatsBtn?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMoreFormatsMenu();
+  });
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (moreFormatsMenu && !moreFormatsMenu.classList.contains('hidden')) {
+      if (!moreFormatsMenu.contains(target) && !moreFormatsBtn?.contains(target)) {
+        toggleMoreFormatsMenu(false);
+      }
+    }
   });
 
   // Initialize QR Code Styling instance
@@ -600,6 +686,7 @@ function initApp() {
     width: 240,
     height: 240,
     type: 'svg',
+    shape: matrixShape as any,
     data: payload,
     qrOptions: {
       errorCorrectionLevel: eccLevel
@@ -637,8 +724,21 @@ function initApp() {
   // Initialize Bulk Generator UI events
   setupBulkGenerator();
 
+  // Initialize Designer Templates Showcase
+  setupTemplatesShowcase();
+
   // autoApplyPresetLogo(activeType); // Don't auto-apply preset logo by default
   applyIndustryOverrides(activeType);
+
+  // Auto-apply industry default template if visiting an industry-specific page
+  if (landingData && landingData.slug && landingData.slug in INDUSTRY_TEMPLATES) {
+    const industrySlug = landingData.slug;
+    const defaultTmplId = landingData.defaultTemplateId || getDefaultTemplateForIndustry(industrySlug)?.id;
+    if (defaultTmplId) {
+      applyTemplate(defaultTmplId, false); // false: avoid toast on initial load
+    }
+  }
+
   updatePreviewTypeBadge();
   renderHistory();
 }
@@ -669,7 +769,7 @@ function applyIndustryOverrides(type: string) {
         if (inputEl) {
           inputEl.placeholder = placeholderText as string;
           // For url, if it has default generic value or empty, set it
-          if (fieldId === 'input-url' && (inputEl.value === 'https://onlineqrgenerator.com' || inputEl.value === '')) {
+          if (fieldId === 'input-url' && (inputEl.value === 'https://onlineqrgenerators.com' || inputEl.value === '')) {
             inputEl.value = placeholderText as string;
             updated = true;
           }
@@ -795,6 +895,16 @@ function getContrastIconColor(): string {
 
 // Generate dynamic preset SVG data URIs (high-resolution vectors with theme contrast)
 function getPresetLogoSvg(preset: string): string | null {
+  // Check if preset is in curated INDUSTRY_EMBLEMS
+  const emblem = INDUSTRY_EMBLEMS.find(e => e.id === preset);
+  if (emblem) {
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="128" height="128">
+        ${emblem.iconSvg}
+      </svg>
+    `.trim())}`;
+  }
+
   const iconColor = getContrastIconColor();
 
   switch (preset) {
@@ -1149,6 +1259,51 @@ async function refreshProcessedLogo() {
         ctx.beginPath();
         ctx.roundRect(12, 12, size - 24, size - 24, size * 0.15);
         ctx.stroke();
+      } else if (activeLogoFrame === 'gold-ring') {
+        // Luxury Dual Gold Ring with Depth
+        ctx.fillStyle = logoFrameColor || '#ffffff';
+        ctx.beginPath();
+        ctx.arc(center, center, radius, 0, 2 * Math.PI);
+        ctx.fill();
+
+        ctx.shadowColor = 'transparent';
+        const goldGrad = ctx.createLinearGradient(12, 12, size - 12, size - 12);
+        goldGrad.addColorStop(0, '#fef08a');
+        goldGrad.addColorStop(0.3, '#d4af37');
+        goldGrad.addColorStop(0.7, '#ca8a04');
+        goldGrad.addColorStop(1, '#eab308');
+
+        ctx.strokeStyle = goldGrad;
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.arc(center, center, radius - 4, 0, 2 * Math.PI);
+        ctx.stroke();
+
+        ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(center, center, radius - 14, 0, 2 * Math.PI);
+        ctx.stroke();
+      } else if (activeLogoFrame === 'shield') {
+        // Luxury Squircle Shield Mount
+        const shieldRadius = size * 0.22;
+        ctx.fillStyle = logoFrameColor || '#ffffff';
+        ctx.beginPath();
+        ctx.roundRect(14, 14, size - 28, size - 28, shieldRadius);
+        ctx.fill();
+
+        ctx.shadowColor = 'transparent';
+        const metallicGrad = ctx.createLinearGradient(0, 0, size, size);
+        metallicGrad.addColorStop(0, '#fef08a');
+        metallicGrad.addColorStop(0.4, '#d4af37');
+        metallicGrad.addColorStop(0.8, '#a16207');
+        metallicGrad.addColorStop(1, '#eab308');
+
+        ctx.strokeStyle = metallicGrad;
+        ctx.lineWidth = 7;
+        ctx.beginPath();
+        ctx.roundRect(16, 16, size - 32, size - 32, shieldRadius - 4);
+        ctx.stroke();
       }
       
       ctx.shadowColor = 'transparent';
@@ -1172,7 +1327,7 @@ function getPayload(): string {
   switch (activeType) {
     case 'url':
       const urlEl = document.getElementById('input-url') as HTMLInputElement;
-      return urlEl?.value || 'https://onlineqrgenerator.com';
+      return urlEl?.value || 'https://onlineqrgenerators.com';
 
     case 'social':
       const platform = (document.getElementById('social-platform') as HTMLSelectElement)?.value || 'instagram';
@@ -1206,7 +1361,7 @@ function getPayload(): string {
         } else if (fbPlatform === 'trustpilot') {
           trimmed = 'yourbusiness.com';
         } else {
-          trimmed = 'https://onlineqrgenerator.com/feedback';
+          trimmed = 'https://onlineqrgenerators.com/feedback';
         }
       }
 
@@ -1304,6 +1459,7 @@ async function updateQRCode() {
   }
 
   qrCodeInstance.update({
+    shape: matrixShape as any,
     data: payload,
     qrOptions: {
       errorCorrectionLevel: eccLevel
@@ -1654,8 +1810,425 @@ function updateFrameUI() {
   }
 }
 
+// --------------------------------------------------
+// COMPOSITE FRAMES RENDERING & EXPORT ENGINE
+// --------------------------------------------------
+async function renderCompositeCanvas(exportSize: number, ensureSolidBg: boolean = false): Promise<HTMLCanvasElement> {
+  const options = qrCodeInstance?._options || qrCodeInstance?.options || {};
+  const tempInstance = new QRCodeStyling({
+    width: exportSize,
+    height: exportSize,
+    type: 'canvas',
+    shape: matrixShape as any,
+    data: getPayload(),
+    qrOptions: {
+      errorCorrectionLevel: eccLevel
+    },
+    dotsOptions: options.dotsOptions,
+    backgroundOptions: options.backgroundOptions,
+    cornersSquareOptions: options.cornersSquareOptions,
+    cornersDotOptions: options.cornersDotOptions,
+    image: getLogoPath() || undefined,
+    imageOptions: options.imageOptions
+  });
+
+  const rawBlob = await tempInstance.getRawData('png');
+  if (!rawBlob) {
+    throw new Error('Failed to generate raw QR blob');
+  }
+
+  const img = new Image();
+  await new Promise<void>((resolve, reject) => {
+    img.onload = () => resolve();
+    img.onerror = reject;
+    img.src = URL.createObjectURL(rawBlob);
+  });
+  URL.revokeObjectURL(img.src);
+
+  if (frameStyle === 'none') {
+    const rawCanvas = document.createElement('canvas');
+    rawCanvas.width = exportSize;
+    rawCanvas.height = exportSize;
+    const ctx = rawCanvas.getContext('2d');
+    if (ctx) {
+      if (ensureSolidBg) {
+        ctx.fillStyle = bgColor || '#ffffff';
+        ctx.fillRect(0, 0, exportSize, exportSize);
+      }
+      ctx.drawImage(img, 0, 0, exportSize, exportSize);
+    }
+    return rawCanvas;
+  }
+
+  const isDark = document.documentElement.classList.contains('dark');
+  const labelTextColor = getContrastColor(frameColor);
+  const cardBgColor = isDark ? '#141420' : '#ffffff';
+
+  const qrRenderSize = exportSize;
+  const cardPadding = Math.round(qrRenderSize * 0.03);
+  const cardSize = qrRenderSize + (cardPadding * 2);
+  const outerPadding = Math.round(qrRenderSize * 0.08);
+  const gap = Math.round(qrRenderSize * 0.04);
+  const frameHeight = Math.round(qrRenderSize * 0.2);
+
+  const compositeCanvas = document.createElement('canvas');
+  const ctx = compositeCanvas.getContext('2d');
+  if (!ctx) return compositeCanvas;
+
+  let canvasWidth = cardSize + (outerPadding * 2);
+  let canvasHeight = outerPadding + cardSize + gap + frameHeight + outerPadding;
+  let qrX = outerPadding + cardPadding;
+  let qrY = outerPadding + cardPadding;
+  let cardX = outerPadding;
+  let cardY = outerPadding;
+  let labelY = outerPadding + cardSize + gap;
+
+  if (frameStyle === 'phone') {
+    const bezel = Math.round(qrRenderSize * 0.04);
+    const padTop = Math.round(qrRenderSize * 0.11);
+    const padSides = Math.round(qrRenderSize * 0.06);
+    const padBottom = Math.round(qrRenderSize * 0.16);
+    canvasWidth = cardSize + (padSides * 2) + (bezel * 2);
+    canvasHeight = cardSize + padTop + padBottom + (bezel * 2);
+    qrX = bezel + padSides + cardPadding;
+    qrY = bezel + padTop + cardPadding;
+    cardX = bezel + padSides;
+    cardY = bezel + padTop;
+  } else if (frameStyle === 'top-bottom') {
+    canvasWidth = cardSize + (outerPadding * 2);
+    canvasHeight = frameHeight + outerPadding + cardSize + outerPadding + frameHeight;
+    qrX = outerPadding + cardPadding;
+    qrY = frameHeight + outerPadding + cardPadding;
+    cardX = outerPadding;
+    cardY = frameHeight + outerPadding;
+  } else if (frameStyle === 'viewfinder') {
+    canvasWidth = cardSize + (outerPadding * 2);
+    canvasHeight = cardSize + (outerPadding * 2) + frameHeight;
+    qrX = outerPadding + cardPadding;
+    qrY = outerPadding + cardPadding;
+    cardX = outerPadding;
+    cardY = outerPadding;
+    labelY = outerPadding + cardSize + gap;
+  }
+
+  compositeCanvas.width = canvasWidth;
+  compositeCanvas.height = canvasHeight;
+
+  // Fill background matching preview theme
+  let frameBg = isDark ? '#12121c' : '#ffffff';
+  if (frameStyle === 'neon') frameBg = '#0a0a0a';
+  else if (frameStyle === 'stamp') frameBg = isDark ? '#161622' : '#fdfbf7';
+  else if (frameStyle === 'glassmorphic') {
+    const glassGrad = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
+    if (isDark) {
+      glassGrad.addColorStop(0, '#1a1a28');
+      glassGrad.addColorStop(1, '#0e0e18');
+    } else {
+      glassGrad.addColorStop(0, '#f8f9fc');
+      glassGrad.addColorStop(1, '#eef1f6');
+    }
+    ctx.fillStyle = glassGrad;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  }
+
+  if (frameStyle !== 'glassmorphic') {
+    ctx.fillStyle = frameBg;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+  }
+
+  // Draw card container (matching preview canvas container)
+  ctx.fillStyle = cardBgColor;
+  ctx.beginPath();
+  ctx.roundRect(cardX, cardY, cardSize, cardSize, Math.round(qrRenderSize * 0.03));
+  ctx.fill();
+
+  // Draw QR code inside container
+  ctx.drawImage(img, qrX, qrY, qrRenderSize, qrRenderSize);
+
+  ctx.fillStyle = frameColor;
+  ctx.strokeStyle = frameColor;
+
+  const fontSize = Math.round(qrRenderSize * 0.045);
+  ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  if (frameStyle === 'classic') {
+    const r = Math.round(qrRenderSize * 0.045);
+    ctx.lineWidth = Math.round(qrRenderSize * 0.012);
+    ctx.strokeStyle = frameColor;
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, labelY - ctx.lineWidth / 2, [r, r, 0, 0]);
+    ctx.stroke();
+
+    ctx.fillStyle = frameColor;
+    ctx.beginPath();
+    ctx.roundRect(0, labelY, canvasWidth, frameHeight, [0, 0, r, r]);
+    ctx.fill();
+
+    ctx.fillStyle = labelTextColor;
+    ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
+  } else if (frameStyle === 'capsule') {
+    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
+    ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.06));
+    ctx.stroke();
+
+    const pillWidth = Math.round(qrRenderSize * 0.65);
+    const pillHeight = Math.round(frameHeight * 0.6);
+    const pillX = (canvasWidth - pillWidth) / 2;
+    const pillY = labelY + (frameHeight - pillHeight) / 2;
+
+    ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.06)';
+    ctx.shadowBlur = Math.round(qrRenderSize * 0.02);
+    ctx.shadowOffsetY = Math.round(qrRenderSize * 0.01);
+
+    ctx.fillStyle = frameColor;
+    ctx.beginPath();
+    ctx.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
+    ctx.fill();
+
+    ctx.shadowColor = 'transparent';
+    ctx.fillStyle = labelTextColor;
+    ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
+  } else if (frameStyle === 'minimal') {
+    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
+    ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
+    ctx.stroke();
+
+    ctx.fillStyle = frameColor;
+    ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
+    ctx.fillText(`● ${frameText} ●`, canvasWidth / 2, labelY + (frameHeight / 2));
+  } else if (frameStyle === 'ticket') {
+    ctx.strokeStyle = frameColor;
+    ctx.lineWidth = Math.round(qrRenderSize * 0.006);
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.04));
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.setLineDash([Math.round(qrRenderSize * 0.02), Math.round(qrRenderSize * 0.015)]);
+    ctx.moveTo(outerPadding, labelY - gap / 2);
+    ctx.lineTo(canvasWidth - outerPadding, labelY - gap / 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = frameColor;
+    ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
+  } else if (frameStyle === 'pointer') {
+    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
+    ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
+    ctx.stroke();
+
+    const bubbleWidth = Math.round(qrRenderSize * 0.7);
+    const bubbleHeight = Math.round(frameHeight * 0.6);
+    const bubbleX = (canvasWidth - bubbleWidth) / 2;
+    const bubbleY = labelY + (frameHeight - bubbleHeight) / 2;
+
+    ctx.fillStyle = frameColor;
+    ctx.beginPath();
+    ctx.roundRect(bubbleX, bubbleY, bubbleWidth, bubbleHeight, Math.round(bubbleHeight * 0.25));
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(canvasWidth / 2 - Math.round(qrRenderSize * 0.025), bubbleY);
+    ctx.lineTo(canvasWidth / 2, bubbleY - Math.round(qrRenderSize * 0.02));
+    ctx.lineTo(canvasWidth / 2 + Math.round(qrRenderSize * 0.025), bubbleY);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.fillStyle = labelTextColor;
+    ctx.fillText(frameText, canvasWidth / 2, bubbleY + (bubbleHeight / 2));
+  } else if (frameStyle === 'phone') {
+    const bezel = Math.round(qrRenderSize * 0.04);
+    const padBottom = Math.round(qrRenderSize * 0.16);
+
+    ctx.lineWidth = bezel;
+    ctx.strokeStyle = isDark ? '#262638' : '#1f1f1f';
+    ctx.beginPath();
+    ctx.roundRect(bezel / 2, bezel / 2, canvasWidth - bezel, canvasHeight - bezel, Math.round(qrRenderSize * 0.08));
+    ctx.stroke();
+
+    ctx.fillStyle = '#000000';
+    const islandWidth = Math.round(qrRenderSize * 0.22);
+    const islandHeight = Math.round(qrRenderSize * 0.04);
+    ctx.beginPath();
+    ctx.roundRect((canvasWidth - islandWidth) / 2, bezel * 0.8, islandWidth, islandHeight, islandHeight / 2);
+    ctx.fill();
+
+    ctx.fillStyle = isDark ? '#4b4b60' : '#d4d4d4';
+    const homeWidth = Math.round(qrRenderSize * 0.2);
+    const homeHeight = Math.round(qrRenderSize * 0.01);
+    ctx.beginPath();
+    ctx.roundRect((canvasWidth - homeWidth) / 2, canvasHeight - bezel - Math.round(qrRenderSize * 0.03), homeWidth, homeHeight, homeHeight / 2);
+    ctx.fill();
+
+    const phoneLabelY = canvasHeight - bezel - (padBottom / 2);
+    ctx.fillStyle = frameColor;
+    ctx.fillText(frameText, canvasWidth / 2, phoneLabelY);
+  } else if (frameStyle === 'top-bottom') {
+    const r = Math.round(qrRenderSize * 0.04);
+    const bannerGrad = ctx.createLinearGradient(0, 0, canvasWidth, 0);
+    bannerGrad.addColorStop(0, frameColor);
+    bannerGrad.addColorStop(1, frameColor + 'dd');
+
+    ctx.fillStyle = bannerGrad;
+    ctx.beginPath();
+    ctx.roundRect(0, 0, canvasWidth, frameHeight, [r, r, 0, 0]);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.roundRect(0, canvasHeight - frameHeight, canvasWidth, frameHeight, [0, 0, r, r]);
+    ctx.fill();
+
+    ctx.fillStyle = labelTextColor;
+    ctx.fillText(frameTopText, canvasWidth / 2, frameHeight / 2);
+    ctx.fillText(frameText, canvasWidth / 2, canvasHeight - (frameHeight / 2));
+  } else if (frameStyle === 'glassmorphic') {
+    ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.7)';
+    ctx.lineWidth = Math.round(qrRenderSize * 0.015);
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
+    ctx.stroke();
+
+    const pillWidth = Math.round(qrRenderSize * 0.6);
+    const pillHeight = Math.round(frameHeight * 0.55);
+    const pillX = (canvasWidth - pillWidth) / 2;
+    const pillY = labelY + (frameHeight - pillHeight) / 2;
+
+    ctx.fillStyle = frameColor;
+    ctx.beginPath();
+    ctx.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
+    ctx.fill();
+
+    ctx.fillStyle = labelTextColor;
+    ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
+  } else if (frameStyle === 'neon') {
+    ctx.shadowColor = frameColor;
+    ctx.shadowBlur = Math.round(qrRenderSize * 0.04);
+    ctx.lineWidth = Math.round(qrRenderSize * 0.012);
+
+    const grad = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
+    grad.addColorStop(0, frameColor);
+    grad.addColorStop(1, '#00f2fe');
+    ctx.strokeStyle = grad;
+
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.04));
+    ctx.stroke();
+    ctx.shadowColor = 'transparent';
+
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowColor = frameColor;
+    ctx.shadowBlur = Math.round(qrRenderSize * 0.015);
+    ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
+    ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
+    ctx.shadowColor = 'transparent';
+  } else if (frameStyle === 'viewfinder') {
+    const bracketSize = Math.round(qrRenderSize * 0.08);
+    const bracketWidth = Math.max(2, Math.round(qrRenderSize * 0.012));
+
+    const vx1 = cardX - cardPadding / 2;
+    const vy1 = cardY - cardPadding / 2;
+    const vx2 = cardX + cardSize + cardPadding / 2;
+    const vy2 = cardY + cardSize + cardPadding / 2;
+
+    ctx.strokeStyle = frameColor;
+    ctx.lineWidth = bracketWidth;
+    ctx.lineCap = 'round';
+
+    // Top-Left
+    ctx.beginPath();
+    ctx.moveTo(vx1 + bracketSize, vy1);
+    ctx.lineTo(vx1, vy1);
+    ctx.lineTo(vx1, vy1 + bracketSize);
+    ctx.stroke();
+
+    // Top-Right
+    ctx.beginPath();
+    ctx.moveTo(vx2 - bracketSize, vy1);
+    ctx.lineTo(vx2, vy1);
+    ctx.lineTo(vx2, vy1 + bracketSize);
+    ctx.stroke();
+
+    // Bottom-Left
+    ctx.beginPath();
+    ctx.moveTo(vx1 + bracketSize, vy2);
+    ctx.lineTo(vx1, vy2);
+    ctx.lineTo(vx1, vy2 - bracketSize);
+    ctx.stroke();
+
+    // Bottom-Right
+    ctx.beginPath();
+    ctx.moveTo(vx2 - bracketSize, vy2);
+    ctx.lineTo(vx2, vy2);
+    ctx.lineTo(vx2, vy2 - bracketSize);
+    ctx.stroke();
+
+    ctx.fillStyle = '#f43f5e';
+    ctx.beginPath();
+    ctx.arc(vx1 + cardPadding, vy1 + cardPadding, Math.round(qrRenderSize * 0.012), 0, 2 * Math.PI);
+    ctx.fill();
+
+    ctx.fillStyle = frameColor;
+    ctx.font = `bold ${Math.round(qrRenderSize * 0.03)}px "Courier New", Courier, monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText('REC', vx1 + cardPadding * 2.2, vy1 + cardPadding);
+
+    ctx.textAlign = 'right';
+    ctx.fillText('RAW 12-BIT', vx2 - cardPadding, vy1 + cardPadding);
+
+    ctx.textAlign = 'left';
+    ctx.fillText('F:1.8', vx1 + cardPadding, vy2 - cardPadding);
+
+    ctx.textAlign = 'center';
+    ctx.fillText('ISO 200', canvasWidth / 2, vy2 - cardPadding);
+
+    ctx.textAlign = 'right';
+    ctx.fillText('1/125s', vx2 - cardPadding, vy2 - cardPadding);
+
+    ctx.fillStyle = frameColor;
+    ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText(`[○] ${frameText}`, canvasWidth / 2, labelY + (frameHeight / 2));
+  } else if (frameStyle === 'stamp') {
+    ctx.strokeStyle = frameColor;
+    ctx.lineWidth = Math.round(qrRenderSize * 0.015);
+    ctx.setLineDash([Math.round(qrRenderSize * 0.005), Math.round(qrRenderSize * 0.02)]);
+    ctx.beginPath();
+    ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.02));
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    const barcodeY = labelY + Math.round(frameHeight * 0.1);
+    const barcodeH = Math.round(frameHeight * 0.35);
+    const barcodeW = Math.round(qrRenderSize * 0.6);
+    const startX = (canvasWidth - barcodeW) / 2;
+
+    ctx.fillStyle = frameColor;
+    let currX = startX;
+    let index = 0;
+    while (currX < startX + barcodeW) {
+      const w = (index % 3 === 0) ? Math.round(qrRenderSize * 0.008) : (index % 5 === 0) ? Math.round(qrRenderSize * 0.003) : Math.round(qrRenderSize * 0.005);
+      ctx.fillRect(currX, barcodeY, w, barcodeH);
+      currX += w + Math.round(qrRenderSize * 0.005);
+      index++;
+    }
+
+    ctx.fillStyle = frameColor;
+    ctx.fillText(frameText, canvasWidth / 2, labelY + Math.round(frameHeight * 0.75));
+  }
+
+  return compositeCanvas;
+}
+
 // Composite frames drawing compositor during download
-async function downloadQR(format: 'png' | 'svg') {
+async function downloadQR(format: 'png' | 'svg' | 'pdf' | 'webp' | 'jpeg') {
   if (!qrCodeInstance) return;
 
   // Validate inputs before download
@@ -1670,14 +2243,38 @@ async function downloadQR(format: 'png' | 'svg') {
 
   const finalName = `qr-code-${activeType}`;
 
-  // If no frame is selected, perform raw download
-  if (frameStyle === 'none') {
-    // Render using correct type (canvas for png, svg for svg) to ensure reliable download/conversion
+  if (format === 'svg') {
+    // SVG Format Handling
+    if (frameStyle === 'none') {
+      const options = qrCodeInstance._options || qrCodeInstance.options || {};
+      const tempInstance = new QRCodeStyling({
+        width: qrSize,
+        height: qrSize,
+        type: 'svg',
+        shape: matrixShape as any,
+        data: getPayload(),
+        qrOptions: {
+          errorCorrectionLevel: eccLevel
+        },
+        dotsOptions: options.dotsOptions,
+        backgroundOptions: options.backgroundOptions,
+        cornersSquareOptions: options.cornersSquareOptions,
+        cornersDotOptions: options.cornersDotOptions,
+        image: getLogoPath() || undefined,
+        imageOptions: options.imageOptions
+      });
+      tempInstance.download({ name: finalName, extension: 'svg' });
+      return;
+    }
+
+    // Framed SVG Serialization
+    const exportSize = qrSize;
     const options = qrCodeInstance._options || qrCodeInstance.options || {};
     const tempInstance = new QRCodeStyling({
-      width: qrSize,
-      height: qrSize,
-      type: format === 'png' ? 'canvas' : 'svg',
+      width: exportSize,
+      height: exportSize,
+      type: 'svg',
+      shape: matrixShape as any,
       data: getPayload(),
       qrOptions: {
         errorCorrectionLevel: eccLevel
@@ -1689,410 +2286,18 @@ async function downloadQR(format: 'png' | 'svg') {
       image: getLogoPath() || undefined,
       imageOptions: options.imageOptions
     });
-    tempInstance.download({ name: finalName, extension: format });
-    return;
-  }
 
-  // Set high-resolution size multiplier for export
-  const exportSize = qrSize;
+    const isDark = document.documentElement.classList.contains('dark');
+    const labelTextColor = getContrastColor(frameColor);
+    const cardBgColor = isDark ? '#141420' : '#ffffff';
 
-  // Re-render QR Code at export resolution temporarily
-  const options = qrCodeInstance._options || qrCodeInstance.options || {};
-  const tempInstance = new QRCodeStyling({
-    width: exportSize,
-    height: exportSize,
-    type: format === 'png' ? 'canvas' : 'svg', // Ensure canvas type for PNG export
-    data: getPayload(),
-    qrOptions: {
-      errorCorrectionLevel: eccLevel
-    },
-    dotsOptions: options.dotsOptions,
-    backgroundOptions: options.backgroundOptions,
-    cornersSquareOptions: options.cornersSquareOptions,
-    cornersDotOptions: options.cornersDotOptions,
-    image: getLogoPath() || undefined,
-    imageOptions: options.imageOptions
-  });
+    const qrRenderSize = exportSize;
+    const cardPadding = Math.round(qrRenderSize * 0.03);
+    const cardSize = qrRenderSize + (cardPadding * 2);
+    const outerPadding = Math.round(qrRenderSize * 0.08);
+    const gap = Math.round(qrRenderSize * 0.04);
+    const frameHeight = Math.round(qrRenderSize * 0.2);
 
-  const isDark = document.documentElement.classList.contains('dark');
-  const labelTextColor = getContrastColor(frameColor);
-  const cardBgColor = isDark ? '#141420' : '#ffffff';
-
-  const qrRenderSize = exportSize;
-  const cardPadding = Math.round(qrRenderSize * 0.03);
-  const cardSize = qrRenderSize + (cardPadding * 2);
-  const outerPadding = Math.round(qrRenderSize * 0.08);
-  const gap = Math.round(qrRenderSize * 0.04);
-  const frameHeight = Math.round(qrRenderSize * 0.2);
-
-  if (format === 'png') {
-    // composite on canvas
-    const rawBlob = await tempInstance.getRawData('png');
-    const img = new Image();
-    img.onload = () => {
-      const compositeCanvas = document.createElement('canvas');
-      const ctx = compositeCanvas.getContext('2d');
-      if (!ctx) return;
-
-      let canvasWidth = cardSize + (outerPadding * 2);
-      let canvasHeight = outerPadding + cardSize + gap + frameHeight + outerPadding;
-      let qrX = outerPadding + cardPadding;
-      let qrY = outerPadding + cardPadding;
-      let cardX = outerPadding;
-      let cardY = outerPadding;
-      let labelY = outerPadding + cardSize + gap;
-
-      if (frameStyle === 'phone') {
-        const bezel = Math.round(qrRenderSize * 0.04);
-        const padTop = Math.round(qrRenderSize * 0.11);
-        const padSides = Math.round(qrRenderSize * 0.06);
-        const padBottom = Math.round(qrRenderSize * 0.16);
-        canvasWidth = cardSize + (padSides * 2) + (bezel * 2);
-        canvasHeight = cardSize + padTop + padBottom + (bezel * 2);
-        qrX = bezel + padSides + cardPadding;
-        qrY = bezel + padTop + cardPadding;
-        cardX = bezel + padSides;
-        cardY = bezel + padTop;
-      } else if (frameStyle === 'top-bottom') {
-        canvasWidth = cardSize + (outerPadding * 2);
-        canvasHeight = frameHeight + outerPadding + cardSize + outerPadding + frameHeight;
-        qrX = outerPadding + cardPadding;
-        qrY = frameHeight + outerPadding + cardPadding;
-        cardX = outerPadding;
-        cardY = frameHeight + outerPadding;
-      } else if (frameStyle === 'viewfinder') {
-        canvasWidth = cardSize + (outerPadding * 2);
-        canvasHeight = cardSize + (outerPadding * 2) + frameHeight;
-        qrX = outerPadding + cardPadding;
-        qrY = outerPadding + cardPadding;
-        cardX = outerPadding;
-        cardY = outerPadding;
-        labelY = outerPadding + cardSize + gap;
-      }
-
-      compositeCanvas.width = canvasWidth;
-      compositeCanvas.height = canvasHeight;
-
-      // Fill background matching preview theme
-      let frameBg = isDark ? '#12121c' : '#ffffff';
-      if (frameStyle === 'neon') frameBg = '#0a0a0a';
-      else if (frameStyle === 'stamp') frameBg = isDark ? '#161622' : '#fdfbf7';
-      else if (frameStyle === 'glassmorphic') {
-        const glassGrad = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
-        if (isDark) {
-          glassGrad.addColorStop(0, '#1a1a28');
-          glassGrad.addColorStop(1, '#0e0e18');
-        } else {
-          glassGrad.addColorStop(0, '#f8f9fc');
-          glassGrad.addColorStop(1, '#eef1f6');
-        }
-        ctx.fillStyle = glassGrad;
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-      }
-
-      if (frameStyle !== 'glassmorphic') {
-        ctx.fillStyle = frameBg;
-        ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-      }
-
-      // Draw card container (matching preview canvas container)
-      ctx.fillStyle = cardBgColor;
-      ctx.beginPath();
-      ctx.roundRect(cardX, cardY, cardSize, cardSize, Math.round(qrRenderSize * 0.03));
-      ctx.fill();
-
-      // Draw QR code inside container
-      ctx.drawImage(img, qrX, qrY, qrRenderSize, qrRenderSize);
-
-      ctx.fillStyle = frameColor;
-      ctx.strokeStyle = frameColor;
-
-      const fontSize = Math.round(qrRenderSize * 0.045);
-      ctx.font = `bold ${fontSize}px Inter, sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-
-      if (frameStyle === 'classic') {
-        const r = Math.round(qrRenderSize * 0.045);
-        ctx.lineWidth = Math.round(qrRenderSize * 0.012);
-        ctx.strokeStyle = frameColor;
-        ctx.beginPath();
-        // Rounded top corners, open bottom
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, labelY - ctx.lineWidth / 2, [r, r, 0, 0]);
-        ctx.stroke();
-
-        ctx.fillStyle = frameColor;
-        ctx.beginPath();
-        ctx.roundRect(0, labelY, canvasWidth, frameHeight, [0, 0, r, r]);
-        ctx.fill();
-
-        ctx.fillStyle = labelTextColor;
-        ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
-      } else if (frameStyle === 'capsule') {
-        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)';
-        ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.06));
-        ctx.stroke();
-
-        const pillWidth = Math.round(qrRenderSize * 0.65);
-        const pillHeight = Math.round(frameHeight * 0.6);
-        const pillX = (canvasWidth - pillWidth) / 2;
-        const pillY = labelY + (frameHeight - pillHeight) / 2;
-
-        ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.06)';
-        ctx.shadowBlur = Math.round(qrRenderSize * 0.02);
-        ctx.shadowOffsetY = Math.round(qrRenderSize * 0.01);
-
-        ctx.fillStyle = frameColor;
-        ctx.beginPath();
-        ctx.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
-        ctx.fill();
-
-        ctx.shadowColor = 'transparent';
-        ctx.fillStyle = labelTextColor;
-        ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
-      } else if (frameStyle === 'minimal') {
-        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)';
-        ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
-        ctx.stroke();
-
-        ctx.fillStyle = frameColor;
-        ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
-        ctx.fillText(`● ${frameText} ●`, canvasWidth / 2, labelY + (frameHeight / 2));
-      } else if (frameStyle === 'ticket') {
-        ctx.strokeStyle = frameColor;
-        ctx.lineWidth = Math.round(qrRenderSize * 0.006);
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.04));
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.setLineDash([Math.round(qrRenderSize * 0.02), Math.round(qrRenderSize * 0.015)]);
-        ctx.moveTo(outerPadding, labelY - gap / 2);
-        ctx.lineTo(canvasWidth - outerPadding, labelY - gap / 2);
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        ctx.fillStyle = frameColor;
-        ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
-      } else if (frameStyle === 'pointer') {
-        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)';
-        ctx.lineWidth = Math.max(1, Math.round(qrRenderSize * 0.003));
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
-        ctx.stroke();
-
-        const bubbleWidth = Math.round(qrRenderSize * 0.7);
-        const bubbleHeight = Math.round(frameHeight * 0.6);
-        const bubbleX = (canvasWidth - bubbleWidth) / 2;
-        const bubbleY = labelY + (frameHeight - bubbleHeight) / 2;
-
-        ctx.fillStyle = frameColor;
-        ctx.beginPath();
-        ctx.roundRect(bubbleX, bubbleY, bubbleWidth, bubbleHeight, Math.round(bubbleHeight * 0.25));
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.moveTo(canvasWidth / 2 - Math.round(qrRenderSize * 0.025), bubbleY);
-        ctx.lineTo(canvasWidth / 2, bubbleY - Math.round(qrRenderSize * 0.02));
-        ctx.lineTo(canvasWidth / 2 + Math.round(qrRenderSize * 0.025), bubbleY);
-        ctx.closePath();
-        ctx.fill();
-
-        ctx.fillStyle = labelTextColor;
-        ctx.fillText(frameText, canvasWidth / 2, bubbleY + (bubbleHeight / 2));
-      } else if (frameStyle === 'phone') {
-        const bezel = Math.round(qrRenderSize * 0.04);
-        const padBottom = Math.round(qrRenderSize * 0.16);
-
-        ctx.lineWidth = bezel;
-        ctx.strokeStyle = isDark ? '#262638' : '#1f1f1f';
-        ctx.beginPath();
-        ctx.roundRect(bezel / 2, bezel / 2, canvasWidth - bezel, canvasHeight - bezel, Math.round(qrRenderSize * 0.08));
-        ctx.stroke();
-
-        ctx.fillStyle = '#000000';
-        const islandWidth = Math.round(qrRenderSize * 0.22);
-        const islandHeight = Math.round(qrRenderSize * 0.04);
-        ctx.beginPath();
-        ctx.roundRect((canvasWidth - islandWidth) / 2, bezel * 0.8, islandWidth, islandHeight, islandHeight / 2);
-        ctx.fill();
-
-        ctx.fillStyle = isDark ? '#4b4b60' : '#d4d4d4';
-        const homeWidth = Math.round(qrRenderSize * 0.2);
-        const homeHeight = Math.round(qrRenderSize * 0.01);
-        ctx.beginPath();
-        ctx.roundRect((canvasWidth - homeWidth) / 2, canvasHeight - bezel - Math.round(qrRenderSize * 0.03), homeWidth, homeHeight, homeHeight / 2);
-        ctx.fill();
-
-        const phoneLabelY = canvasHeight - bezel - (padBottom / 2);
-        ctx.fillStyle = frameColor;
-        ctx.fillText(frameText, canvasWidth / 2, phoneLabelY);
-      } else if (frameStyle === 'top-bottom') {
-        const r = Math.round(qrRenderSize * 0.04);
-        const bannerGrad = ctx.createLinearGradient(0, 0, canvasWidth, 0);
-        bannerGrad.addColorStop(0, frameColor);
-        bannerGrad.addColorStop(1, frameColor + 'dd');
-
-        ctx.fillStyle = bannerGrad;
-        ctx.beginPath();
-        ctx.roundRect(0, 0, canvasWidth, frameHeight, [r, r, 0, 0]);
-        ctx.fill();
-
-        ctx.beginPath();
-        ctx.roundRect(0, canvasHeight - frameHeight, canvasWidth, frameHeight, [0, 0, r, r]);
-        ctx.fill();
-
-        ctx.fillStyle = labelTextColor;
-        ctx.fillText(frameTopText, canvasWidth / 2, frameHeight / 2);
-        ctx.fillText(frameText, canvasWidth / 2, canvasHeight - (frameHeight / 2));
-      } else if (frameStyle === 'glassmorphic') {
-        ctx.strokeStyle = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.7)';
-        ctx.lineWidth = Math.round(qrRenderSize * 0.015);
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.05));
-        ctx.stroke();
-
-        const pillWidth = Math.round(qrRenderSize * 0.6);
-        const pillHeight = Math.round(frameHeight * 0.55);
-        const pillX = (canvasWidth - pillWidth) / 2;
-        const pillY = labelY + (frameHeight - pillHeight) / 2;
-
-        ctx.fillStyle = frameColor;
-        ctx.beginPath();
-        ctx.roundRect(pillX, pillY, pillWidth, pillHeight, pillHeight / 2);
-        ctx.fill();
-
-        ctx.fillStyle = labelTextColor;
-        ctx.fillText(frameText, canvasWidth / 2, pillY + (pillHeight / 2));
-      } else if (frameStyle === 'neon') {
-        ctx.shadowColor = frameColor;
-        ctx.shadowBlur = Math.round(qrRenderSize * 0.04);
-        ctx.lineWidth = Math.round(qrRenderSize * 0.012);
-
-        const grad = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
-        grad.addColorStop(0, frameColor);
-        grad.addColorStop(1, '#00f2fe');
-        ctx.strokeStyle = grad;
-
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.04));
-        ctx.stroke();
-        ctx.shadowColor = 'transparent';
-
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = frameColor;
-        ctx.shadowBlur = Math.round(qrRenderSize * 0.015);
-        ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
-        ctx.fillText(frameText, canvasWidth / 2, labelY + (frameHeight / 2));
-        ctx.shadowColor = 'transparent';
-      } else if (frameStyle === 'viewfinder') {
-        const bracketSize = Math.round(qrRenderSize * 0.08);
-        const bracketWidth = Math.max(2, Math.round(qrRenderSize * 0.012));
-
-        const vx1 = cardX - cardPadding / 2;
-        const vy1 = cardY - cardPadding / 2;
-        const vx2 = cardX + cardSize + cardPadding / 2;
-        const vy2 = cardY + cardSize + cardPadding / 2;
-
-        ctx.strokeStyle = frameColor;
-        ctx.lineWidth = bracketWidth;
-        ctx.lineCap = 'round';
-
-        // Top-Left
-        ctx.beginPath();
-        ctx.moveTo(vx1 + bracketSize, vy1);
-        ctx.lineTo(vx1, vy1);
-        ctx.lineTo(vx1, vy1 + bracketSize);
-        ctx.stroke();
-
-        // Top-Right
-        ctx.beginPath();
-        ctx.moveTo(vx2 - bracketSize, vy1);
-        ctx.lineTo(vx2, vy1);
-        ctx.lineTo(vx2, vy1 + bracketSize);
-        ctx.stroke();
-
-        // Bottom-Left
-        ctx.beginPath();
-        ctx.moveTo(vx1 + bracketSize, vy2);
-        ctx.lineTo(vx1, vy2);
-        ctx.lineTo(vx1, vy2 - bracketSize);
-        ctx.stroke();
-
-        // Bottom-Right
-        ctx.beginPath();
-        ctx.moveTo(vx2 - bracketSize, vy2);
-        ctx.lineTo(vx2, vy2);
-        ctx.lineTo(vx2, vy2 - bracketSize);
-        ctx.stroke();
-
-        ctx.fillStyle = '#f43f5e';
-        ctx.beginPath();
-        ctx.arc(vx1 + cardPadding, vy1 + cardPadding, Math.round(qrRenderSize * 0.012), 0, 2 * Math.PI);
-        ctx.fill();
-
-        ctx.fillStyle = frameColor;
-        ctx.font = `bold ${Math.round(qrRenderSize * 0.03)}px "Courier New", Courier, monospace`;
-        ctx.textAlign = 'left';
-        ctx.fillText('REC', vx1 + cardPadding * 2.2, vy1 + cardPadding);
-
-        ctx.textAlign = 'right';
-        ctx.fillText('RAW 12-BIT', vx2 - cardPadding, vy1 + cardPadding);
-
-        ctx.textAlign = 'left';
-        ctx.fillText('F:1.8', vx1 + cardPadding, vy2 - cardPadding);
-
-        ctx.textAlign = 'center';
-        ctx.fillText('ISO 200', canvasWidth / 2, vy2 - cardPadding);
-
-        ctx.textAlign = 'right';
-        ctx.fillText('1/125s', vx2 - cardPadding, vy2 - cardPadding);
-
-        ctx.fillStyle = frameColor;
-        ctx.font = `bold ${fontSize}px "Courier New", Courier, monospace`;
-        ctx.textAlign = 'center';
-        ctx.fillText(`[○] ${frameText}`, canvasWidth / 2, labelY + (frameHeight / 2));
-      } else if (frameStyle === 'stamp') {
-        ctx.strokeStyle = frameColor;
-        ctx.lineWidth = Math.round(qrRenderSize * 0.015);
-        ctx.setLineDash([Math.round(qrRenderSize * 0.005), Math.round(qrRenderSize * 0.02)]);
-        ctx.beginPath();
-        ctx.roundRect(ctx.lineWidth / 2, ctx.lineWidth / 2, canvasWidth - ctx.lineWidth, canvasHeight - ctx.lineWidth, Math.round(qrRenderSize * 0.02));
-        ctx.stroke();
-        ctx.setLineDash([]);
-
-        const barcodeY = labelY + Math.round(frameHeight * 0.1);
-        const barcodeH = Math.round(frameHeight * 0.35);
-        const barcodeW = Math.round(qrRenderSize * 0.6);
-        const startX = (canvasWidth - barcodeW) / 2;
-
-        ctx.fillStyle = frameColor;
-        let currX = startX;
-        let index = 0;
-        while (currX < startX + barcodeW) {
-          const w = (index % 3 === 0) ? Math.round(qrRenderSize * 0.008) : (index % 5 === 0) ? Math.round(qrRenderSize * 0.003) : Math.round(qrRenderSize * 0.005);
-          ctx.fillRect(currX, barcodeY, w, barcodeH);
-          currX += w + Math.round(qrRenderSize * 0.005);
-          index++;
-        }
-
-        ctx.fillStyle = frameColor;
-        ctx.fillText(frameText, canvasWidth / 2, labelY + Math.round(frameHeight * 0.75));
-      }
-
-      // Trigger file download
-      const link = document.createElement('a');
-      link.download = `${finalName}.png`;
-      link.href = compositeCanvas.toDataURL('image/png');
-      link.click();
-    };
-    img.src = URL.createObjectURL(rawBlob);
-  } else {
-    // SVG Serialization
     const rawBlob = await tempInstance.getRawData('svg');
     const text = await rawBlob.text();
     
@@ -2272,7 +2477,7 @@ async function downloadQR(format: 'png' | 'svg') {
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('fill', 'none');
-      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)');
+      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)');
       outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
       newSvg.appendChild(outerBorder);
 
@@ -2288,29 +2493,29 @@ async function downloadQR(format: 'png' | 'svg') {
       svgText.textContent = `● ${frameText} ●`;
       newSvg.appendChild(svgText);
     } else if (frameStyle === 'ticket') {
-      const borderStrokeWidth = Math.round(qrRenderSize * 0.006);
       const outerBorder = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      outerBorder.setAttribute('x', (borderStrokeWidth / 2).toString());
-      outerBorder.setAttribute('y', (borderStrokeWidth / 2).toString());
-      outerBorder.setAttribute('width', (totalWidth - borderStrokeWidth).toString());
-      outerBorder.setAttribute('height', (totalHeight - borderStrokeWidth).toString());
+      const sw = Math.round(qrRenderSize * 0.006);
+      outerBorder.setAttribute('x', (sw / 2).toString());
+      outerBorder.setAttribute('y', (sw / 2).toString());
+      outerBorder.setAttribute('width', (totalWidth - sw).toString());
+      outerBorder.setAttribute('height', (totalHeight - sw).toString());
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.04).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.04).toString());
       outerBorder.setAttribute('fill', 'none');
       outerBorder.setAttribute('stroke', frameColor);
-      outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
+      outerBorder.setAttribute('stroke-width', sw.toString());
       newSvg.appendChild(outerBorder);
-      
-      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-      line.setAttribute('x1', outerPadding.toString());
-      line.setAttribute('y1', (labelY - gap / 2).toString());
-      line.setAttribute('x2', (totalWidth - outerPadding).toString());
-      line.setAttribute('y2', (labelY - gap / 2).toString());
-      line.setAttribute('stroke', frameColor);
-      line.setAttribute('stroke-width', borderStrokeWidth.toString());
-      line.setAttribute('stroke-dasharray', `${Math.round(qrRenderSize * 0.02)}, ${Math.round(qrRenderSize * 0.015)}`);
-      newSvg.appendChild(line);
-      
+
+      const dashLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      dashLine.setAttribute('x1', outerPadding.toString());
+      dashLine.setAttribute('y1', (labelY - gap / 2).toString());
+      dashLine.setAttribute('x2', (totalWidth - outerPadding).toString());
+      dashLine.setAttribute('y2', (labelY - gap / 2).toString());
+      dashLine.setAttribute('stroke', frameColor);
+      dashLine.setAttribute('stroke-width', sw.toString());
+      dashLine.setAttribute('stroke-dasharray', `${Math.round(qrRenderSize * 0.02)}, ${Math.round(qrRenderSize * 0.015)}`);
+      newSvg.appendChild(dashLine);
+
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
       svgText.setAttribute('y', (labelY + (frameHeight / 2)).toString());
@@ -2332,7 +2537,7 @@ async function downloadQR(format: 'png' | 'svg') {
       outerBorder.setAttribute('rx', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('ry', Math.round(qrRenderSize * 0.05).toString());
       outerBorder.setAttribute('fill', 'none');
-      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.06)');
+      outerBorder.setAttribute('stroke', isDark ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.08)');
       outerBorder.setAttribute('stroke-width', borderStrokeWidth.toString());
       newSvg.appendChild(outerBorder);
 
@@ -2346,21 +2551,16 @@ async function downloadQR(format: 'png' | 'svg') {
       bubble.setAttribute('y', bubbleY.toString());
       bubble.setAttribute('width', bubbleWidth.toString());
       bubble.setAttribute('height', bubbleHeight.toString());
-      bubble.setAttribute('rx', (bubbleHeight * 0.25).toString());
-      bubble.setAttribute('ry', (bubbleHeight * 0.25).toString());
+      bubble.setAttribute('rx', Math.round(bubbleHeight * 0.25).toString());
+      bubble.setAttribute('ry', Math.round(bubbleHeight * 0.25).toString());
       bubble.setAttribute('fill', frameColor);
       newSvg.appendChild(bubble);
 
-      const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-      const x1 = totalWidth / 2 - Math.round(qrRenderSize * 0.025);
-      const x2 = totalWidth / 2;
-      const x3 = totalWidth / 2 + Math.round(qrRenderSize * 0.025);
-      const y1 = bubbleY;
-      const y2 = bubbleY - Math.round(qrRenderSize * 0.02);
-      const y3 = bubbleY;
-      arrow.setAttribute('points', `${x1},${y1} ${x2},${y2} ${x3},${y3}`);
-      arrow.setAttribute('fill', frameColor);
-      newSvg.appendChild(arrow);
+      const tip = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      const tipPoints = `${totalWidth / 2 - Math.round(qrRenderSize * 0.025)},${bubbleY} ${totalWidth / 2},${bubbleY - Math.round(qrRenderSize * 0.02)} ${totalWidth / 2 + Math.round(qrRenderSize * 0.025)},${bubbleY}`;
+      tip.setAttribute('points', tipPoints);
+      tip.setAttribute('fill', frameColor);
+      newSvg.appendChild(tip);
 
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
@@ -2376,18 +2576,18 @@ async function downloadQR(format: 'png' | 'svg') {
     } else if (frameStyle === 'phone') {
       const bezel = Math.round(qrRenderSize * 0.04);
       const padBottom = Math.round(qrRenderSize * 0.16);
-      
-      const phoneFrame = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-      phoneFrame.setAttribute('x', (bezel / 2).toString());
-      phoneFrame.setAttribute('y', (bezel / 2).toString());
-      phoneFrame.setAttribute('width', (totalWidth - bezel).toString());
-      phoneFrame.setAttribute('height', (totalHeight - bezel).toString());
-      phoneFrame.setAttribute('rx', Math.round(qrRenderSize * 0.08).toString());
-      phoneFrame.setAttribute('ry', Math.round(qrRenderSize * 0.08).toString());
-      phoneFrame.setAttribute('fill', 'none');
-      phoneFrame.setAttribute('stroke', isDark ? '#262638' : '#1f1f1f');
-      phoneFrame.setAttribute('stroke-width', bezel.toString());
-      newSvg.appendChild(phoneFrame);
+
+      const phoneBorder = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      phoneBorder.setAttribute('x', (bezel / 2).toString());
+      phoneBorder.setAttribute('y', (bezel / 2).toString());
+      phoneBorder.setAttribute('width', (totalWidth - bezel).toString());
+      phoneBorder.setAttribute('height', (totalHeight - bezel).toString());
+      phoneBorder.setAttribute('rx', Math.round(qrRenderSize * 0.08).toString());
+      phoneBorder.setAttribute('ry', Math.round(qrRenderSize * 0.08).toString());
+      phoneBorder.setAttribute('fill', 'none');
+      phoneBorder.setAttribute('stroke', isDark ? '#262638' : '#1f1f1f');
+      phoneBorder.setAttribute('stroke-width', bezel.toString());
+      newSvg.appendChild(phoneBorder);
 
       const islandWidth = Math.round(qrRenderSize * 0.22);
       const islandHeight = Math.round(qrRenderSize * 0.04);
@@ -2412,10 +2612,11 @@ async function downloadQR(format: 'png' | 'svg') {
       homeBar.setAttribute('ry', (homeHeight / 2).toString());
       homeBar.setAttribute('fill', isDark ? '#4b4b60' : '#d4d4d4');
       newSvg.appendChild(homeBar);
-      
+
+      const phoneLabelY = totalHeight - bezel - (padBottom / 2);
       const svgText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       svgText.setAttribute('x', (totalWidth / 2).toString());
-      svgText.setAttribute('y', (totalHeight - bezel - (padBottom / 2)).toString());
+      svgText.setAttribute('y', phoneLabelY.toString());
       svgText.setAttribute('fill', frameColor);
       svgText.setAttribute('font-family', 'Inter, sans-serif');
       svgText.setAttribute('font-weight', 'bold');
@@ -2425,9 +2626,8 @@ async function downloadQR(format: 'png' | 'svg') {
       svgText.textContent = frameText;
       newSvg.appendChild(svgText);
     } else if (frameStyle === 'top-bottom') {
-      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
       const r = Math.round(qrRenderSize * 0.04);
-      
+      const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
       const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
       grad.setAttribute('id', 'tb-banner-grad');
       grad.setAttribute('x1', '0%');
@@ -2539,7 +2739,6 @@ async function downloadQR(format: 'png' | 'svg') {
       newSvg.appendChild(svgText);
     } else if (frameStyle === 'neon') {
       const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      
       const grad = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
       grad.setAttribute('id', 'neon-grad');
       grad.setAttribute('x1', '0%');
@@ -2555,27 +2754,18 @@ async function downloadQR(format: 'png' | 'svg') {
       grad.appendChild(stop1);
       grad.appendChild(stop2);
       defs.appendChild(grad);
-      
+
       const filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
       filter.setAttribute('id', 'neon-glow');
-      const feGaussianBlur = document.createElementNS('http://www.w3.org/2000/svg', 'feGaussianBlur');
-      feGaussianBlur.setAttribute('stdDeviation', Math.round(qrRenderSize * 0.015).toString());
-      feGaussianBlur.setAttribute('result', 'coloredBlur');
-      const feMerge = document.createElementNS('http://www.w3.org/2000/svg', 'feMerge');
-      const node1 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
-      node1.setAttribute('in', 'coloredBlur');
-      const node2 = document.createElementNS('http://www.w3.org/2000/svg', 'feMergeNode');
-      node2.setAttribute('in', 'SourceGraphic');
-      feMerge.appendChild(node1);
-      feMerge.appendChild(node2);
-      filter.appendChild(feGaussianBlur);
-      filter.appendChild(feMerge);
+      const feDropShadow = document.createElementNS('http://www.w3.org/2000/svg', 'feDropShadow');
+      feDropShadow.setAttribute('dx', '0');
+      feDropShadow.setAttribute('dy', '0');
+      feDropShadow.setAttribute('stdDeviation', Math.round(qrRenderSize * 0.02).toString());
+      feDropShadow.setAttribute('flood-color', frameColor);
+      feDropShadow.setAttribute('flood-opacity', '0.8');
+      filter.appendChild(feDropShadow);
       defs.appendChild(filter);
-      
       newSvg.appendChild(defs);
-
-      bgRect.setAttribute('rx', Math.round(qrRenderSize * 0.04).toString());
-      bgRect.setAttribute('ry', Math.round(qrRenderSize * 0.04).toString());
 
       const neonBorderWidth = Math.round(qrRenderSize * 0.012);
       const neonRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
@@ -2643,6 +2833,7 @@ async function downloadQR(format: 'png' | 'svg') {
       recText.setAttribute('fill', frameColor);
       recText.setAttribute('font-family', 'Courier New, Courier, monospace');
       recText.setAttribute('font-size', Math.round(qrRenderSize * 0.03).toString());
+      recText.setAttribute('text-anchor', 'start');
       recText.setAttribute('dominant-baseline', 'middle');
       recText.textContent = 'REC';
       newSvg.appendChild(recText);
@@ -2664,6 +2855,7 @@ async function downloadQR(format: 'png' | 'svg') {
       fText.setAttribute('fill', frameColor);
       fText.setAttribute('font-family', 'Courier New, Courier, monospace');
       fText.setAttribute('font-size', Math.round(qrRenderSize * 0.03).toString());
+      fText.setAttribute('text-anchor', 'start');
       fText.setAttribute('dominant-baseline', 'middle');
       fText.textContent = 'F:1.8';
       newSvg.appendChild(fText);
@@ -2760,6 +2952,199 @@ async function downloadQR(format: 'png' | 'svg') {
     link.download = `${finalName}.svg`;
     link.href = URL.createObjectURL(svgBlob);
     link.click();
+    return;
+  }
+
+  // Raster and Document Formats (PNG, WEBP, JPG, PDF)
+  try {
+    if (format === 'png') {
+      const compositeCanvas = await renderCompositeCanvas(qrSize);
+      const link = document.createElement('a');
+      link.download = `${finalName}.png`;
+      link.href = compositeCanvas.toDataURL('image/png');
+      link.click();
+    } else if (format === 'webp') {
+      const compositeCanvas = await renderCompositeCanvas(qrSize);
+      const link = document.createElement('a');
+      link.download = `${finalName}.webp`;
+      link.href = compositeCanvas.toDataURL('image/webp', 0.95);
+      link.click();
+    } else if (format === 'jpeg') {
+      const compositeCanvas = await renderCompositeCanvas(qrSize, true);
+      const link = document.createElement('a');
+      link.download = `${finalName}.jpg`;
+      link.href = compositeCanvas.toDataURL('image/jpeg', 0.95);
+      link.click();
+    } else if (format === 'pdf') {
+      const { jsPDF } = await import('jspdf');
+      const compositeCanvas = await renderCompositeCanvas(Math.max(qrSize, 1200), true);
+      const imgData = compositeCanvas.toDataURL('image/png');
+      const imgWidth = compositeCanvas.width;
+      const imgHeight = compositeCanvas.height;
+      const isLandscape = imgWidth > imgHeight;
+
+      const doc = new jsPDF({
+        orientation: isLandscape ? 'landscape' : 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const maxPrintW = pageWidth - 40;
+      const maxPrintH = pageHeight - 50;
+
+      let printW = maxPrintW;
+      let printH = (imgHeight * printW) / imgWidth;
+      if (printH > maxPrintH) {
+        printH = maxPrintH;
+        printW = (imgWidth * printH) / imgHeight;
+      }
+
+      const posX = (pageWidth - printW) / 2;
+      const posY = 20 + (maxPrintH - printH) / 2;
+
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.setTextColor(30, 30, 40);
+      doc.text('Online QR Generator', pageWidth / 2, 16, { align: 'center' });
+
+      doc.addImage(imgData, 'PNG', posX, posY, printW, printH);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9);
+      doc.setTextColor(130, 130, 140);
+      doc.text('https://onlineqrgenerators.com', pageWidth / 2, pageHeight - 12, { align: 'center' });
+
+      doc.save(`${finalName}.pdf`);
+    }
+  } catch (err) {
+    console.error('Download error:', err);
+    showToast('Failed to export QR code', true);
+  }
+}
+
+// 1-Click Copy QR image directly to clipboard
+async function copyQRImage() {
+  if (!qrCodeInstance) return;
+
+  const validation = validateInputs();
+  if (!validation.isValid) {
+    showToast(validation.message, true);
+    return;
+  }
+
+  saveToHistory();
+
+  try {
+    const compositeCanvas = await renderCompositeCanvas(Math.max(qrSize, 800));
+    compositeCanvas.toBlob(async (blob) => {
+      if (!blob) {
+        showToast('Failed to generate image', true);
+        return;
+      }
+      try {
+        await navigator.clipboard.write([
+          new ClipboardItem({ 'image/png': blob })
+        ]);
+        showToast(t.actions.copiedImageToast || 'QR code copied to clipboard!');
+        const btnText = document.getElementById('copy-image-btn-text');
+        if (btnText) {
+          const original = btnText.textContent;
+          btnText.textContent = t.actions.copySuccess || 'Copied!';
+          setTimeout(() => {
+            btnText.textContent = original;
+          }, 2000);
+        }
+      } catch (clipErr) {
+        console.error('Clipboard copy error:', clipErr);
+        showToast('Clipboard write permission denied', true);
+      }
+    }, 'image/png');
+  } catch (err) {
+    console.error('Error copying QR image:', err);
+    showToast('Failed to copy QR image', true);
+  }
+}
+
+// Direct Print QR Code Dialog
+async function printQRCode() {
+  if (!qrCodeInstance) return;
+
+  const validation = validateInputs();
+  if (!validation.isValid) {
+    showToast(validation.message, true);
+    return;
+  }
+
+  saveToHistory();
+
+  try {
+    const compositeCanvas = await renderCompositeCanvas(Math.max(qrSize, 800), true);
+    const dataUrl = compositeCanvas.toDataURL('image/png');
+
+    const printWin = window.open('', '_blank');
+    if (!printWin) {
+      showToast('Pop-up blocked. Please allow pop-ups to print.', true);
+      return;
+    }
+
+    printWin.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Print QR Code - Online QR Generator</title>
+          <style>
+            @page {
+              size: auto;
+              margin: 15mm;
+            }
+            body {
+              margin: 0;
+              padding: 20px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              min-height: 85vh;
+              font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+              color: #1a1a24;
+              background-color: #ffffff;
+              text-align: center;
+            }
+            .qr-wrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              max-width: 90%;
+            }
+            img {
+              max-width: 100%;
+              max-height: 75vh;
+              object-fit: contain;
+            }
+            .brand {
+              margin-top: 16px;
+              font-size: 11px;
+              font-weight: 500;
+              color: #71717a;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="qr-wrapper">
+            <img src="${dataUrl}" alt="QR Code" onload="setTimeout(() => { window.print(); window.close(); }, 300);" />
+            <div class="brand">Generated by onlineqrgenerators.com</div>
+          </div>
+        </body>
+      </html>
+    `);
+    printWin.document.close();
+  } catch (err) {
+    console.error('Print QR error:', err);
+    showToast('Failed to prepare print dialog', true);
   }
 }
 
@@ -2844,12 +3229,21 @@ function setupScanner() {
   });
 }
 
+let cachedJsQR: any = null;
+async function getJsQR() {
+  if (!cachedJsQR) {
+    const mod = await import('jsqr');
+    cachedJsQR = (mod as any).default || mod;
+  }
+  return cachedJsQR;
+}
+
 // Decode uploaded image
 function decodeQRFile(file: File) {
   const reader = new FileReader();
   reader.onload = (e) => {
     const img = new Image();
-    img.onload = () => {
+    img.onload = async () => {
       const canvas = document.createElement('canvas');
       canvas.width = img.width;
       canvas.height = img.height;
@@ -2858,6 +3252,7 @@ function decodeQRFile(file: File) {
       ctx.drawImage(img, 0, 0);
 
       const imgData = ctx.getImageData(0, 0, img.width, img.height);
+      const jsQR = await getJsQR();
       const code = jsQR(imgData.data, imgData.width, imgData.height);
       
       if (code) {
@@ -2881,6 +3276,8 @@ async function startScannerCamera() {
   if (!video) return;
 
   try {
+    // Pre-load jsQR in background when camera starts
+    await getJsQR();
     scanCameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
     video.srcObject = scanCameraStream;
     video.setAttribute('playsinline', 'true');
@@ -2933,7 +3330,7 @@ function scanCameraFrame() {
     if (ctx) {
       ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imgData.data, imgData.width, imgData.height);
+      const code = cachedJsQR ? cachedJsQR(imgData.data, imgData.width, imgData.height) : null;
       if (code) {
         // Success! Trigger haptic vibration & stop camera
         if (navigator.vibrate) navigator.vibrate(100);
@@ -2978,7 +3375,7 @@ function setupBulkGenerator() {
     try {
       generateBtn.disabled = true;
       if (btnText) btnText.innerText = t.bulk.progress;
-
+      const { default: JSZip } = await import('jszip');
       const zip = new JSZip();
 
       // Generate each item
@@ -3036,26 +3433,9 @@ function setupBulkGenerator() {
 
 // Show Toast Popup
 function showToast(text: string, isError = false) {
-  const toast = document.getElementById('toast');
-  const toastText = document.getElementById('toast-text');
-  if (!toast || !toastText) return;
-
-  toastText.innerText = text;
-  
-  // Style check
-  const dot = toast.querySelector('span');
-  if (dot) {
-    dot.className = `w-1.5 h-1.5 rounded-full ${isError ? 'bg-error' : 'bg-success'}`;
-  }
-
-  toast.classList.remove('translate-y-20', 'opacity-0');
-  toast.classList.add('translate-y-0', 'opacity-100');
-
-  setTimeout(() => {
-    toast.classList.remove('translate-y-0', 'opacity-100');
-    toast.classList.add('translate-y-20', 'opacity-0');
-  }, 3000);
+  window.dispatchEvent(new CustomEvent('app:toast', { detail: { message: text, isError } }));
 }
+(window as any).showToast = showToast;
 
 // Local Storage History management
 function saveToHistory() {
@@ -3584,4 +3964,257 @@ apiTabs.forEach(tab => {
     });
   });
 });
+
+// ==========================================
+// 🎨 Designer Templates Showcase Logic
+// ==========================================
+function setupTemplatesShowcase() {
+  const filterBtns = document.querySelectorAll('.template-filter-btn');
+  const cards = document.querySelectorAll('.template-card');
+
+  // Filter Category Pills
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-category') || 'all';
+
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-ink', 'text-canvas', 'border-transparent', 'font-semibold', 'shadow-xs');
+        b.classList.add('text-body', 'border-hairline', 'font-medium');
+      });
+      btn.classList.remove('text-body', 'border-hairline', 'font-medium');
+      btn.classList.add('bg-ink', 'text-canvas', 'border-transparent', 'font-semibold', 'shadow-xs');
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-category');
+        const cardIndustry = card.getAttribute('data-industry');
+        const matches = cat === 'all' || cardCat === cat || cardIndustry === cat;
+
+        if (matches) {
+          (card as HTMLElement).classList.remove('hidden');
+          (card as HTMLElement).style.display = 'flex';
+        } else {
+          (card as HTMLElement).classList.add('hidden');
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // Template Card Click handler
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const templateId = card.getAttribute('data-template-id');
+      if (templateId) {
+        applyTemplate(templateId, true);
+      }
+    });
+  });
+
+  // Surprise Me Button
+  const surpriseBtn = document.getElementById('surprise-template-btn');
+  surpriseBtn?.addEventListener('click', () => {
+    const isIndustry = landingData?.slug && landingData.slug in INDUSTRY_TEMPLATES;
+    const pool = isIndustry ? INDUSTRY_TEMPLATES[landingData.slug] : QR_TEMPLATES;
+    const available = pool.filter(t => t.id !== activeTemplateId);
+    const randomTmpl = available[Math.floor(Math.random() * available.length)] || pool[0];
+
+    const diceIcon = surpriseBtn.querySelector('span');
+    if (diceIcon) {
+      diceIcon.classList.add('inline-block', 'transition-transform', 'duration-300', 'rotate-180', 'scale-125');
+      setTimeout(() => {
+        diceIcon.classList.remove('rotate-180', 'scale-125');
+      }, 300);
+    }
+
+    applyTemplate(randomTmpl.id, true);
+  });
+}
+
+function applyTemplate(templateId: string, showToastNotification: boolean = true) {
+  const allTemplates = getAllTemplates();
+  const tmpl = allTemplates.find(t => t.id === templateId) || QR_TEMPLATES.find(t => t.id === templateId);
+  if (!tmpl) return;
+
+  activeTemplateId = templateId;
+  isCustomColors = true;
+
+  // 1. Highlight selected template card
+  const cards = document.querySelectorAll('.template-card');
+  cards.forEach(card => {
+    const isThis = card.getAttribute('data-template-id') === templateId;
+    if (isThis) {
+      card.classList.add('ring-2', 'ring-[#ff1b6b]', 'ring-offset-2', 'border-transparent', 'bg-white/90', 'dark:bg-white/[0.08]', 'shadow-md');
+    } else {
+      card.classList.remove('ring-2', 'ring-[#ff1b6b]', 'ring-offset-2', 'border-transparent', 'bg-white/90', 'dark:bg-white/[0.08]', 'shadow-md');
+    }
+  });
+
+  const cfg = tmpl.config;
+
+  // 2. Colors State
+  colorType = cfg.colorType;
+  fgColor = cfg.fgColor || '#171717';
+  bgColor = cfg.bgColor || '#ffffff';
+  if (cfg.gradType) gradType = cfg.gradType;
+  if (cfg.gradStart) gradStart = cfg.gradStart;
+  if (cfg.gradEnd) gradEnd = cfg.gradEnd;
+  if (typeof cfg.gradAngle === 'number') gradAngle = cfg.gradAngle;
+
+  // Sync Color DOM controls
+  const colorTypeSelect = document.getElementById('color-type-select') as HTMLSelectElement;
+  if (colorTypeSelect) colorTypeSelect.value = colorType;
+
+  const solidControls = document.getElementById('solid-color-controls');
+  const gradientControls = document.getElementById('gradient-color-controls');
+  if (colorType === 'gradient') {
+    solidControls?.classList.add('hidden');
+    gradientControls?.classList.remove('hidden');
+  } else {
+    solidControls?.classList.remove('hidden');
+    gradientControls?.classList.add('hidden');
+  }
+
+  const fgInput = document.getElementById('fg-color') as HTMLInputElement;
+  const fgHex = document.getElementById('fg-color-hex') as HTMLInputElement;
+  const bgInput = document.getElementById('bg-color') as HTMLInputElement;
+  const bgHex = document.getElementById('bg-color-hex') as HTMLInputElement;
+  if (fgInput) fgInput.value = fgColor;
+  if (fgHex) fgHex.value = fgColor.toUpperCase();
+  if (bgInput) bgInput.value = bgColor;
+  if (bgHex) bgHex.value = bgColor.toUpperCase();
+
+  const gradStartInput = document.getElementById('grad-color-start') as HTMLInputElement;
+  const gradEndInput = document.getElementById('grad-color-end') as HTMLInputElement;
+  const gradTypeSelect = document.getElementById('grad-type-select') as HTMLSelectElement;
+  const gradAngleInput = document.getElementById('grad-angle') as HTMLInputElement;
+  const gradAngleVal = document.getElementById('grad-angle-val');
+  if (gradStartInput && gradStart) gradStartInput.value = gradStart;
+  if (gradEndInput && gradEnd) gradEndInput.value = gradEnd;
+  if (gradTypeSelect && gradType) gradTypeSelect.value = gradType;
+  if (gradAngleInput && typeof gradAngle === 'number') {
+    gradAngleInput.value = String(gradAngle);
+    if (gradAngleVal) gradAngleVal.textContent = `${gradAngle}°`;
+  }
+
+  // 3. Shapes & Eyes State
+  matrixShape = cfg.matrixShape || 'square';
+  dotType = cfg.dotType;
+  eyeFrameType = cfg.eyeFrameType;
+  eyeBallType = cfg.eyeBallType;
+
+  // Sync Shapes Selects & Visual Button Groups
+  const syncGroup = (selectId: string, groupId: string, value: string) => {
+    const select = document.getElementById(selectId) as HTMLSelectElement;
+    if (select) select.value = value;
+    const group = document.getElementById(groupId);
+    if (group) {
+      group.querySelectorAll('button').forEach(btn => {
+        if (btn.getAttribute('data-value') === value) {
+          btn.classList.add('active', 'border-ink', 'bg-canvas-soft-2');
+        } else {
+          btn.classList.remove('active', 'border-ink', 'bg-canvas-soft-2');
+        }
+      });
+    }
+  };
+
+  syncGroup('matrix-shape', 'matrix-shape-buttons', matrixShape);
+  syncGroup('body-style', 'body-style-buttons', dotType);
+  syncGroup('eye-border-style', 'eye-border-style-buttons', eyeFrameType);
+  syncGroup('eye-center-style', 'eye-center-style-buttons', eyeBallType);
+
+  // 4. Visual Frame State
+  frameStyle = cfg.frameStyle;
+  frameText = cfg.frameText || 'SCAN ME';
+  frameTopText = cfg.frameTopText || 'SCAN CODE';
+  if (cfg.frameColor) {
+    frameColor = cfg.frameColor;
+    isCustomFrameColor = true;
+  } else {
+    frameColor = fgColor;
+    isCustomFrameColor = false;
+  }
+
+  // Sync Frame DOM controls
+  const frameSelect = document.getElementById('frame-style-select') as HTMLSelectElement;
+  if (frameSelect) frameSelect.value = frameStyle;
+
+  const frameCustomControls = document.getElementById('frame-custom-controls');
+  const frameTopContainer = document.getElementById('frame-top-text-container');
+  if (frameStyle === 'none') {
+    frameCustomControls?.classList.add('hidden');
+  } else {
+    frameCustomControls?.classList.remove('hidden');
+    if (frameStyle === 'top-bottom') {
+      frameTopContainer?.classList.remove('hidden');
+    } else {
+      frameTopContainer?.classList.add('hidden');
+    }
+  }
+
+  const frameTextInput = document.getElementById('frame-text-input') as HTMLInputElement;
+  const frameTopTextInput = document.getElementById('frame-top-text-input') as HTMLInputElement;
+  const frameColorPicker = document.getElementById('frame-color-picker') as HTMLInputElement;
+  if (frameTextInput) frameTextInput.value = frameText;
+  if (frameTopTextInput) frameTopTextInput.value = frameTopText;
+  if (frameColorPicker) frameColorPicker.value = frameColor;
+
+  // 5. Logo Preset & Frame handling
+  if (cfg.logoPreset) {
+    activeLogoPreset = cfg.logoPreset;
+    customLogoDataUrl = null;
+    document.querySelectorAll('.preset-logo').forEach(btn => {
+      if (btn.getAttribute('data-preset') === cfg.logoPreset) {
+        btn.classList.add('border-ink', 'bg-canvas-soft-2');
+      } else {
+        btn.classList.remove('border-ink', 'bg-canvas-soft-2');
+      }
+    });
+  } else {
+    activeLogoPreset = null;
+    document.querySelectorAll('.preset-logo').forEach(btn => {
+      btn.classList.remove('border-ink', 'bg-canvas-soft-2');
+    });
+  }
+
+  // Sync Logo Frame Style
+  activeLogoFrame = cfg.logoFrame || (cfg.logoPreset ? 'gold-ring' : 'none');
+  document.querySelectorAll('.logo-frame-btn').forEach(btn => {
+    if (btn.getAttribute('data-frame') === activeLogoFrame) {
+      btn.classList.add('border-ink', 'bg-canvas-soft-2');
+    } else {
+      btn.classList.remove('border-ink', 'bg-canvas-soft-2');
+    }
+  });
+
+  if (cfg.logoFrameColor) {
+    logoFrameColor = cfg.logoFrameColor;
+    const logoFrameColorPicker = document.getElementById('logo-frame-color') as HTMLInputElement;
+    const logoFrameColorHex = document.getElementById('logo-frame-color-hex');
+    if (logoFrameColorPicker) logoFrameColorPicker.value = logoFrameColor;
+    if (logoFrameColorHex) logoFrameColorHex.textContent = logoFrameColor.toUpperCase();
+  }
+
+  if (cfg.logoSize) {
+    logoSize = cfg.logoSize;
+    const logoSizeSelect = document.getElementById('logo-size-select') as HTMLSelectElement;
+    if (logoSizeSelect) logoSizeSelect.value = String(logoSize);
+  }
+
+  // 6. ECC Level
+  if (cfg.eccLevel) {
+    eccLevel = cfg.eccLevel;
+    const eccSelect = document.getElementById('ecc-level') as HTMLSelectElement;
+    if (eccSelect) eccSelect.value = eccLevel;
+  }
+
+  // 7. Update Canvas & Frame
+  updateFrameUI();
+  updateQRCode();
+
+  // 8. Toast Feedback
+  if (showToastNotification) {
+    showToast(`✨ Applied "${tmpl.name}" preset!`);
+  }
+}
 

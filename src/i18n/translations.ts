@@ -76,6 +76,7 @@ export interface Translations {
       rounded: string;
       classy: string;
       extraRounded: string;
+      classyRounded?: string;
     };
     colorType: string;
     solid: string;
@@ -106,6 +107,13 @@ export interface Translations {
   actions: {
     downloadPng: string;
     downloadSvg: string;
+    downloadPdf: string;
+    downloadWebp: string;
+    downloadJpg: string;
+    copyImage: string;
+    copiedImageToast: string;
+    printQr: string;
+    moreFormats: string;
     copySuccess: string;
     historyTitle: string;
     historyEmpty: string;
@@ -298,6 +306,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Download PNG",
       downloadSvg: "Download SVG",
+      downloadPdf: "Download PDF",
+      downloadWebp: "Download WEBP",
+      downloadJpg: "Download JPG",
+      copyImage: "Copy Image",
+      copiedImageToast: "QR code copied to clipboard!",
+      printQr: "Print QR Code",
+      moreFormats: "More Formats",
       copySuccess: "Copied!",
       historyTitle: "Your Local History",
       historyEmpty: "No history found. Generate and download a QR code to save it here!",
@@ -488,6 +503,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Descargar PNG",
       downloadSvg: "Descargar SVG",
+      downloadPdf: "Descargar PDF",
+      downloadWebp: "Descargar WEBP",
+      downloadJpg: "Descargar JPG",
+      copyImage: "Copiar Imagen",
+      copiedImageToast: "¡Código QR copiado al portapapeles!",
+      printQr: "Imprimir QR",
+      moreFormats: "Más Formatos",
       copySuccess: "¡Copiado!",
       historyTitle: "Tu Historial Local",
       historyEmpty: "No se encontró historial. ¡Genera y descarga un código QR para guardarlo aquí!",
@@ -678,6 +700,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Télécharger PNG",
       downloadSvg: "Télécharger SVG",
+      downloadPdf: "Télécharger PDF",
+      downloadWebp: "Télécharger WEBP",
+      downloadJpg: "Télécharger JPG",
+      copyImage: "Copier l'image",
+      copiedImageToast: "QR code copié dans le presse-papier !",
+      printQr: "Imprimer le QR",
+      moreFormats: "Plus de formats",
       copySuccess: "Copié !",
       historyTitle: "Votre historique local",
       historyEmpty: "Aucun historique trouvé. Générez et téléchargez un code QR pour l'enregistrer ici !",
@@ -868,6 +897,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "PNG herunterladen",
       downloadSvg: "SVG herunterladen",
+      downloadPdf: "PDF herunterladen",
+      downloadWebp: "WEBP herunterladen",
+      downloadJpg: "JPG herunterladen",
+      copyImage: "Bild kopieren",
+      copiedImageToast: "QR-Code in Zwischenablage kopiert!",
+      printQr: "QR-Code drucken",
+      moreFormats: "Weitere Formate",
       copySuccess: "Kopiert!",
       historyTitle: "Ihr lokaler Verlauf",
       historyEmpty: "Kein Verlauf gefunden. Erstellen Sie einen QR-Code, um ihn hier zu speichern!",
@@ -1058,6 +1094,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Baixar PNG",
       downloadSvg: "Baixar SVG",
+      downloadPdf: "Baixar PDF",
+      downloadWebp: "Baixar WEBP",
+      downloadJpg: "Baixar JPG",
+      copyImage: "Copiar Imagem",
+      copiedImageToast: "Código QR copiado para a área de transferência!",
+      printQr: "Imprimir QR",
+      moreFormats: "Mais Formatos",
       copySuccess: "Copiado!",
       historyTitle: "Seu Histórico Local",
       historyEmpty: "Nenhum histórico encontrado. Gere e baixe um código QR para salvá-lo aqui!",
@@ -1248,6 +1291,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "تحميل PNG",
       downloadSvg: "تحميل SVG",
+      downloadPdf: "تحميل PDF",
+      downloadWebp: "تحميل WEBP",
+      downloadJpg: "تحميل JPG",
+      copyImage: "نسخ الصورة",
+      copiedImageToast: "تم نسخ رمز QR إلى الحافظة!",
+      printQr: "طباعة رمز QR",
+      moreFormats: "مزيد من الصيغ",
       copySuccess: "تم النسخ!",
       historyTitle: "سجلك المحلي الخاص",
       historyEmpty: "لا يوجد سجل بعد. قم بإنشاء وتحميل رمز QR ليتم حفظه هنا تلقائياً!",
@@ -1438,6 +1488,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Скачать PNG",
       downloadSvg: "Скачать SVG",
+      downloadPdf: "Скачать PDF",
+      downloadWebp: "Скачать WEBP",
+      downloadJpg: "Скачать JPG",
+      copyImage: "Копировать изображение",
+      copiedImageToast: "QR-код скопирован в буфер обмена!",
+      printQr: "Печать QR",
+      moreFormats: "Другие форматы",
       copySuccess: "Скопировано!",
       historyTitle: "Ваша локальная история",
       historyEmpty: "История пуста. Создайте и скачайте QR-код, чтобы он сохранился здесь!",
@@ -1628,6 +1685,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "Scarica PNG",
       downloadSvg: "Scarica SVG",
+      downloadPdf: "Scarica PDF",
+      downloadWebp: "Scarica WEBP",
+      downloadJpg: "Scarica JPG",
+      copyImage: "Copia Immagine",
+      copiedImageToast: "Codice QR copiato negli appunti!",
+      printQr: "Stampa QR",
+      moreFormats: "Altri Formati",
       copySuccess: "Copiato!",
       historyTitle: "Cronologia Locale",
       historyEmpty: "Nessuna cronologia trovata. Genera e scarica un codice QR per salvarlo qui!",
@@ -1818,6 +1882,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "PNG画像を保存",
       downloadSvg: "SVGベクターを保存",
+      downloadPdf: "PDF文書を保存",
+      downloadWebp: "WEBP形式で保存",
+      downloadJpg: "JPG形式で保存",
+      copyImage: "画像をコピー",
+      copiedImageToast: "QRコードをクリップボードにコピーしました！",
+      printQr: "QRコードを印刷",
+      moreFormats: "その他の形式",
       copySuccess: "コピーしました！",
       historyTitle: "作成履歴",
       historyEmpty: "履歴はありません。QRコードを作成・保存するとここに表示されます。",
@@ -2008,6 +2079,13 @@ export const translations: Record<string, Translations> = {
     actions: {
       downloadPng: "PNG 다운로드",
       downloadSvg: "SVG 다운로드",
+      downloadPdf: "PDF 다운로드",
+      downloadWebp: "WEBP 다운로드",
+      downloadJpg: "JPG 다운로드",
+      copyImage: "이미지 복사",
+      copiedImageToast: "QR 코드가 클립보드에 복사되었습니다!",
+      printQr: "QR 코드 인쇄",
+      moreFormats: "기타 포맷",
       copySuccess: "복사되었습니다!",
       historyTitle: "내 로컬 보관함",
       historyEmpty: "저장된 기록이 없습니다. QR 코드를 생성하고 다운로드하면 여기에 보관됩니다!",
@@ -2087,6 +2165,203 @@ export const translations: Record<string, Translations> = {
         statusClient: "클라이언트 생성기: 정상 작동 중",
         statusStorage: "로컬 보관함: 안전하게 유지됨",
         statusReady: "복구 준비 완료"
+      }
+    }
+  },
+  id: {
+    title: "Generator Kode QR Online",
+    subtitle: "Buat kode QR kustom dalam hitungan detik. Tanpa daftar atau login.",
+    tagline: "Buat kode QR kustom. Instan.",
+    description: "Hasilkan kode QR vektor beresolusi tinggi dengan warna, bentuk, dan logo kustom dalam hitungan detik. 100% gratis tanpa watermark.",
+    dir: 'ltr',
+    nav: {
+      generator: "Generator",
+      history: "Kode QR Terkini",
+      api: "Cuplikan API",
+      faq: "Tanya Jawab",
+      scanner: "Pemindai",
+      bulk: "QR Massal",
+      industries: "Industri",
+      types: "Tipe QR",
+      privacyPolicy: "Kebijakan Privasi",
+      aboutUs: "Tentang Kami",
+      terms: "Syarat & Ketentuan",
+      contactUs: "Hubungi Kami"
+    },
+    types: {
+      url: "URL",
+      text: "Teks",
+      wifi: "Wi-Fi",
+      contact: "vCard",
+      whatsapp: "WhatsApp",
+      email: "Email",
+      phone: "Telepon",
+      crypto: "Kripto",
+      social: "Media Sosial",
+      feedback: "Ulasan"
+    },
+    fields: {
+      urlPlaceholder: "Masukkan URL (contoh: https://contoh.com)",
+      textPlaceholder: "Masukkan teks di sini...",
+      wifiSsid: "Nama Jaringan (SSID)",
+      wifiPassword: "Kata Sandi",
+      wifiEncryption: "Jenis Keamanan",
+      contactName: "Nama Lengkap",
+      contactPhone: "Nomor Telepon",
+      contactEmail: "Alamat Email",
+      contactCompany: "Perusahaan",
+      contactAddress: "Alamat",
+      whatsappPhone: "Nomor WhatsApp (dengan kode negara, misal: +628123456789)",
+      whatsappMessage: "Pesan Otomatis (opsional)",
+      emailTo: "Alamat Email Tujuan",
+      emailSubject: "Subjek",
+      emailBody: "Isi Email",
+      phonePlaceholder: "Nomor Telepon (dengan kode negara)",
+      cryptoAddress: "Alamat Dompet Kripto",
+      cryptoCurrency: "Mata Uang Kripto",
+      cryptoAmount: "Jumlah (opsional)"
+    },
+    customization: {
+      title: "Sesuaikan Desain QR",
+      colors: "1. Warna & Gradien",
+      shapes: "2. Desain & Bentuk",
+      frame: "3. Bingkai Visual",
+      logo: "4. Tambahkan Logo",
+      advanced: "5. Pengaturan Lanjutan",
+      fgColor: "Warna Depan",
+      bgColor: "Warna Latar Belakang",
+      presets: "Preset Warna",
+      bodyStyle: "Pola Titik (Body)",
+      eyeBorder: "Gaya Bingkai Sudut (Eye Frame)",
+      eyeCenter: "Gaya Titik Sudut (Eye Ball)",
+      logoUpload: "Unggah Logo Kustom (Tarik & Lepas atau klik)",
+      logoPreset: "Pilih Logo Populer",
+      logoNone: "Tanpa Logo / Hapus",
+      errorCorrection: "Tingkat Koreksi Kesalahan",
+      errorCorrectionDesc: "Tingkat 'High' disarankan saat menambahkan logo.",
+      size: "Ukuran (piksel)",
+      styles: {
+        square: "Kotak",
+        dots: "Titik",
+        rounded: "Sudut Membulat",
+        classy: "Elegan",
+        extraRounded: "Ekstra Bulat"
+      },
+      colorType: "Tipe Pewarnaan",
+      solid: "Warna Solid",
+      gradient: "Gradien",
+      gradType: "Tipe Gradien",
+      linear: "Linear",
+      radial: "Radial",
+      gradStart: "Warna Awal",
+      gradEnd: "Warna Akhir",
+      gradAngle: "Sudut Rotasi",
+      frameStyle: "Gaya Bingkai",
+      frameNone: "Tanpa Bingkai",
+      frameClassic: "Gaya Label Klasik",
+      frameCapsule: "Bingkai Kapsul",
+      frameMinimal: "Bingkai Minimalis",
+      frameTicket: "Bingkai Tiket",
+      framePointer: "Bingkai Penunjuk",
+      framePhone: "Mockup Ponsel",
+      frameTopBottom: "Bingkai Atas & Bawah",
+      frameTopLabel: "Teks Atas",
+      frameLabel: "Teks Bingkai",
+      frameColor: "Warna Bingkai",
+      frameGlassmorphic: "Efek Kaca (Glassmorphic)",
+      frameNeon: "Efek Neon Cyberpunk",
+      frameViewfinder: "Bidikan Kamera",
+      frameStamp: "Cap Retro"
+    },
+    actions: {
+      downloadPng: "Unduh PNG",
+      downloadSvg: "Unduh SVG",
+      downloadPdf: "Unduh PDF",
+      downloadWebp: "Unduh WEBP",
+      downloadJpg: "Unduh JPG",
+      copyImage: "Salin Gambar",
+      copiedImageToast: "Kode QR berhasil disalin ke papan klip!",
+      printQr: "Cetak Kode QR",
+      moreFormats: "Format Lainnya",
+      copySuccess: "Tersalin!",
+      historyTitle: "Riwayat Lokal Anda",
+      historyEmpty: "Belum ada riwayat. Buat dan unduh kode QR untuk menyimpannya di sini!",
+      historyDate: "Dibuat pada",
+      historyRecall: "Edit Kode",
+      historyDelete: "Hapus"
+    },
+    scanner: {
+      title: "Pindai Kode QR",
+      uploadDesc: "Tarik & lepas gambar kode QR di sini, atau klik untuk mengunggah",
+      cameraStart: "Buka Pemindai Kamera",
+      cameraStop: "Hentikan Kamera",
+      resultTitle: "Hasil Pemindaian",
+      copyBtn: "Salin Tautan",
+      copyToast: "Hasil berhasil disalin ke papan klip!",
+      noCamera: "Kamera tidak tersedia atau izin akses ditolak.",
+      scanning: "Posisikan kode QR di dalam bingkai kamera..."
+    },
+    bulk: {
+      title: "Generator Kode QR Massal",
+      inputLabel: "Masukkan tautan (Satu per baris)",
+      placeholder: "https://contoh1.com\nhttps://contoh2.com\nhttps://contoh3.com",
+      generateBtn: "Buat & Unduh File ZIP",
+      successToast: "File ZIP berhasil dibuat dan diunduh!",
+      progress: "Sedang membuat... Harap tunggu"
+    },
+    apiTitle: "Integrasi API Pengembang",
+    apiDesc: "Integrasikan pembuatan kode QR instan ke dalam situs web atau aplikasi Anda dengan cuplikan kode sisi-klien yang ringan.",
+    industries: {
+      restaurants: "Restoran & Kafe",
+      realEstate: "Properti & Real Estat",
+      education: "Pendidikan & Guru",
+      events: "Acara & Tiket",
+      retail: "Ritel & E-commerce",
+      marketing: "Kampanye Pemasaran"
+    },
+    typeDescriptions: {
+      url: "Tautkan ke situs web dan halaman online",
+      text: "Enkode pesan teks biasa",
+      wifi: "Hubungkan ke jaringan Wi-Fi secara otomatis",
+      contact: "Bagikan kartu kontak digital (vCard)",
+      whatsapp: "Kirim pesan WhatsApp otomatis",
+      crypto: "Terima pembayaran mata uang kripto",
+      email: "Buat templat email siap kirim",
+      phone: "Lakukan panggilan telepon atau SMS",
+      social: "Tautkan ke semua profil media sosial",
+      feedback: "Kumpulkan ulasan dan rating pelanggan"
+    },
+    industryDescriptions: {
+      restaurants: "Buku menu digital tanpa kontak & pemesanan meja",
+      realEstate: "Hubungkan papan nama ke tur virtual properti",
+      education: "Lembar kerja interaktif dan materi kelas",
+      events: "Check-in tiket cepat dan informasi acara",
+      retail: "Hubungkan pelanggan langsung ke produk dan toko",
+      marketing: "Lacak konversi dan kembangkan audiens promosi"
+    },
+    errors: {
+      notFound: {
+        badge: "Kesalahan 404 • Halaman Tidak Ditemukan",
+        title: "Tersesat di Dimensi Digital",
+        description: "Halaman atau tautan kode QR yang Anda cari tidak ada, telah dipindahkan, atau kedaluwarsa. Mari kembali ke jalur utama.",
+        homeBtn: "Kembali ke Generator QR",
+        scanBtn: "Pindai Kode QR",
+        exploreTypes: "Jelajahi Tipe QR",
+        popularTitle: "Tujuan Populer",
+        helpTitle: "Butuh Bantuan?",
+        helpDesc: "Jika menurut Anda ini adalah tautan yang rusak, silakan hubungi tim kami."
+      },
+      serverError: {
+        badge: "Kesalahan 500 • Gangguan Terdeteksi",
+        title: "Sinyal Sistem Internal Terputus",
+        description: "Terjadi kesalahan tak terduga saat memuat halaman ini. Jangan khawatir, mesin pembuat QR dan data lokal Anda tetap aman.",
+        retryBtn: "Muat Ulang Halaman",
+        homeBtn: "Kembali ke Generator QR",
+        contactBtn: "Hubungi Bantuan",
+        statusTitle: "Diagnostik Sistem",
+        statusClient: "Generator Klien: Beroperasi Normal",
+        statusStorage: "Penyimpanan Lokal: Tersimpan & Aman",
+        statusReady: "Siap Dipulihkan"
       }
     }
   }

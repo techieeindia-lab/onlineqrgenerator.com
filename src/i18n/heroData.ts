@@ -18,7 +18,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "Instantly",
     stats: {
       generatedToday: "12,450 Codes Generated Today",
-      redirectionSpeed: "12ms Avg Redirection Speed",
+      redirectionSpeed: "100% Client-Side & Private",
       operational: "Server: 100% Operational"
     }
   },
@@ -29,7 +29,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "al Instante",
     stats: {
       generatedToday: "12.450 Códigos Generados Hoy",
-      redirectionSpeed: "12ms Velocidad Promedio",
+      redirectionSpeed: "100% Privado y en el Navegador",
       operational: "Servidor: 100% Operativo"
     }
   },
@@ -40,7 +40,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "Instantanément",
     stats: {
       generatedToday: "12 450 Codes Générés Aujourd'hui",
-      redirectionSpeed: "12ms Vitesse Moyenne",
+      redirectionSpeed: "100% Côté Client & Privé",
       operational: "Serveur: 100% Opérationnel"
     }
   },
@@ -51,7 +51,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "in Sekundenschnelle",
     stats: {
       generatedToday: "12.450 Codes Heute Generiert",
-      redirectionSpeed: "12ms Durchschnittliche Ladezeit",
+      redirectionSpeed: "100% Client-seitig & Sicher",
       operational: "Server: 100% Betriebsbereit"
     }
   },
@@ -62,7 +62,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "Istantaneamente",
     stats: {
       generatedToday: "12.450 Codici Generati Oggi",
-      redirectionSpeed: "12ms Velocità Media",
+      redirectionSpeed: "100% Lato Client e Privato",
       operational: "Server: 100% Operativo"
     }
   },
@@ -73,7 +73,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "Instantaneamente",
     stats: {
       generatedToday: "12.450 Códigos Gerados Hoje",
-      redirectionSpeed: "12ms Velocidade Média",
+      redirectionSpeed: "100% Privado e no Navegador",
       operational: "Servidor: 100% Operacional"
     }
   },
@@ -84,7 +84,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "мгновенно",
     stats: {
       generatedToday: "12 450 кодов создано сегодня",
-      redirectionSpeed: "12мс средняя скорость",
+      redirectionSpeed: "100% Приватно и в браузере",
       operational: "Сервер: 100% работает"
     }
   },
@@ -95,7 +95,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "を即座に作成",
     stats: {
       generatedToday: "本日 12,450 件のコードを生成",
-      redirectionSpeed: "平均 12ms の高速表示",
+      redirectionSpeed: "100% クライアント処理・完全プライベート",
       operational: "サーバー稼働率: 100% 正常"
     }
   },
@@ -106,7 +106,7 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "를 1초 만에 제작하세요",
     stats: {
       generatedToday: "오늘 생성된 코드 12,450개",
-      redirectionSpeed: "평균 12ms 초고속 스캔",
+      redirectionSpeed: "100% 브라우저 처리 · 완전한 개인정보 보호",
       operational: "서버 상태: 100% 정상 작동 중"
     }
   },
@@ -117,8 +117,19 @@ export const heroData: Record<string, HeroLocaleData> = {
     headlineEnd: "فورياً وبكل سهولة",
     stats: {
       generatedToday: "12,450 رمز تم إنشاؤه اليوم",
-      redirectionSpeed: "12 مللي ثانية متوسط السرعة",
+      redirectionSpeed: "100% معالجة داخل المتصفح وخاصة",
       operational: "الخادم: يعمل بنسبة 100%"
+    }
+  },
+  id: {
+    badge: "100% Gratis · Tanpa Daftar · Tanpa Watermark",
+    headlineStart: "Buat Kode QR",
+    headlineGradient: "Elegan & Kustom Sesuai Brand",
+    headlineEnd: "Secara Instan",
+    stats: {
+      generatedToday: "12.450 Kode Dibuat Hari Ini",
+      redirectionSpeed: "100% Sisi Klien & Privasi Terjaga",
+      operational: "Server: 100% Beroperasi Normal"
     }
   }
 };

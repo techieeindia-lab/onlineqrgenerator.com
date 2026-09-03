@@ -62,7 +62,7 @@ function localizePath(path: string): string {
               </div>
               <div class="flex flex-col gap-0.5">
                 <span class="text-[10px] font-mono text-mute uppercase">{sub.channels.email}</span>
-                <a href="mailto:support@onlineqrgenerator.com" class="text-xs font-semibold text-ink hover:text-[#ff1b6b] transition-colors">support@onlineqrgenerator.com</a>
+                <a href="mailto:support@onlineqrgenerators.com" class="text-xs font-semibold text-ink hover:text-[#ff1b6b] transition-colors">support@onlineqrgenerators.com</a>
               </div>
             </div>
 
@@ -162,9 +162,14 @@ function localizePath(path: string): string {
             <p class="text-xs text-body leading-relaxed max-w-sm">
               {sub.success.desc}
             </p>
-            <button id="btn-reset-form" class="mt-4 px-5 py-2 border border-hairline rounded-lg text-xs hover:bg-canvas-soft-2 font-medium transition-all cursor-pointer">
-              {sub.success.resetBtn}
-            </button>
+            <div class="flex items-center gap-3 mt-4">
+              <button id="btn-reset-form" class="px-5 py-2 border border-hairline rounded-lg text-xs hover:bg-canvas-soft-2 font-medium transition-all cursor-pointer">
+                {sub.success.resetBtn}
+              </button>
+              <a href="mailto:support@onlineqrgenerators.com" class="px-5 py-2 bg-canvas-soft border border-hairline rounded-lg text-xs text-ink hover:text-[#ff1b6b] font-medium transition-all">
+                Direct Email
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -173,7 +178,7 @@ function localizePath(path: string): string {
 
   <Footer />
 
-  <script is:inline>
+  <script>
     // Handle form submit state client side
     document.addEventListener('DOMContentLoaded', () => {
       const form = document.getElementById('contact-form');
@@ -190,7 +195,9 @@ function localizePath(path: string): string {
         });
 
         resetBtn?.addEventListener('click', () => {
-          (form as HTMLFormElement).reset();
+          if (form instanceof HTMLFormElement) {
+            form.reset();
+          }
           successState.classList.add('hidden');
           successState.classList.remove('flex');
           formWrapper.classList.remove('hidden');

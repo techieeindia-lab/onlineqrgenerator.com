@@ -1,6 +1,33 @@
 ---
 ---
 <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-canvas border border-hairline rounded-md px-4 py-3 flex items-center gap-3 shadow-lg max-w-sm">
-  <span class="w-1.5 h-1.5 rounded-full bg-success"></span>
+  <span class="w-1.5 h-1.5 rounded-full bg-success shrink-0"></span>
   <span id="toast-text" class="text-xs font-sans font-medium text-ink">Action completed</span>
 </div>
+
+<script>
+  let toastTimer: any = null;
+  window.addEventListener('app:toast', ((e: CustomEvent) => {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    if (!toast || !toastText) return;
+
+    const message = e.detail?.message || 'Done';
+    const isError = !!e.detail?.isError;
+
+    toastText.textContent = message;
+    const dot = toast.querySelector('span');
+    if (dot) {
+      dot.className = `w-1.5 h-1.5 rounded-full shrink-0 ${isError ? 'bg-error' : 'bg-success'}`;
+    }
+
+    toast.classList.remove('translate-y-20', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-20', 'opacity-0');
+    }, 3000);
+  }) as EventListener);
+</script>

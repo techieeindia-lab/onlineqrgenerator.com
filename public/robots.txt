@@ -1,4 +1,4 @@
-# robots.txt for https://onlineqrgenerator.com
+# robots.txt for https://onlineqrgenerators.com
 
 User-agent: *
 Allow: /
@@ -8,5 +8,4 @@ Disallow: /404
 Disallow: /500
 
 # Sitemaps
-Sitemap: https://onlineqrgenerator.com/sitemap.xml
-Sitemap: https://onlineqrgenerator.com/sitemap-index.xml
+Sitemap: https://onlineqrgenerators.com/sitemap-index.xml

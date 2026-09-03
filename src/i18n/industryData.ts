@@ -11,6 +11,7 @@ export interface LandingPageData {
   headline: string;
   description: string;
   defaultType: string;
+  defaultTemplateId?: string;
   details: string;
   ctaText: string;
   features: string[];
@@ -919,13 +920,298 @@ export const industryData: Record<string, Record<string, LandingPageData>> = {
         }
       }
     }
+  },
+  id: {
+    restaurants: {
+      slug: "restaurants",
+      title: "Generator Kode QR untuk Restoran & Kafe",
+      headline: "Buat Buku Menu Digital Tanpa Kontak untuk Restoran Anda.",
+      description: "Berikan pengalaman bersantap yang higienis dan modern. Hasilkan kode QR kustom yang mengarahkan pelanggan langsung ke menu digital PDF atau tautan pemesanan meja.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Restoran",
+      details: "Kode QR merevolusi cara pelanggan memesan makanan. Dengan menempatkan kode QR kustom di meja, tatakan gelas, atau etalase, pelanggan cukup memindai dengan ponsel untuk melihat menu terkini tanpa kontak fisik.",
+      features: [
+        "Akses instan ke menu digital PDF atau web pemesanan",
+        "Menghemat biaya cetak ulang dan pembaruan menu fisik",
+        "Pemesanan di meja yang higienis dan cepat",
+        "Desain kustom dengan logo dan warna restoran Anda"
+      ],
+      types: {
+        url: {
+          tabLabel: "Menu Digital",
+          headline: "Buat Menu QR Tanpa Kontak untuk Restoran Anda",
+          description: "Berikan pengalaman bersantap yang nyaman. Hasilkan kode QR kustom yang mengarahkan tamu ke menu PDF atau situs restoran.",
+          placeholders: {
+            "input-url": "https://restorananda.com/menu.pdf"
+          }
+        },
+        wifi: {
+          tabLabel: "Wi-Fi Pengunjung",
+          headline: "Bagikan Wi-Fi Restoran Hanya dengan Scan Kode QR",
+          description: "Biarkan tamu terhubung ke jaringan Wi-Fi pelanggan tanpa perlu mengetik kata sandi yang rumit.",
+          placeholders: {
+            "wifi-ssid": "WiFi_Tamu_Restoran"
+          }
+        },
+        social: {
+          tabLabel: "Media Sosial",
+          headline: "Ajak Pelanggan Mengikuti Akun Media Sosial Anda",
+          description: "Dorong pengunjung untuk menandai akun Anda, membagikan foto makanan, dan mengikuti Instagram atau TikTok restoran Anda.",
+          placeholders: {
+            "social-username": "akun_restoran_anda"
+          }
+        },
+        feedback: {
+          tabLabel: "Ulasan Google",
+          headline: "Kumpulkan Ulasan Bintang 5 dari Pengunjung",
+          description: "Arahkan pelanggan yang puas langsung ke profil Google Maps untuk meningkatkan reputasi restoran Anda.",
+          placeholders: {
+            "feedback-url": "https://g.page/r/restoran-anda/review"
+          }
+        }
+      }
+    },
+    "real-estate": {
+      slug: "real-estate",
+      title: "Generator Kode QR untuk Agen Properti & Real Estat",
+      headline: "Hubungkan Papan Properti ke Tur Virtual & Brosur Digital.",
+      description: "Permudah calon pembeli menjelajahi rumah dan properti impian. Pasang kode QR pada papan promosi, brosur, atau etalase agen.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Properti",
+      details: "Maksimalkan minat calon pembeli saat mereka melewati lokasi properti. Dengan memindai kode QR pada plang 'Dijual/Disewakan', calon pembeli dapat langsung melihat foto interior, denah, tur 360 derajat, dan detail harga.",
+      features: [
+        "Akses cepat ke tur virtual 360° dan galeri foto HD",
+        "Menghubungkan langsung ke kontak WhatsApp agen properti",
+        "Mengurangi kebutuhan mencetak brosur kertas tebal",
+        "Simpan kontak digital vCard agen hanya dalam 1 detik"
+      ],
+      types: {
+        url: {
+          tabLabel: "Tur Virtual",
+          headline: "Tampilkan Tur Virtual Rumah & Unit Properti",
+          description: "Arahkan calon pembeli ke video walkthrough, tur 360°, atau listing lengkap properti.",
+          placeholders: {
+            "input-url": "https://propertianda.com/listing/rumah-asri"
+          }
+        },
+        contact: {
+          tabLabel: "Kartu Nama Agen",
+          headline: "Bagikan Kontak Digital Agen Properti (vCard)",
+          description: "Bantu calon pembeli menyimpan nama, nomor telepon, dan email agen langsung ke kontak telepon mereka.",
+          placeholders: {
+            "contact-name": "Budi Santoso",
+            "contact-phone": "+628123456789",
+            "contact-email": "budi@agenproperti.com"
+          }
+        },
+        whatsapp: {
+          tabLabel: "Chat WhatsApp",
+          headline: "Mulai Percakapan Langsung dengan Calon Pembeli",
+          description: "Buat tautan WhatsApp otomatis dengan pesan yang sudah terisi untuk pertanyaan jadwal survei lokasi.",
+          placeholders: {
+            "whatsapp-phone": "+628123456789",
+            "whatsapp-message": "Halo, saya tertarik dengan informasi unit properti di Jalan Melati."
+          }
+        }
+      }
+    },
+    education: {
+      slug: "education",
+      title: "Generator Kode QR untuk Guru & Pendidikan",
+      headline: "Jadikan Pembelajaran di Kelas Lebih Interaktif dan Seru.",
+      description: "Hubungkan lembar kerja fisik dengan materi digital. Arahkan siswa ke materi presentasi, kuis interaktif, atau video pembelajaran.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Pembelajaran",
+      details: "Guru dan pengajar dapat mempermudah akses materi digital tanpa meminta siswa mengetikkan alamat URL yang panjang. Tempelkan kode QR pada lembar tugas, buku pelajaran, papan pengumuman, atau perpustakaan sekolah.",
+      features: [
+        "Sangat cocok untuk lembar kerja siswa dan modul pembelajaran",
+        "100% aman dan menjaga privasi data siswa tanpa perlu login",
+        "Berbagi koneksi Wi-Fi kelas dengan cepat dan mudah",
+        "Dapat diakses secara offline untuk tugas teks biasa"
+      ],
+      types: {
+        url: {
+          tabLabel: "Tautan Materi",
+          headline: "Akses Materi Presentasi dan Sumber Belajar",
+          description: "Permudah kegiatan belajar mengajar dengan mengarahkan siswa ke Google Classroom, slide presentasi, atau modul online.",
+          placeholders: {
+            "input-url": "https://classroom.google.com/..."
+          }
+        },
+        wifi: {
+          tabLabel: "Wi-Fi Kelas",
+          headline: "Hubungkan Perangkat Siswa ke Wi-Fi Sekolah",
+          description: "Biarkan siswa memindai papan tulis untuk menyambungkan laptop atau tablet ke jaringan internet sekolah.",
+          placeholders: {
+            "wifi-ssid": "WiFi_Kelas_Sekolah"
+          }
+        },
+        text: {
+          tabLabel: "Instruksi Tugas",
+          headline: "Bagikan Instruksi Soal yang Dapat Dibaca Offline",
+          description: "Enkode instruksi pekerjaan rumah atau soal matematika yang bisa dibaca tanpa perlu jaringan internet.",
+          placeholders: {
+            "input-text": "Bacalah Bab 4 buku sejarah dan kerjakan latihan soal nomor 1-5 di halaman 98."
+          }
+        },
+        social: {
+          tabLabel: "Kanal Video",
+          headline: "Arahkan Siswa ke Video Pembelajaran YouTube",
+          description: "Bagikan playlist video penjelasan materi atau rekaman perkuliahan dengan mudah.",
+          placeholders: {
+            "social-username": "KanalPendidikanSekolah"
+          }
+        }
+      }
+    },
+    events: {
+      slug: "events",
+      title: "Generator Kode QR untuk Acara & Tiket",
+      headline: "Sederhanakan Pendaftaran dan Tiket Acara Anda.",
+      description: "Arahkan peserta ke halaman registrasi, jadwal rundown acara, atau lokasi Google Maps. Cocok untuk tiket, id card peserta, dan poster seminar.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Acara",
+      details: "Gunakan kode QR untuk mempermudah akses informasi seminar, konser, pameran, pernikahan, atau festival. Calon tamu dapat memeriksa jadwal kegiatan, menyimpan kontak panitia, atau langsung menuju titik lokasi acara.",
+      features: [
+        "Pendaftaran acara dan pemesanan tiket tanpa antrean",
+        "Navigasi instan ke titik lokasi Google Maps venue acara",
+        "Simpan jadwal kalender dan rundown acara ke ponsel peserta",
+        "Dukungan format cetak vektor SVG berkualitas tinggi"
+      ],
+      types: {
+        url: {
+          tabLabel: "Pendaftaran & Tiket",
+          headline: "Arahkan Tamu ke Halaman Pembelian Tiket & Info",
+          description: "Tautkan poster acara ke formulir pendaftaran, tiket online, atau website resmi acara Anda.",
+          placeholders: {
+            "input-url": "https://acara-anda.com/registrasi"
+          }
+        },
+        whatsapp: {
+          tabLabel: "Pusat Bantuan",
+          headline: "Layanan Tanya Jawab Peserta via WhatsApp",
+          description: "Sediakan jalur cepat bagi peserta untuk bertanya seputar jadwal dan petunjuk teknis acara.",
+          placeholders: {
+            "whatsapp-phone": "+628123456789",
+            "whatsapp-message": "Halo panitia, saya ingin bertanya seputar tiket acara."
+          }
+        },
+        wifi: {
+          tabLabel: "Wi-Fi Acara",
+          headline: "Akses Internet Cepat untuk Pengunjung Acara",
+          description: "Cetak kode QR Wi-Fi di area registrasi agar pengunjung dapat langsung terhubung ke internet.",
+          placeholders: {
+            "wifi-ssid": "WiFi_Venue_Acara"
+          }
+        }
+      }
+    },
+    retail: {
+      slug: "retail",
+      title: "Generator Kode QR untuk Toko Ritel & E-Commerce",
+      headline: "Hubungkan Produk Fisik ke Halaman Belanja Online.",
+      description: "Ubah kemasan produk, label harga, dan etalase toko menjadi peluang penjualan. Tampilkan panduan penggunaan, ulasan pembeli, atau diskon khusus.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Ritel",
+      details: "Bawa pelanggan di toko fisik langsung ke ekosistem digital Anda. Dengan memindai kode QR pada tag baju atau etalase, pembeli dapat mengecek ketersediaan ukuran, membaca ulasan, dan bergabung dengan program loyalitas pelanggan.",
+      features: [
+        "Pindai untuk melihat detail dan ulasan produk secara instan",
+        "Dukungan cetak kode QR massal untuk ribuan SKU produk",
+        "Tingkatkan pengikut media sosial toko dari pelanggan langsung",
+        "Tautan langsung ke toko Shopee, Tokopedia, atau web resmi"
+      ],
+      types: {
+        url: {
+          tabLabel: "Halaman Produk",
+          headline: "Tautkan Label Produk ke Katalog Online Anda",
+          description: "Arahkan pembeli ke halaman spesifikasi, panduan ukuran, atau video unboxing produk.",
+          placeholders: {
+            "input-url": "https://tokoanda.com/produk/sepatu-sneakers"
+          }
+        },
+        social: {
+          tabLabel: "Instagram Toko",
+          headline: "Bangun Komunitas Pelanggan di Media Sosial",
+          description: "Ajak pembeli mengunggah foto produk dan menandai akun resmi toko Anda di media sosial.",
+          placeholders: {
+            "social-username": "tokoonline_resmi"
+          }
+        },
+        feedback: {
+          tabLabel: "Ulasan Pembeli",
+          headline: "Dapatkan Masukan dan Ulasan dari Pelanggan Toko",
+          description: "Cetak kode QR pada struk belanja atau kemasan untuk mengumpulkan ulasan dari pembeli.",
+          placeholders: {
+            "feedback-url": "https://g.page/r/toko-anda/review"
+          }
+        }
+      }
+    },
+    marketing: {
+      slug: "marketing",
+      title: "Generator Kode QR untuk Kampanye Pemasaran & Iklan",
+      headline: "Tingkatkan Konversi Iklan Cetak ke Penjualan Digital.",
+      description: "Jadikan baliho, brosur, majalah, dan merchandise sebagai sarana akuisisi pelanggan yang terukur dan interaktif.",
+      defaultType: "url",
+      ctaText: "Buat Kode QR Pemasaran",
+      details: "Kode QR adalah elemen terpenting dalam pemasaran omnichannel. Cukup tambahkan kode QR bergaya modern dengan logo merek pada materi promosi untuk mengarahkan audiens ke penawaran eksklusif dan voucher belanja.",
+      features: [
+        "Meningkatkan rasio klik (CTR) materi promosi cetak",
+        "Dapat disesuaikan dengan warna identitas dan logo brand Anda",
+        "Ekspor format SVG jernih untuk cetak spanduk dan baliho raksasa",
+        "Tanpa biaya langganan, kode aktif selamanya tanpa kedaluwarsa"
+      ],
+      types: {
+        url: {
+          tabLabel: "Halaman Promo",
+          headline: "Arahkan Pembaca ke Penawaran Terbatas & Diskon",
+          description: "Giring audiens dari brosur langsung ke halaman promo khusus dengan kode kupon terpasang.",
+          placeholders: {
+            "input-url": "https://brandanda.com/promo-merdeka"
+          }
+        },
+        whatsapp: {
+          tabLabel: "Chat Layanan Pelanggan",
+          headline: "Dapatkan Calon Pembeli Potensial via WhatsApp",
+          description: "Buka chat langsung dengan calon pelanggan yang tertarik dengan promo di iklan Anda.",
+          placeholders: {
+            "whatsapp-phone": "+628123456789",
+            "whatsapp-message": "Halo, saya melihat promo di brosur dan ingin konsultasi lebih lanjut."
+          }
+        },
+        email: {
+          tabLabel: "Langganan Berita",
+          headline: "Kumpulkan Pelanggan Baru Buletin Email",
+          description: "Bantu pelanggan mengirim email pendaftaran newsletter hanya dengan satu kali klik.",
+          placeholders: {
+            "email-to": "promo@brandanda.com",
+            "email-subject": "Daftar Diskon Eksklusif Mingguan"
+          }
+        }
+      }
+    }
   }
+};
+
+// Default industry template mapping
+const defaultIndustryTemplateMap: Record<string, string> = {
+  restaurants: "bistro-menu",
+  "real-estate": "luxury-estate",
+  education: "smart-classroom",
+  events: "vip-ticket",
+  retail: "flash-sale",
+  marketing: "billboard-glow"
 };
 
 // Fallback logic for languages without explicit translation
 export function getIndustryData(locale: string, industry: string): LandingPageData {
   const langData = industryData[locale] || industryData.en;
-  return langData[industry] || industryData.en[industry];
+  const baseData = langData[industry] || industryData.en[industry];
+  if (!baseData) return baseData;
+  return {
+    ...baseData,
+    defaultTemplateId: baseData.defaultTemplateId || defaultIndustryTemplateMap[industry]
+  };
 }
 
 // Generate listing parameters for getStaticPaths
@@ -1240,6 +1526,68 @@ export const typePagesData: Record<string, Record<string, Partial<LandingPageDat
       title: "일반 텍스트 인코딩 QR 코드 생성기",
       headline: "텍스트 문구를 QR 코드 안에 직접 인코딩하세요.",
       description: "인터넷 연결이 필요 없는 정적 QR 코드. 메시지, 메모, 안내 문구를 오프라인에서도 언제든 확인할 수 있습니다.",
+      defaultType: "text"
+    }
+  },
+  id: {
+    wifi: {
+      title: "Generator Kode QR Wi-Fi Gratis",
+      headline: "Bagikan Jaringan Wi-Fi Hanya dengan Memindai Kode QR.",
+      description: "Tidak perlu lagi mengetik kata sandi panjang. Buat kode QR Wi-Fi kustom agar tamu dan pelanggan dapat terhubung ke internet secara otomatis.",
+      defaultType: "wifi"
+    },
+    vcard: {
+      title: "Generator Kode QR Kontak Digital (vCard)",
+      headline: "Buat Kartu Nama Digital Interaktif (vCard).",
+      description: "Bagikan kartu kontak profesional Anda secara instan. Pindai untuk menyimpan nama lengkap, nomor HP, email, perusahaan, dan alamat langsung ke buku kontak ponsel.",
+      defaultType: "contact"
+    },
+    whatsapp: {
+      title: "Generator Kode QR WhatsApp Otomatis",
+      headline: "Hubungkan Pelanggan Langsung ke Obrolan WhatsApp.",
+      description: "Tanpa perlu menyimpan nomor manual terlebih dahulu. Buat tautan kode QR WhatsApp lengkap dengan draf pesan otomatis untuk mempermudah layanan pelanggan.",
+      defaultType: "whatsapp"
+    },
+    crypto: {
+      title: "Generator Kode QR Dompet Kripto",
+      headline: "Terima Pembayaran Kripto Secara Cepat via Kode QR.",
+      description: "Terima pembayaran Bitcoin, Ethereum, atau Solana dengan aman. Enkode alamat dompet kripto secara presisi untuk menghindari risiko salah ketik.",
+      defaultType: "crypto"
+    },
+    email: {
+      title: "Generator Kode QR Email Otomatis",
+      headline: "Buka Draf Email Siap Kirim dengan Satu Ketukan.",
+      description: "Permudah pengguna mengirim email kepada Anda. Buat kode QR yang secara otomatis mengisi alamat email tujuan, subjek, dan draf isi pesan.",
+      defaultType: "email"
+    },
+    sms: {
+      title: "Generator Kode QR Pesan SMS",
+      headline: "Kirim Pesan SMS Secara Instan.",
+      description: "Sederhanakan pengiriman SMS di ponsel. Buat kode QR yang langsung membuka aplikasi perpesanan dengan nomor penerima dan teks pesan yang telah disiapkan.",
+      defaultType: "phone"
+    },
+    url: {
+      title: "Generator Kode QR Tautan URL Web",
+      headline: "Arahkan Pengunjung Langsung ke Tautan Web Apa Pun.",
+      description: "Tipe kode QR paling populer. Hubungkan brosur fisik, kartu nama, atau etalase toko langsung ke situs web, toko online, atau profil portofolio Anda.",
+      defaultType: "url"
+    },
+    social: {
+      title: "Generator Kode QR Media Sosial",
+      headline: "Arahkan Pengikut Langsung ke Seluruh Akun Medsos Anda.",
+      description: "Buat kode QR bergaya modern untuk akun Instagram, YouTube, TikTok, Facebook, LinkedIn, atau X (Twitter) Anda.",
+      defaultType: "social"
+    },
+    feedback: {
+      title: "Generator Kode QR Ulasan & Rating Pelanggan",
+      headline: "Kumpulkan Ulasan dan Masukan Pelanggan dengan Mudah.",
+      description: "Buat kode QR khusus yang mengarahkan pembeli langsung ke profil Google Maps, formulir survei, atau ulasan online Anda.",
+      defaultType: "feedback"
+    },
+    text: {
+      title: "Generator Kode QR Teks Biasa Offline",
+      headline: "Enkode Pesan Teks Langsung ke Dalam Kode QR.",
+      description: "Kode QR statis yang berfungsi tanpa koneksi internet. Pesan, catatan, instruksi, atau informasi penting tersimpan langsung di dalam piksel kode QR.",
       defaultType: "text"
     }
   }

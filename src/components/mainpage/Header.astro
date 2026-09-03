@@ -33,6 +33,7 @@ const localesList = [
   { code: 'ja', label: '🇯🇵 日本語' },
   { code: 'ko', label: '🇰🇷 한국어' },
   { code: 'ar', label: '🇸🇦 العربية' },
+  { code: 'id', label: '🇮🇩 Bahasa Indonesia' },
 ];
 
 const currentLanguageLabel = localesList.find(l => l.code === locale)?.label || 'English';
@@ -43,7 +44,7 @@ function localizePath(path: string): string {
 }
 
 const pathname = Astro.url.pathname;
-const locales = ['en', 'es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko'];
+const locales = ['en', 'es', 'fr', 'de', 'pt', 'ar', 'ru', 'it', 'ja', 'ko', 'id'];
 const currentPrefix = locales.find(l => l !== 'en' && (pathname.startsWith(`/${l}/`) || pathname === `/${l}`));
 const cleanPath = currentPrefix ? (pathname.substring(currentPrefix.length + 1) || '/') : pathname;
 const normalizedCleanPath = cleanPath.startsWith('/') ? cleanPath : '/' + cleanPath;
@@ -52,7 +53,8 @@ const qrTypesList = [
   { slug: 'url', label: t.types.url, path: '/types/url', desc: t.typeDescriptions.url, icon: 'url', bgClass: 'bg-blue-500/10 text-blue-600 dark:text-blue-400' },
   { slug: 'wifi', label: t.types.wifi, path: '/types/wifi', desc: t.typeDescriptions.wifi, icon: 'wifi', bgClass: 'bg-green-500/10 text-green-600 dark:text-green-400' },
   { slug: 'vcard', label: t.types.contact, path: '/types/vcard', desc: t.typeDescriptions.contact, icon: 'vcard', bgClass: 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400' },
-  { slug: 'text', label: t.types.text, path: '/types/text', desc: t.typeDescriptions.text, icon: 'text', bgClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
+  { slug: 'whatsapp', label: t.types.whatsapp, path: '/types/whatsapp', desc: t.typeDescriptions.whatsapp, icon: 'whatsapp', bgClass: 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' },
+  { slug: 'text', label: t.types.text, path: '/types/text', desc: t.typeDescriptions.text, icon: 'text', bgClass: 'bg-teal-500/10 text-teal-600 dark:text-teal-400' },
   { slug: 'crypto', label: t.types.crypto, path: '/types/crypto', desc: t.typeDescriptions.crypto, icon: 'crypto', bgClass: 'bg-amber-500/10 text-amber-600 dark:text-amber-400' },
   { slug: 'email', label: t.types.email, path: '/types/email', desc: t.typeDescriptions.email, icon: 'email', bgClass: 'bg-rose-500/10 text-rose-600 dark:text-rose-400' },
   { slug: 'sms', label: t.types.phone, path: '/types/sms', desc: t.typeDescriptions.phone, icon: 'phone', bgClass: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400' },
@@ -70,28 +72,38 @@ const industriesDropdownList = [
 ];
 ---
 <header class="sticky top-0 z-40 border-b border-hairline bg-canvas backdrop-blur-md transition-all duration-200 shadow-xs">
-  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-    <a href={locale === 'en' ? '/' : `/${locale}/`} class="flex items-center gap-2 font-sans font-bold text-lg tracking-tight hover:opacity-85 transition-opacity">
+  <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+    <!-- Brand Logo & Title -->
+    <a href={locale === 'en' ? '/' : `/${locale}/`} class="flex items-center gap-2.5 font-sans font-bold text-base sm:text-lg tracking-tight hover:opacity-90 transition-opacity shrink-0 whitespace-nowrap">
       <Logo class="w-7 h-7 shrink-0" />
-      <span>{t.title}.</span>
+      <span class="text-ink">OnlineQR <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff]">Generators</span></span>
     </a>
     
-    <nav class="hidden md:flex items-center gap-6 text-sm text-body">
-      <a href={localizePath('/')} class="hover:text-ink transition-all relative group py-2">
+    <!-- Desktop Navigation (visible on lg: screens >= 1024px) -->
+    <nav class="hidden lg:flex items-center gap-3.5 xl:gap-5 text-xs xl:text-sm font-medium text-slate-600 dark:text-slate-300">
+      <a href={localizePath('/#generator')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
         {t.nav.generator}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href={localizePath('/#scanner')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
+        {t.nav.scanner}
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
+      </a>
+      <a href={localizePath('/#bulk')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
+        {t.nav.bulk}
         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
       </a>
       
       <!-- QR Types Dropdown -->
-      <div class="relative group/types py-2">
-        <button class="hover:text-ink transition-all flex items-center gap-1 cursor-pointer relative pb-1 font-medium" aria-haspopup="true">
+      <div class="relative group/types py-2" id="types-menu-container">
+        <button id="types-menu-btn" class="hover:text-slate-950 dark:hover:text-white transition-colors flex items-center gap-1 cursor-pointer relative pb-1 font-medium whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
           <span>{t.nav.types}</span>
-          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/types:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/types:rotate-180 group-focus-within/types:rotate-180 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover/types:w-full"></span>
         </button>
-        <!-- Hover bridge & animated container -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 opacity-0 invisible translate-y-2 pointer-events-none group-hover/types:opacity-100 group-hover/types:visible group-hover/types:translate-y-0 group-hover/types:pointer-events-auto transition-all duration-200 ease-out z-50">
-          <div class="w-[640px] rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/98 dark:bg-[#101018]/98 backdrop-blur-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/70 p-3.5 grid grid-cols-3 gap-2">
+        <!-- Hover & focus-within bridge container -->
+        <div id="types-dropdown" class="absolute left-1/2 -translate-x-1/2 top-full pt-2 opacity-0 invisible translate-y-2 pointer-events-none group-hover/types:opacity-100 group-hover/types:visible group-hover/types:translate-y-0 group-hover/types:pointer-events-auto group-focus-within/types:opacity-100 group-focus-within/types:visible group-focus-within/types:translate-y-0 group-focus-within/types:pointer-events-auto transition-all duration-200 ease-out z-50">
+          <div class="w-[580px] xl:w-[640px] max-w-[90vw] rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/98 dark:bg-[#101018]/98 backdrop-blur-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/70 p-3.5 grid grid-cols-3 gap-2">
             {qrTypesList.map((item) => (
               <a 
                 href={localizePath(item.path)} 
@@ -111,6 +123,12 @@ const industriesDropdownList = [
                   {item.icon === 'vcard' && (
                     <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15A2.25 2.25 0 002.25 6.75v10.5a2.25 2.25 0 002.25 2.25zm3-10.5a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM6.75 15.75h6.75" />
+                    </svg>
+                  )}
+                  {item.icon === 'whatsapp' && (
+                    <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 10-9-9c0 1.5.37 2.91 1.02 4.15L3 21l4.98-1.02A8.96 8.96 0 0012 21z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.5 9.5c.3-.6.6-.6 1-.6h.5c.2 0 .4.1.5.4l.7 1.7c.1.3.1.5-.1.7l-.5.6c.4.8 1.1 1.5 1.9 1.9l.6-.5c.2-.2.4-.2.7-.1l1.7.7c.3.1.4.3.4.5v.5c0 .4 0 .7-.6 1-1.3.6-3.8-.4-5.5-2.1-1.7-1.7-2.7-4.2-2.1-5.5z" />
                     </svg>
                   )}
                   {item.icon === 'text' && (
@@ -156,15 +174,15 @@ const industriesDropdownList = [
       </div>
 
       <!-- Industries Dropdown -->
-      <div class="relative group/industries py-2">
-        <button class="hover:text-ink transition-all flex items-center gap-1 cursor-pointer relative pb-1 font-medium" aria-haspopup="true">
+      <div class="relative group/industries py-2" id="industries-menu-container">
+        <button id="industries-menu-btn" class="hover:text-slate-950 dark:hover:text-white transition-colors flex items-center gap-1 cursor-pointer relative pb-1 font-medium whitespace-nowrap" aria-haspopup="true" aria-expanded="false">
           <span>{t.nav.industries}</span>
-          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/industries:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/industries:rotate-180 group-focus-within/industries:rotate-180 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover/industries:w-full"></span>
         </button>
-        <!-- Hover bridge & animated container -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-full pt-2 opacity-0 invisible translate-y-2 pointer-events-none group-hover/industries:opacity-100 group-hover/industries:visible group-hover/industries:translate-y-0 group-hover/industries:pointer-events-auto transition-all duration-200 ease-out z-50">
-          <div class="w-[520px] rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/98 dark:bg-[#101018]/98 backdrop-blur-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/70 p-3.5 grid grid-cols-2 gap-2">
+        <!-- Hover & focus-within bridge container -->
+        <div id="industries-dropdown" class="absolute left-1/2 -translate-x-1/2 top-full pt-2 opacity-0 invisible translate-y-2 pointer-events-none group-hover/industries:opacity-100 group-hover/industries:visible group-hover/industries:translate-y-0 group-hover/industries:pointer-events-auto group-focus-within/industries:opacity-100 group-focus-within/industries:visible group-focus-within/industries:translate-y-0 group-focus-within/industries:pointer-events-auto transition-all duration-200 ease-out z-50">
+          <div class="w-[480px] xl:w-[520px] max-w-[90vw] rounded-2xl border border-slate-200/80 dark:border-white/10 bg-white/98 dark:bg-[#101018]/98 backdrop-blur-2xl shadow-2xl shadow-slate-900/10 dark:shadow-black/70 p-3.5 grid grid-cols-2 gap-2">
             {industriesDropdownList.map((item) => (
               <a 
                 href={localizePath(item.path)} 
@@ -212,26 +230,27 @@ const industriesDropdownList = [
         </div>
       </div>
 
-      <a href={localizePath('/#history')} class="hover:text-ink transition-all relative group py-2">
+      <a href={localizePath('/#history')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
         {t.nav.history}
         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
       </a>
-      <a href={localizePath('/#api')} class="hover:text-ink transition-all relative group py-2">
+      <a href={localizePath('/#api')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
         {t.nav.api}
         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
       </a>
-      <a href={localizePath('/#faq')} class="hover:text-ink transition-all relative group py-2">
+      <a href={localizePath('/#faq')} class="hover:text-slate-950 dark:hover:text-white transition-colors relative group py-2 whitespace-nowrap">
         {t.nav.faq}
         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-[#ff1b6b] to-[#eca0ff] transition-all duration-300 group-hover:w-full"></span>
       </a>
     </nav>
 
-    <div class="flex items-center gap-3">
-      <!-- Language Selector -->
-      <div class="relative group/lang py-1">
-        <button id="lang-menu-btn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium border border-hairline rounded-md bg-canvas hover:bg-canvas-soft transition-all duration-200 hover:-translate-y-0.5 cursor-pointer" aria-label="Select Language">
+    <!-- Header Action Controls -->
+    <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <!-- Desktop Language Selector (Hidden on small mobile to avoid crowding; available in mobile drawer) -->
+      <div class="relative group/lang py-1 hidden sm:block">
+        <button id="lang-menu-btn" class="flex items-center gap-1.5 px-3 py-2 text-xs font-medium border border-hairline rounded-md bg-canvas hover:bg-canvas-soft transition-all duration-200 hover:-translate-y-0.5 cursor-pointer whitespace-nowrap" aria-label="Select Language" aria-expanded="false">
           <span>{currentLanguageLabel}</span>
-          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/lang:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          <svg class="w-3.5 h-3.5 text-mute transition-transform duration-200 group-hover/lang:rotate-180 group-focus-within/lang:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
         </button>
         <div id="lang-dropdown" class="absolute right-0 top-full pt-1.5 opacity-0 invisible translate-y-1 pointer-events-none group-hover/lang:opacity-100 group-hover/lang:visible group-hover/lang:translate-y-0 group-hover/lang:pointer-events-auto group-focus-within/lang:opacity-100 group-focus-within/lang:visible group-focus-within/lang:pointer-events-auto transition-all duration-150 z-50">
           <div class="w-44 rounded-xl border border-slate-200/80 dark:border-white/10 bg-white/98 dark:bg-[#101018]/98 backdrop-blur-2xl shadow-xl shadow-slate-900/10 dark:shadow-black/70 py-1.5 max-h-80 overflow-y-auto">
@@ -254,7 +273,7 @@ const industriesDropdownList = [
       </div>
 
       <!-- Theme Switcher -->
-      <button id="theme-toggle" class="p-2.5 rounded-md border border-hairline bg-canvas hover:bg-canvas-soft text-body hover:text-ink transition-all duration-200 hover:-translate-y-0.5 cursor-pointer shadow-xs" aria-label="Toggle dark mode">
+      <button id="theme-toggle" class="p-2.5 rounded-md border border-hairline bg-canvas hover:bg-canvas-soft text-body hover:text-ink transition-all duration-200 hover:-translate-y-0.5 cursor-pointer shadow-xs shrink-0" aria-label="Toggle dark mode">
         <svg class="w-4 h-4 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="5"></circle>
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
@@ -263,6 +282,265 @@ const industriesDropdownList = [
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
+
+      <!-- Mobile / Tablet Menu Toggle Button (Visible on screens < 1024px) -->
+      <button 
+        id="mobile-menu-btn" 
+        class="lg:hidden p-2.5 rounded-md border border-hairline bg-canvas hover:bg-canvas-soft text-body hover:text-ink transition-all cursor-pointer shadow-xs shrink-0" 
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+      >
+        <svg id="hamburger-icon" class="w-4 h-4 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        </svg>
+        <svg id="close-icon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile & Tablet Navigation Drawer (Active < 1024px) -->
+  <div 
+    id="mobile-nav-drawer" 
+    class="lg:hidden hidden border-t border-hairline bg-white/95 dark:bg-[#0c0c12]/95 backdrop-blur-2xl transition-all duration-300 max-h-[calc(100vh-4rem)] overflow-y-auto px-4 py-5 shadow-2xl"
+  >
+    <div class="flex flex-col gap-5 max-w-xl mx-auto">
+      <!-- Main Navigation Links with Numbered Badges -->
+      <nav class="flex flex-col gap-1 text-sm font-medium">
+        <a href={localizePath('/#generator')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-900 dark:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.generator}</span>
+          <span class="text-[10px] text-mute font-mono">01</span>
+        </a>
+        <a href={localizePath('/#scanner')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.scanner}</span>
+          <span class="text-[10px] text-mute font-mono">02</span>
+        </a>
+        <a href={localizePath('/#bulk')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.bulk}</span>
+          <span class="text-[10px] text-mute font-mono">03</span>
+        </a>
+        <a href={localizePath('/#history')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.history}</span>
+          <span class="text-[10px] text-mute font-mono">04</span>
+        </a>
+        <a href={localizePath('/#api')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.api}</span>
+          <span class="text-[10px] text-mute font-mono">05</span>
+        </a>
+        <a href={localizePath('/#faq')} class="mobile-nav-link px-3 py-2.5 rounded-lg hover:bg-canvas-soft text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-between transition-colors">
+          <span>{t.nav.faq}</span>
+          <span class="text-[10px] text-mute font-mono">06</span>
+        </a>
+      </nav>
+
+      <!-- Mobile QR Types (with Distinctive Category Icons) -->
+      <div class="flex flex-col gap-2 pt-3 border-t border-hairline">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-mute px-1">{t.nav.types}</span>
+        <div class="grid grid-cols-2 gap-2">
+          {qrTypesList.map(item => (
+            <a 
+              href={localizePath(item.path)}
+              class="mobile-nav-link flex items-center gap-2.5 p-2 rounded-xl hover:bg-canvas-soft border border-hairline/70 text-xs text-slate-800 dark:text-slate-200 transition-colors"
+            >
+              <div class={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 ${item.bgClass}`}>
+                {item.icon === 'url' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                )}
+                {item.icon === 'wifi' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.284 16.284A3 3 0 0012 17a3 3 0 003.716-.716M5.11 13.11a7 7 0 019.78 0M1.937 9.937a11 11 0 0116.126 0M12 21a1 1 0 100-2 1 1 0 000 2z" /></svg>
+                )}
+                {item.icon === 'vcard' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15A2.25 2.25 0 002.25 6.75v10.5a2.25 2.25 0 002.25 2.25zm3-10.5a2.25 2.25 0 114.5 0 2.25 2.25 0 01-4.5 0zM6.75 15.75h6.75" /></svg>
+                )}
+                {item.icon === 'whatsapp' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 10-9-9c0 1.5.37 2.91 1.02 4.15L3 21l4.98-1.02A8.96 8.96 0 0012 21z" /></svg>
+                )}
+                {item.icon === 'text' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                )}
+                {item.icon === 'crypto' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                )}
+                {item.icon === 'email' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25" /></svg>
+                )}
+                {item.icon === 'phone' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106" /></svg>
+                )}
+                {item.icon === 'social' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72" /></svg>
+                )}
+                {item.icon === 'feedback' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499c.151-.377.724-.377.876 0l1.98 4.957 5.378.435" /></svg>
+                )}
+              </div>
+              <span class="truncate font-medium">{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Mobile Industries -->
+      <div class="flex flex-col gap-2 pt-3 border-t border-hairline">
+        <span class="text-[10px] font-mono uppercase tracking-wider text-mute px-1">{t.nav.industries}</span>
+        <div class="grid grid-cols-2 gap-2">
+          {industriesDropdownList.map(item => (
+            <a 
+              href={localizePath(item.path)}
+              class="mobile-nav-link flex items-center gap-2.5 p-2 rounded-xl hover:bg-canvas-soft border border-hairline/70 text-xs text-slate-800 dark:text-slate-200 transition-colors"
+            >
+              <div class={`w-6 h-6 rounded-md flex items-center justify-center shrink-0 ${item.bgClass}`}>
+                {item.icon === 'restaurants' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.75 9a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 16.5l-.75-9m16.5 0H3.75" /></svg>
+                )}
+                {item.icon === 'real-estate' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12" /></svg>
+                )}
+                {item.icon === 'education' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904" /></svg>
+                )}
+                {item.icon === 'events' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-12v.75" /></svg>
+                )}
+                {item.icon === 'retail' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5" /></svg>
+                )}
+                {item.icon === 'marketing' && (
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728" /></svg>
+                )}
+              </div>
+              <span class="truncate font-medium">{item.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Mobile Language Switcher Section (Comfortable native selection on touch) -->
+      <div class="flex flex-col gap-2 pt-3 border-t border-hairline">
+        <div class="flex items-center justify-between px-1">
+          <span class="text-[10px] font-mono uppercase tracking-wider text-mute">Language</span>
+          <span class="text-[11px] font-medium text-[#ff1b6b] dark:text-[#eca0ff]">{currentLanguageLabel}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5">
+          {localesList.map((loc) => {
+            const link = loc.code === 'en' 
+              ? normalizedCleanPath 
+              : `/${loc.code}${normalizedCleanPath === '/' ? '' : normalizedCleanPath}`;
+            const isActive = loc.code === locale;
+            return (
+              <a 
+                href={link}
+                class={`flex items-center justify-between px-3 py-2 rounded-lg border text-xs transition-colors ${
+                  isActive 
+                    ? 'border-[#ff1b6b]/50 bg-pink-500/10 font-semibold text-[#ff1b6b] dark:text-[#eca0ff]' 
+                    : 'border-hairline/80 hover:bg-canvas-soft text-slate-700 dark:text-slate-300'
+                }`}
+              >
+                <span class="truncate">{loc.label}</span>
+                {isActive && <span class="w-1.5 h-1.5 rounded-full bg-[#ff1b6b] dark:bg-[#eca0ff] shrink-0"></span>}
+              </a>
+            );
+          })}
+        </div>
+      </div>
+
+      <!-- Mobile Quick Footer Links -->
+      <div class="flex items-center justify-between gap-3 pt-3 border-t border-hairline text-xs">
+        <a href={localizePath('/about-us')} class="mobile-nav-link text-mute hover:text-ink transition-colors">{t.nav.aboutUs}</a>
+        <a href={localizePath('/contact-us')} class="mobile-nav-link text-mute hover:text-ink transition-colors">{t.nav.contactUs}</a>
+        <a href={localizePath('/privacy-policy')} class="mobile-nav-link text-mute hover:text-ink transition-colors">{t.nav.privacyPolicy}</a>
+      </div>
     </div>
   </div>
 </header>
+
+<script>
+  // Mobile drawer controls
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileDrawer = document.getElementById('mobile-nav-drawer');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  if (mobileBtn && mobileDrawer) {
+    const toggleMenu = () => {
+      const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+      const nextState = !isExpanded;
+      mobileBtn.setAttribute('aria-expanded', String(nextState));
+      mobileDrawer.classList.toggle('hidden', !nextState);
+      hamburgerIcon?.classList.toggle('hidden', nextState);
+      closeIcon?.classList.toggle('hidden', !nextState);
+      document.body.classList.toggle('overflow-hidden', nextState);
+    };
+
+    mobileBtn.addEventListener('click', toggleMenu);
+
+    mobileDrawer.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileBtn.setAttribute('aria-expanded', 'false');
+        mobileDrawer.classList.add('hidden');
+        hamburgerIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileDrawer.classList.contains('hidden')) {
+        mobileBtn.setAttribute('aria-expanded', 'false');
+        mobileDrawer.classList.add('hidden');
+        hamburgerIcon?.classList.remove('hidden');
+        closeIcon?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+    });
+  }
+
+  // Desktop mega-menus touch/click accessibility
+  function setupDesktopDropdown(buttonId: string, dropdownId: string) {
+    const btn = document.getElementById(buttonId);
+    const dropdown = document.getElementById(dropdownId);
+    if (!btn || !dropdown) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+      const nextState = !isExpanded;
+      btn.setAttribute('aria-expanded', String(nextState));
+      
+      if (nextState) {
+        dropdown.classList.add('!opacity-100', '!visible', '!translate-y-0', '!pointer-events-auto');
+      } else {
+        dropdown.classList.remove('!opacity-100', '!visible', '!translate-y-0', '!pointer-events-auto');
+      }
+    });
+  }
+
+  setupDesktopDropdown('types-menu-btn', 'types-dropdown');
+  setupDesktopDropdown('industries-menu-btn', 'industries-dropdown');
+
+  // Close dropdowns on outside click or escape
+  window.addEventListener('click', () => {
+    ['types', 'industries'].forEach(name => {
+      const btn = document.getElementById(`${name}-menu-btn`);
+      const dropdown = document.getElementById(`${name}-dropdown`);
+      if (btn && dropdown) {
+        btn.setAttribute('aria-expanded', 'false');
+        dropdown.classList.remove('!opacity-100', '!visible', '!translate-y-0', '!pointer-events-auto');
+      }
+    });
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ['types', 'industries'].forEach(name => {
+        const btn = document.getElementById(`${name}-menu-btn`);
+        const dropdown = document.getElementById(`${name}-dropdown`);
+        if (btn && dropdown) {
+          btn.setAttribute('aria-expanded', 'false');
+          dropdown.classList.remove('!opacity-100', '!visible', '!translate-y-0', '!pointer-events-auto');
+        }
+      });
+    }
+  });
+</script>

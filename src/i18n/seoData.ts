@@ -739,6 +739,143 @@ export const seoData: Record<string, SeoLocaleData> = {
         desc: "احفظ بصيغة PNG للشاشات أو بصيغة SVG الفائقة للطباعة الورقية."
       }
     ]
+  },
+  id: {
+    headerTitle: "Panduan Lengkap Menggunakan Generator Kode QR Online",
+    headerDesc: "Pelajari cara membuat, menyesuaikan, dan menyebarkan kode QR statis dan dinamis berkualitas tinggi untuk situs web, email, kartu nama, dan kampanye promosi.",
+    introTitle: "Mengapa Anda Membutuhkan Generator Kode QR Modern?",
+    introP1: "Kode QR (Quick Response) telah menjadi jembatan penting yang menghubungkan dunia fisik dengan ranah digital. Mulai dari memindai buku menu di restoran hingga terhubung ke Wi-Fi dan membagikan kartu kontak, kode QR membuat akses data menjadi instan dan mulus.",
+    introP2: "Berbeda dari platform lain yang membatasi fitur atau mengenakan biaya langganan, kami menyediakan generator kode QR online gratis yang berfitur lengkap, cepat, dan mudah digunakan. Siapa saja dapat mendesain kode dengan warna, bingkai, dan logo kustom.",
+    formatsTitle: "Format Data Lengkap yang Didukung Platform Kami",
+    formatsDesc: "Baik Anda membutuhkan tautan situs web maupun enkoder teks offline, kami mendukung seluruh format data dan file utama.",
+    formatCards: [
+      {
+        title: "Situs Web dan Tautan Online",
+        desc: "Ubah halaman web, video, atau menu digital menjadi kode QR. Arahkan pengguna ke halaman tujuan, tingkatkan kunjungan toko online, atau tampilkan katalog produk hanya dengan satu kali pindai."
+      },
+      {
+        title: "Berbagi Teks Biasa Secara Offline",
+        desc: "Tampilkan pesan berformat, nomor seri, atau instruksi rahasia tanpa internet. Teks langsung tersemat di dalam piksel kode QR dan dapat dibaca secara offline."
+      },
+      {
+        title: "Panggilan & Pesan Instan",
+        desc: "Mudahkan pelanggan untuk menghubungi bisnis Anda. Format nomor telepon secara otomatis membuka papan panggilan atau aplikasi SMS dengan nomor yang telah terisi."
+      },
+      {
+        title: "Email & Ulasan Pelanggan",
+        desc: "Sederhanakan interaksi dan pertanyaan pelanggan dengan kode QR email siap kirim. Kumpulkan rating, ulasan Google Maps, atau formulir survei dengan mudah."
+      }
+    ],
+    brandingTitle: "Desain Profesional dengan Logo Brand Anda",
+    brandingP1: "Tampil beda dari kode QR standar dengan menyematkan logo perusahaan Anda di bagian tengah. Langkah ini memperkuat identitas merek, membangun rasa percaya, dan meningkatkan rasio pemindaian.",
+    brandingP2: "Mesin kami dilengkapi koreksi kesalahan tingkat tinggi (High hingga 30%). Fitur ini memastikan smartphone dapat memindai area di sekitar logo dan merekonstruksi data dengan akurat.",
+    presetIconsTitle: "Ikon Merek Siap Pakai",
+    comparisonTitle: "Perbandingan Kode QR Statis vs Dinamis",
+    comparisonDesc: "Pahami perbedaan mendasar antara generator kode QR statis offline dengan sistem kode QR dinamis berbasis pengalihan.",
+    tableHeaders: {
+      feature: "Fitur / Metrik",
+      staticQr: "Kode QR Statis",
+      dynamicQr: "Kode QR Dinamis"
+    },
+    comparisonRows: [
+      {
+        feature: "Struktur Data",
+        staticVal: "Tersimpan langsung di dalam piksel QR.",
+        dynamicVal: "Mengalihkan melalui sistem tautan pendek."
+      },
+      {
+        feature: "Pengeditan Konten",
+        staticVal: "",
+        staticBadge: "Permanen / Tidak Bisa Diubah",
+        staticBadgeType: "err",
+        dynamicVal: "",
+        dynamicBadge: "Dapat Diedit Kapan Saja",
+        dynamicBadgeType: "ok"
+      },
+      {
+        feature: "Analisis Pemindaian",
+        staticVal: "",
+        staticBadge: "Tanpa Pelacakan / 100% Privat",
+        staticBadgeType: "err",
+        dynamicVal: "",
+        dynamicBadge: "Metrik & Statistik Pemindaian",
+        dynamicBadgeType: "ok"
+      },
+      {
+        feature: "Masa Aktif & Kedaluwarsa",
+        staticVal: "",
+        staticBadge: "Abadi / Tidak Pernah Kedaluwarsa",
+        staticBadgeType: "ok",
+        dynamicVal: "",
+        dynamicBadge: "Tergantung Server Pengalihan",
+        dynamicBadgeType: "warn"
+      },
+      {
+        feature: "Kecepatan & Mode Offline",
+        staticVal: "",
+        staticBadge: "Instan (Bisa Tanpa Internet)",
+        staticBadgeType: "ok",
+        dynamicVal: "",
+        dynamicBadge: "Memerlukan Koneksi Internet",
+        dynamicBadgeType: "warn"
+      }
+    ],
+    comparisonNote: "Kode QR statis memberikan keandalan seumur hidup tanpa ketergantungan server atau biaya perpanjangan langganan. Sangat ideal untuk brosur cetak, kemasan produk, buku menu, dan kartu nama.",
+    bulkTitle: "Pembuatan Kode QR Massal Volume Tinggi",
+    bulkP1: "Untuk kebutuhan bisnis yang membutuhkan kode dalam jumlah besar—seperti label inventaris, tiket masuk, kartu anggota, atau katalog produk—alat QR massal kami memproses banyak baris sekaligus.",
+    bulkP2: "Seluruh proses dilakukan di peramban pengguna dan diunduh langsung dalam format arsip ZIP yang rapi. Buat ratusan kode dalam hitungan detik tanpa batasan kuota cloud.",
+    apiTitle: "Integrasi API Pengembang (100% Gratis & Tanpa Daftar)",
+    apiP1: "Otomatiskan pembuatan kode QR di dalam aplikasi web Anda menggunakan cuplikan kode JavaScript sisi klien yang ringan.",
+    apiP2: "Karena seluruh pemrosesan berlangsung di peramban pengguna, Anda dapat menangani jutaan permintaan tanpa membebani biaya server dan tanpa jeda latensi.",
+    whyUsTitle: "Alasan Memilih Kami untuk Pembuatan Kode QR",
+    benefits: [
+      {
+        title: "Layanan 100% Gratis",
+        desc: "Nikmati templat premium, preset palet warna, dan ekspor massal tanpa biaya tersembunyi atau watermark."
+      },
+      {
+        title: "Tanpa Perlu Pendaftaran",
+        desc: "Tanpa perlu login akun atau kartu kredit. Anda dapat langsung mendesain dan mengunduh kode resolusi tinggi seketika."
+      },
+      {
+        title: "Prioritas Keamanan & Privasi",
+        desc: "Diproses sepenuhnya di peramban Anda. Tautan, kata sandi Wi-Fi, dan data kontak Anda tidak pernah meninggalkan perangkat."
+      }
+    ],
+    guideTitle: "Panduan Langkah demi Langkah: Cara Membuat Kode QR Kustom",
+    guideDesc: "Ikuti langkah mudah ini untuk merancang, menyesuaikan, dan mengunduh kode QR berstandar profesional.",
+    steps: [
+      {
+        number: "01",
+        title: "Pilih Jenis Konten",
+        desc: "Pilih tipe data: URL, Teks, Wi-Fi, Telepon, Email, WhatsApp, vCard, atau Kripto."
+      },
+      {
+        number: "02",
+        title: "Masukkan Detail Informasi",
+        desc: "Isi tautan, informasi jaringan, pesan teks, atau kontak yang ingin dibagikan."
+      },
+      {
+        number: "03",
+        title: "Sesuaikan Warna & Gradien",
+        desc: "Pilih warna solid atau gradien linear/radial yang selaras untuk pola dan latar belakang."
+      },
+      {
+        number: "04",
+        title: "Tentukan Bentuk & Gaya Desain",
+        desc: "Pilih bingkai sudut yang unik serta bentuk titik matriks (bulat, elegan, atau kotak)."
+      },
+      {
+        number: "05",
+        title: "Unggah Logo Brand",
+        desc: "Tambahkan ikon bisnis Anda atau pilih logo populer dengan tingkat koreksi kesalahan Tinggi."
+      },
+      {
+        number: "06",
+        title: "Unduh dan Cetak",
+        desc: "Simpan file PNG resolusi tinggi untuk kebutuhan digital atau file vektor SVG untuk cetak spanduk."
+      }
+    ]
   }
 };
 

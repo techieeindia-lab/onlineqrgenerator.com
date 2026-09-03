@@ -9,13 +9,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "deploy": "astro build && wrangler pages deploy dist --project-name onlineqrgenerator --branch main --commit-dirty=true",
+    "deploy": "astro build && wrangler pages deploy dist --project-name onlineqrgenerators --branch main --commit-dirty=true",
     "astro": "astro"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.4",
+    "jspdf": "^4.2.1",
     "jsqr": "^1.4.0",
     "jszip": "^3.10.1",
     "qr-code-styling": "^1.9.2",
